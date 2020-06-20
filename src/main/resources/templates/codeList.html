@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Code List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Your code block</h1>
+<a href="index">Add more code</a>
+<br/><br/>
+<div>
+    <table border="1">
+        <tr>
+            <th>Code Block</th>
+        </tr>
+        <tr th:each ="code : ${codeBlocks}">
+            <td th:utext="${code.code}">...</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

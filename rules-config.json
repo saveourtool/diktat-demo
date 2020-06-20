@@ -1,0 +1,152 @@
+[
+  {
+    "name": "CLASS_NAME_INCORRECT",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "CONSTANT_UPPERCASE",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "ENUM_VALUE",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "EXCEPTION_SUFFIX",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "FILE_NAME_INCORRECT",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "FILE_NAME_MATCH_CLASS",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "FUNCTION_BOOLEAN_PREFIX",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "FUNCTION_NAME_INCORRECT_CASE",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "GENERIC_NAME",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "IDENTIFIER_LENGTH",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "OBJECT_NAME_INCORRECT",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "PACKAGE_NAME_INCORRECT",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "PACKAGE_NAME_INCORRECT_CASE",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "PACKAGE_NAME_INCORRECT_PREFIX",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "PACKAGE_NAME_INCORRECT_SYMBOLS",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "PACKAGE_NAME_MISSING",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "VARIABLE_HAS_PREFIX",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "VARIABLE_NAME_INCORRECT",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "VARIABLE_NAME_INCORRECT_FORMAT",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "MISSING_KDOC_TOP_LEVEL",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "MISSING_KDOC_CLASS_ELEMENTS",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "KDOC_WITHOUT_PARAM_TAG",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "KDOC_WITHOUT_RETURN_TAG",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "KDOC_WITHOUT_THROWS_TAG",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "INCORRECT_PACKAGE_SEPARATOR",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "KDOC_NO_DEPRECATED_TAG",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "KDOC_NO_EMPTY_TAGS",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "KDOC_WRONG_SPACES_AFTER_TAG",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "KDOC_WRONG_TAGS_ORDER",
+    "enabled": true,
+    "configuration": ""
+  },
+  {
+    "name": "KDOC_NO_NEWLINE_AFTER_SPECIAL_TAGS",
+    "enabled": true,
+    "configuration": ""
+  }
+]
