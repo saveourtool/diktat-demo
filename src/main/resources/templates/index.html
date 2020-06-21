@@ -56,14 +56,13 @@
         text-align: right;
       }
 
-
     </style>
 </head>
 <body>
 <div class="container">
     <div class="row" align="center">
-        <div class="col-md-12">
-            <img th:src="@{/img/HuaweiLogo.png}" align="center"/>
+        <div class="col-sm-12">
+            <img th:src="@{/img/HuaweiLogo.png}" class="img-fluid" align="center"/>
         </div>
     </div>
 
@@ -75,142 +74,56 @@
         </div>
     </div>
 
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
-                <strong>1:1:</strong> [1] no package name declared in a file
+    <form th:action="@{/index}" th:object="${codeForm}" method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+                    <span th:each="warn : ${codeForm.warnings}">
+                    <span th:text="${warn}"></span>
+                    <br>
+                </span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <form th:action="@{/index}" th:object="${codeForm}" method="POST">
         <div class="row try-wrapper">
             <span class="arrow glyphicon glyphicon-arrow-right"></span>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="form-group">
                         <div id="editor" class="ace_editor ace-monokai ace_dark"></div>
-                        <textarea th:value="*{code}" class="source" name="source" id="source"></textarea>
+                        <textarea th:field="*{initialCode}" class="source" name="source" id="source"></textarea>
                     </div>
 
                 </div>
             </div>
             <div class="col-md-6">
-                <div id="result" class="ace_editor ace-monokai ace_dark"><span th:text="${codeForm.code}"></span></div>
+                <div id="result" class="ace_editor ace-monokai ace_dark"><span th:text="${codeForm.fixedCode}"></span>
+                </div>
             </div>
         </div>
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk"
-                   value="radioChk" th:field="*{checkClassNameIncorrect}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk1"
-                   value="radioChk" th:field="*{checkPackageNameIncorrectCase}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk1">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk2"
-                   value="radioChk" th:field="*{checkPackageNameIncorrectPrefix}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk2">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk3"
-                   value="radioChk" th:field="*{checkPackageNameIncorrectSymbols}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk3">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk4"
-                   value="radioChk" th:field="*{checkPackageNameIncorrectPath}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk4">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk5"
-                   value="radioChk" th:field="*{checkObjectNameIncorrect}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk5">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk6"
-                   value="radioChk" th:field="*{checkVariableNameIncorrectFormat}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk6">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk7"
-                   value="radioChk" th:field="*{checkVariableNameIncorrect}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk7">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk8"
-                   value="radioChk" th:field="*{checkConstantUppercase}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk8">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk9"
-                   value="radioChk" th:field="*{checkVariableHasPrefix}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk9">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk10"
-                   value="radioChk" th:field="*{checkIdentifierLength}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk10">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk11"
-                   value="radioChk" th:field="*{checkEnumValue}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk11">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk12"
-                   value="radioChk" th:field="*{checkGenericName}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk12">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk14"
-                   value="radioChk" th:field="*{checkFunctionBooleanPrefix}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk14">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk15"
-                   value="radioChk" th:field="*{checkFileNameMatchClass}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk15">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk16"
-                   value="radioChk" th:field="*{checkMissingKdocTopLevel}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk16">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk17"
-                   value="radioChk" th:field="*{checkMissingKdocClassElements}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk17">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk18"
-                   value="radioChk" th:field="*{checkKdocWithoutParamTag}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk18">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk19"
-                   value="radioChk" th:field="*{checkKdocWithoutReturnTag}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk19">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk20"
-                   value="radioChk" th:field="*{checkKdocWithoutThrowsTag}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk20">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk21"
-                   value="radioChk" th:field="*{checkBlankLineAfterKdoc}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk21">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk22"
-                   value="radioChk" th:field="*{checkKdocWrongSpacesAfterTag}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk22">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk23"
-                   value="radioChk" th:field="*{checkKdocWrongTagsOrder}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk23">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk24"
-                   value="radioChk" th:field="*{checkKdocNoNewlineAfterSpecialTags}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk24">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk25"
-                   value="radioChk" th:field="*{checkKdocNoEmptyTags}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk25">CLASS_NAME_INCORRECT</label>
-
-            <input class="form-check-input" type="checkbox" name="radioChk" id="radioChk26"
-                   value="radioChk" th:field="*{checkKdocNoDeprecatedTag}" th:checked="${true}">
-            <label class="form-check-label" for="radioChk26">CLASS_NAME_INCORRECT</label>
-        </div>
         <div class="row" align="center">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
+            <div class="col-sm">
+                <input class="form-check-input" type="checkbox" name="check" id="check"
+                       value="radioChk" th:field="*{check}">
+                <label class="form-check-label" for="check">Check </label>&nbsp; &nbsp;
 
+                <input class="form-check-input" type="checkbox" name="fix" id="fix"
+                       value="radioChk" th:field="*{fix}">
+                <label class="form-check-label" for="fix">Fix</label>
+            </div>
+        </div>
+        <br>
+        <div class="row" align="center">
+            <label class="btn btn-default">
+                Choose json config <input type="file" th:field="*{diktatConfigFile}" hidden>
+            </label>
+            <div class="row" align="center">
+                <br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+    </form>
 
     <div class="footer">
         <p class="text-center">
@@ -245,7 +158,6 @@
           textarea.val(editor.getSession().getValue());
         });
       });
-
 </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.huawei.diktat.demo;
+package diktat.huawei.diktat.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
