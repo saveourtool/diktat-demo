@@ -45,10 +45,10 @@ class DemoController {
         getDemoFile().writeText(codeForm.initialCode!!)
         try {
             if (codeForm.fix) {
-                codeForm.fixedCode = codeFix.checkAndFixCode(getDemoFile().absolutePath)
+                codeForm.fixedCode = codeFix.fix(getDemoFile().absolutePath)
             } else if (codeForm.check) {
                 codeForm.fixedCode = codeForm.initialCode
-                codeFix.checkAndFixCode(getDemoFile().absolutePath)
+                codeFix.check(getDemoFile().absolutePath)
             }
         } catch (e: ParseException) {
             codeForm.warnings = listOf(e.toString())
