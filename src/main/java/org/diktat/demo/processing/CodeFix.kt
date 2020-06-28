@@ -16,7 +16,7 @@ class CodeFix(private val code: String, private val rulesConfigList: List<RulesC
     var listOfWarnings: List<LintError> = emptyList()
     private val ruleSets = listOf(HuaweiRuleSetProvider().get())
 
-    fun checkAndFixCode(absoluteFilePath: String): String {
+    fun fix(absoluteFilePath: String): String {
         val res = ArrayList<LintError>()
         val formattedResult = KtLint.format(
                 KtLint.Params(
@@ -29,5 +29,19 @@ class CodeFix(private val code: String, private val rulesConfigList: List<RulesC
         )
         listOfWarnings = res
         return formattedResult
+    }
+
+    fun check(absoluteFilePath: String) {
+        val res = ArrayList<LintError>()
+        KtLint.lint(
+                KtLint.Params(
+                        fileName = absoluteFilePath,
+                        text = code,
+                        ruleSets = ruleSets,
+                        cb = { e, _ -> res.add(e) },
+                        rulesConfigList = rulesConfigList
+                )
+        )
+        listOfWarnings = res
     }
 }
