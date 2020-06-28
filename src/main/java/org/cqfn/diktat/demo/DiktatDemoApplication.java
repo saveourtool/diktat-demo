@@ -1,4 +1,4 @@
-package org.diktat.demo;
+package org.cqfn.diktat.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

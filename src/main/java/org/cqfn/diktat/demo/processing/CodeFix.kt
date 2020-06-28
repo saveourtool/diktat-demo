@@ -1,9 +1,9 @@
-package org.diktat.demo.processing
+package org.cqfn.diktat.demo.processing
 
 import com.pinterest.ktlint.core.KtLint
-import com.huawei.rri.fixbot.ruleset.huawei.rules.HuaweiRuleSetProvider
+import org.cqfn.diktat.ruleset.rules.DiktatRuleSetProvider
 import com.pinterest.ktlint.core.LintError
-import config.rules.RulesConfig
+import org.cqfn.diktat.common.config.rules.RulesConfig
 import java.util.ArrayList
 
 /**
@@ -14,7 +14,7 @@ import java.util.ArrayList
  */
 class CodeFix(private val code: String, private val rulesConfigList: List<RulesConfig>?) {
     var listOfWarnings: List<LintError> = emptyList()
-    private val ruleSets = listOf(HuaweiRuleSetProvider().get())
+    private val ruleSets = listOf(DiktatRuleSetProvider().get())
 
     fun fix(absoluteFilePath: String): String {
         val res = ArrayList<LintError>()

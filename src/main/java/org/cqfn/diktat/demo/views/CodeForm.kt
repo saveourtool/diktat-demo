@@ -1,4 +1,4 @@
-package org.diktat.demo.views
+package org.cqfn.diktat.demo.views
 
 import org.springframework.web.multipart.MultipartFile
 

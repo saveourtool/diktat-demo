@@ -1,10 +1,10 @@
-package org.diktat.demo.controller
+package org.cqfn.diktat.demo.controller
 
-import org.diktat.demo.processing.CodeFix
-import org.diktat.demo.views.CodeForm
 import com.pinterest.ktlint.core.ParseException
-import config.rules.RulesConfig
-import config.rules.RulesConfigReader
+import org.cqfn.diktat.common.config.rules.RulesConfig
+import org.cqfn.diktat.common.config.rules.RulesConfigReader
+import org.cqfn.diktat.demo.processing.CodeFix
+import org.cqfn.diktat.demo.views.CodeForm
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -28,11 +28,19 @@ class DemoController {
         private var codeForm = CodeForm()
         private var codeFix = CodeFix("", emptyList())
         private val log = LoggerFactory.getLogger(DemoController::class.java)
-        private const val PAGE_NAME = "index"
+        private const val PAGE_NAME = "demo"
+    }
+
+    /**
+     * simple redirect from host name to main page /demo
+     */
+    @RequestMapping(value = ["/"], method = [RequestMethod.GET])
+    fun baseUrlRedirect(model: Model?): String? {
+        return "redirect:/$PAGE_NAME"
     }
 
     @RequestMapping(value = ["/$PAGE_NAME"], method = [RequestMethod.POST])
-    fun saveCode(request: HttpServletRequest, model: Model?, @ModelAttribute("codeForm") codeFormHtml: CodeForm): String {
+    fun checkAndFixCode(request: HttpServletRequest, model: Model?, @ModelAttribute("codeForm") codeFormHtml: CodeForm): String {
         val configFile = codeFormHtml.diktatConfigFile
         val kotlinRuleSetConfig = if (configFile != null) {
             loadConfigRules(configFile, request)
@@ -59,7 +67,7 @@ class DemoController {
     }
 
     @RequestMapping(value = ["/$PAGE_NAME"], method = [RequestMethod.GET])
-    fun indexPage(model: Model): String {
+    fun buildMainPage(model: Model): String {
         model.addAttribute("codeForm", codeForm)
         model.addAttribute("codeFix", codeFix)
         model.addAttribute("result", getDemoFile().readText())
