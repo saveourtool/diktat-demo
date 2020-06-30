@@ -28,6 +28,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.cqfn.diktat</groupId>
+            <artifactId>ktlint-ruleset-standard</artifactId>
+            <version>0.37.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.cqfn.diktat</groupId>
+            <artifactId>diktat-rules</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>org.cqfn.diktat</groupId>
             <artifactId>diktat-common</artifactId>
@@ -38,16 +49,6 @@
                     <artifactId>slf4j-log4j12</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.pinterest.ktlint</groupId>
-            <artifactId>ktlint-core</artifactId>
-            <version>0.37.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.cqfn.diktat</groupId>
-            <artifactId>diktat-rules</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -1,11 +1,12 @@
 package org.cqfn.diktat.demo.controller
 
-import com.pinterest.ktlint.core.ParseException
 import org.cqfn.diktat.common.config.rules.RulesConfig
 import org.cqfn.diktat.common.config.rules.RulesConfigReader
 import org.cqfn.diktat.demo.processing.CodeFix
 import org.cqfn.diktat.demo.views.CodeForm
 import org.slf4j.LoggerFactory
+import org.springframework.core.io.ClassPathResource
+import org.springframework.core.io.Resource
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -16,6 +17,7 @@ import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.text.ParseException
 import javax.servlet.http.HttpServletRequest
 
 
@@ -26,7 +28,7 @@ import javax.servlet.http.HttpServletRequest
 class DemoController {
     companion object {
         private var codeForm = CodeForm()
-        private var codeFix = CodeFix("", emptyList())
+        private var codeFix = CodeFix("", null, null)
         private val log = LoggerFactory.getLogger(DemoController::class.java)
         private const val PAGE_NAME = "demo"
     }
@@ -42,14 +44,15 @@ class DemoController {
     @RequestMapping(value = ["/$PAGE_NAME"], method = [RequestMethod.POST])
     fun checkAndFixCode(request: HttpServletRequest, model: Model?, @ModelAttribute("codeForm") codeFormHtml: CodeForm): String {
         val configFile = codeFormHtml.diktatConfigFile
-        val kotlinRuleSetConfig = if (configFile != null) {
+
+        val conf = if (configFile != null && codeFormHtml.ruleSet!![0] == "dikTat") {
             loadConfigRules(configFile, request)
-        } else {
+        }
+        else{
             emptyList()
         }
-
         codeForm = codeFormHtml
-        codeFix = CodeFix(codeForm.initialCode!!, kotlinRuleSetConfig)
+        codeFix = CodeFix(codeForm.initialCode!!, codeForm.ruleSet!![0], conf)
         getDemoFile().writeText(codeForm.initialCode!!)
         try {
             if (codeForm.fix) {
@@ -62,12 +65,12 @@ class DemoController {
             codeForm.warnings = listOf(e.toString())
         }
         codeForm.warnings = codeFix.listOfWarnings.map { "Warn (${it.line}:${it.col}) ${it.detail}" }
-
         return PAGE_NAME
     }
 
     @RequestMapping(value = ["/$PAGE_NAME"], method = [RequestMethod.GET])
     fun buildMainPage(model: Model): String {
+        codeForm.ruleSet = listOf("dikTat", "ktlint")
         model.addAttribute("codeForm", codeForm)
         model.addAttribute("codeFix", codeFix)
         model.addAttribute("result", getDemoFile().readText())
@@ -78,7 +81,6 @@ class DemoController {
         val fileURL = javaClass.classLoader.getResource("demos/DemoTestFile.kt")
         return File(fileURL!!.file)
     }
-
     /**
      * Method for uploading json configuration with rules and parsing it.
      */
@@ -101,7 +103,6 @@ class DemoController {
         } catch (e: IOException) {
             log.error("Error processing the file: $name", e)
         }
-
         return RulesConfigReader().parseResource(serverFile)
     }
 }
