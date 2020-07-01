@@ -23,7 +23,6 @@ class CodeFix(private val code: String, private val typeRule: String?, private v
 
     fun fix(absoluteFilePath: String): String {
         val res = ArrayList<LintError>()
-        println(rulesConfigList)
         val formattedResult = KtLint.format(
                 KtLint.Params(
                         fileName = absoluteFilePath,

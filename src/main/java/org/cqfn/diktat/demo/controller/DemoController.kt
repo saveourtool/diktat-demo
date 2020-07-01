@@ -5,8 +5,6 @@ import org.cqfn.diktat.common.config.rules.RulesConfigReader
 import org.cqfn.diktat.demo.processing.CodeFix
 import org.cqfn.diktat.demo.views.CodeForm
 import org.slf4j.LoggerFactory
-import org.springframework.core.io.ClassPathResource
-import org.springframework.core.io.Resource
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -31,6 +29,8 @@ class DemoController {
         private var codeFix = CodeFix("", null, null)
         private val log = LoggerFactory.getLogger(DemoController::class.java)
         private const val PAGE_NAME = "demo"
+        private var configFile: Array<MultipartFile>? = null
+        private var conf: List<RulesConfig> = emptyList()
     }
 
     /**
@@ -43,13 +43,11 @@ class DemoController {
 
     @RequestMapping(value = ["/$PAGE_NAME"], method = [RequestMethod.POST])
     fun checkAndFixCode(request: HttpServletRequest, model: Model?, @ModelAttribute("codeForm") codeFormHtml: CodeForm): String {
-        val configFile = codeFormHtml.diktatConfigFile
-
-        val conf = if (configFile != null && codeFormHtml.ruleSet!![0] == "dikTat") {
-            loadConfigRules(configFile, request)
-        }
-        else{
-            emptyList()
+        if (codeFormHtml.ruleSet!![0] == "dikTat"){
+            if (codeFormHtml.diktatConfigFile!![0].size != 0L){
+                configFile = codeFormHtml.diktatConfigFile
+                conf = loadConfigRules(configFile!!, request)
+            }
         }
         codeForm = codeFormHtml
         codeFix = CodeFix(codeForm.initialCode!!, codeForm.ruleSet!![0], conf)
