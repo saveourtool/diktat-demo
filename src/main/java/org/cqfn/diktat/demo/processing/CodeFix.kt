@@ -3,7 +3,10 @@ package org.cqfn.diktat.demo.processing
 import com.pinterest.ktlint.core.KtLint
 import org.cqfn.diktat.ruleset.rules.DiktatRuleSetProvider
 import com.pinterest.ktlint.core.LintError
+import com.pinterest.ktlint.core.RuleSet
+import com.pinterest.ktlint.ruleset.standard.StandardRuleSetProvider
 import org.cqfn.diktat.common.config.rules.RulesConfig
+import org.cqfn.diktat.demo.views.RulesSetType
 import java.util.ArrayList
 
 /**
@@ -12,9 +15,12 @@ import java.util.ArrayList
  * @param code - initial code that should be formatted
  * @param rulesConfigList - list of customization for rules that are read from rules-config.json
  */
-class CodeFix(private val code: String, private val rulesConfigList: List<RulesConfig>?) {
+class CodeFix(private val code: String, typeRule: RulesSetType?) {
     var listOfWarnings: List<LintError> = emptyList()
-    private val ruleSets = listOf(DiktatRuleSetProvider().get())
+    private val ruleSets = when(typeRule?: RulesSetType.ktlint){
+        RulesSetType.ktlint -> listOf(StandardRuleSetProvider().get())
+        RulesSetType.diKTat -> listOf(DiktatRuleSetProvider().get())
+    }
 
     fun fix(absoluteFilePath: String): String {
         val res = ArrayList<LintError>()

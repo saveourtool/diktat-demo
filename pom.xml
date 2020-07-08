@@ -28,6 +28,11 @@
         </dependency>
         <dependency>
             <groupId>com.pinterest.ktlint</groupId>
+            <artifactId>ktlint-ruleset-standard</artifactId>
+            <version>${ktlint.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.pinterest.ktlint</groupId>
             <artifactId>ktlint-test</artifactId>
             <version>${ktlint.version}</version>
         </dependency>
