@@ -3,8 +3,6 @@ package org.cqfn.diktat.demo.processing
 import com.pinterest.ktlint.core.KtLint
 import org.cqfn.diktat.ruleset.rules.DiktatRuleSetProvider
 import com.pinterest.ktlint.core.LintError
-import com.pinterest.ktlint.core.RuleSet
-import com.pinterest.ktlint.ruleset.standard.StandardRuleSetProvider
 import org.cqfn.diktat.common.config.rules.RulesConfig
 import java.util.ArrayList
 
@@ -14,12 +12,9 @@ import java.util.ArrayList
  * @param code - initial code that should be formatted
  * @param rulesConfigList - list of customization for rules that are read from rules-config.json
  */
-class CodeFix(private val code: String, private val typeRule: String?, private val rulesConfigList: List<RulesConfig>?) {
+class CodeFix(private val code: String, private val rulesConfigList: List<RulesConfig>?) {
     var listOfWarnings: List<LintError> = emptyList()
-    private var ruleSets:Iterable<RuleSet> = when(typeRule){
-        "ktlint" -> listOf(StandardRuleSetProvider().get())
-        else -> listOf(DiktatRuleSetProvider().get())
-    }
+    private val ruleSets = listOf(DiktatRuleSetProvider().get())
 
     fun fix(absoluteFilePath: String): String {
         val res = ArrayList<LintError>()
@@ -28,9 +23,7 @@ class CodeFix(private val code: String, private val typeRule: String?, private v
                         fileName = absoluteFilePath,
                         text = code,
                         ruleSets = ruleSets,
-                        cb = { e, _ -> res.add(e) },
-                        rulesConfigList = rulesConfigList
-
+                        cb = { e, _ -> res.add(e) }
                 )
         )
         listOfWarnings = res
@@ -44,8 +37,7 @@ class CodeFix(private val code: String, private val typeRule: String?, private v
                         fileName = absoluteFilePath,
                         text = code,
                         ruleSets = ruleSets,
-                        cb = { e, _ -> res.add(e) },
-                        rulesConfigList = rulesConfigList
+                        cb = { e, _ -> res.add(e) }
                 )
         )
         listOfWarnings = res
