@@ -42,11 +42,12 @@ class DemoController {
     @RequestMapping(value = ["/$PAGE_NAME"], method = [RequestMethod.POST])
     fun checkAndFixCode(request: HttpServletRequest, model: Model?, @ModelAttribute("codeForm") codeFormHtml: CodeForm): String {
         val configFile = codeFormHtml.diktatConfigFile
-        val kotlinRuleSetConfig = if (configFile != null) {
-            loadConfigRules(configFile, request)
-        } else {
+        val kotlinRuleSetConfig = emptyList<RulesConfig>() //if (configFile != null) {
+            //loadConfigRules(configFile, request)
+            //emptyList()
+        /*} else {
             emptyList()
-        }
+        }*/
 
         codeForm = codeFormHtml
         codeFix = CodeFix(codeForm.initialCode!!, kotlinRuleSetConfig)
@@ -82,7 +83,7 @@ class DemoController {
     /**
      * Method for uploading json configuration with rules and parsing it.
      */
-    private fun loadConfigRules(fileDatas: Array<MultipartFile>, request: HttpServletRequest): List<RulesConfig> {
+    /*private fun loadConfigRules(fileDatas: Array<MultipartFile>, request: HttpServletRequest): List<RulesConfig> {
         val uploadRootPath: String = request.servletContext.getRealPath("upload")
         val uploadRootDir = File(uploadRootPath)
         if (!uploadRootDir.exists()) {
@@ -103,5 +104,5 @@ class DemoController {
         }
 
         return RulesConfigReader().parseResource(serverFile)
-    }
+    }*/
 }

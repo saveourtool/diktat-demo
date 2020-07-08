@@ -17,9 +17,20 @@
     <properties>
         <java.version>1.8</java.version>
         <kotlin.version>1.3.70</kotlin.version>
+        <ktlint.version>0.37.1-fork</ktlint.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.pinterest.ktlint</groupId>
+            <artifactId>ktlint-core</artifactId>
+            <version>${ktlint.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.pinterest.ktlint</groupId>
+            <artifactId>ktlint-test</artifactId>
+            <version>${ktlint.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -38,11 +49,6 @@
                     <artifactId>slf4j-log4j12</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.pinterest.ktlint</groupId>
-            <artifactId>ktlint-core</artifactId>
-            <version>0.37.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.cqfn.diktat</groupId>
@@ -72,6 +78,23 @@
             <version>${kotlin.version}</version>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>artipie</id>
+            <url>https://central.artipie.com/akuleshov7/diktat</url>
+        </repository>
+        <snapshotRepository>
+            <id>artipie</id>
+            <url>https://central.artipie.com/akuleshov7/diktat</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <repositories>
+        <repository>
+            <id>artipie</id>
+            <url>https://central.artipie.com/akuleshov7/diktat</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>

@@ -23,8 +23,7 @@ class CodeFix(private val code: String, private val rulesConfigList: List<RulesC
                         fileName = absoluteFilePath,
                         text = code,
                         ruleSets = ruleSets,
-                        cb = { e, _ -> res.add(e) },
-                        rulesConfigList = rulesConfigList
+                        cb = { e, _ -> res.add(e) }
                 )
         )
         listOfWarnings = res
@@ -38,8 +37,7 @@ class CodeFix(private val code: String, private val rulesConfigList: List<RulesC
                         fileName = absoluteFilePath,
                         text = code,
                         ruleSets = ruleSets,
-                        cb = { e, _ -> res.add(e) },
-                        rulesConfigList = rulesConfigList
+                        cb = { e, _ -> res.add(e) }
                 )
         )
         listOfWarnings = res
