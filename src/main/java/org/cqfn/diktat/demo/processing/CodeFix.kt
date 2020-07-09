@@ -15,9 +15,9 @@ import java.util.ArrayList
  * @param code - initial code that should be formatted
  * @param rulesConfigList - list of customization for rules that are read from rules-config.json
  */
-class CodeFix(private val code: String, typeRule: RulesSetType?) {
+class CodeFix(private val code: String, typeRule: RulesSetType) {
     var listOfWarnings: List<LintError> = emptyList()
-    private val ruleSets = when(typeRule?: RulesSetType.ktlint){
+    private val ruleSets = when(typeRule){
         RulesSetType.ktlint -> listOf(StandardRuleSetProvider().get())
         RulesSetType.diKTat -> listOf(DiktatRuleSetProvider().get())
     }

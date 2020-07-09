@@ -137,10 +137,10 @@
                 <label class="form-check-label" for="fix">Fix</label>
             </div>
             <div class="rulSet" align="center">
-                <label>Choose a rule sets:</label>
+                <label>Choose rules set provider:</label>
                 <select name="rulSet-select" id="rulSet-select" th:field="*{ruleSet}">
-                    <option th:value=diKTat>dikTat</option>
                     <option th:value=ktlint>ktlint</option>
+                    <option th:value=diKTat>dikTat</option>
                 </select>
             </div>
         </div>
@@ -200,8 +200,8 @@
 
       function sub(obj) {
           var file = obj.value;
-          var fileName = file.split("\\");
-          document.getElementById("yourBtn").innerHTML = fileName[fileName.length - 1];
+          var filePathParts = file.split("\\");
+          document.getElementById("yourBtn").innerHTML = filePathParts[filePathParts.length - 1];
           document.myForm.submit();
       }
 </script>

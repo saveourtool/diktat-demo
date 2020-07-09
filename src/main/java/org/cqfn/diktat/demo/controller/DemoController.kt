@@ -1,8 +1,10 @@
 package org.cqfn.diktat.demo.controller
 
 import com.pinterest.ktlint.core.ParseException
+
 import org.cqfn.diktat.demo.processing.CodeFix
 import org.cqfn.diktat.demo.views.CodeForm
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -20,7 +22,6 @@ import javax.servlet.http.HttpServletRequest
 class DemoController {
     companion object {
         private var codeForm = CodeForm()
-        private var codeFix = CodeFix("", null)
         private const val PAGE_NAME = "demo"
         private val file: File? = null
     }
@@ -37,7 +38,7 @@ class DemoController {
     fun checkAndFixCode(request: HttpServletRequest, model: Model?, @ModelAttribute("codeForm") codeFormHtml: CodeForm): String {
 
         codeForm = codeFormHtml
-        codeFix = CodeFix(codeForm.initialCode!!,codeFormHtml.ruleSet!![0])
+        val codeFix = CodeFix(codeForm.initialCode!!,codeFormHtml.ruleSet[0])
         val file = getDemoFile()
         file.writeText(codeForm.initialCode!!)
         try {
@@ -58,38 +59,14 @@ class DemoController {
     @RequestMapping(value = ["/$PAGE_NAME"], method = [RequestMethod.GET])
     fun buildMainPage(model: Model): String {
         model.addAttribute("codeForm", codeForm)
-        model.addAttribute("codeFix", codeFix)
         model.addAttribute("result", file?.readText())
         return PAGE_NAME
     }
 
     private fun getDemoFile(): File {
-        val fileURL = javaClass.classLoader.getResource("demos/").path + "${generateFileName()}.kt"
-        return File(fileURL)
+        val filePath = javaClass.classLoader.getResource("demos/").path + "${generateFileName()}.kt"
+        return File(filePath)
     }
 
     private @Synchronized fun generateFileName():String = UUID.randomUUID().toString()
-
-    /**
-     * Method for uploading json configuration with rules and parsing it.
-     */
-    /*private fun loadConfigRules(fileDatas: Array<MultipartFile>, request: HttpServletRequest): List<RulesConfig> {
-        val uploadRootPath: String = request.servletContext.getRealPath("upload")
-        val uploadRootDir = File(uploadRootPath)
-        if (!uploadRootDir.exists()) {
-            uploadRootDir.mkdirs()
-        }
-        val fileData = fileDatas[0]
-        val name = fileData.originalFilename
-        val serverFile = File(uploadRootDir.absolutePath + File.separator + name)
-        try {
-            val stream = BufferedOutputStream(FileOutputStream(serverFile))
-            stream.write(fileData.bytes)
-            stream.close()
-            log.info("Writing result to file: $serverFile")
-        } catch (e: IOException) {
-            log.error("Error processing the file: $name", e)
-        }
-        return RulesConfigReader().parseResource(serverFile)
-    }*/
 }
