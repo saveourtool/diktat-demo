@@ -4,7 +4,8 @@ import com.pinterest.ktlint.core.ParseException
 
 import org.cqfn.diktat.demo.processing.CodeFix
 import org.cqfn.diktat.demo.views.CodeForm
-import org.slf4j.LoggerFactory
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -14,21 +15,12 @@ import java.io.File
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 
-
-/**
- * Important - that controller is not thread safe, because it saves the code into the file and stored locally on server
- */
 @Controller
 class DemoController {
     companion object {
-        private var codeForm = CodeForm()
         private const val PAGE_NAME = "demo"
-        private val file: File? = null
     }
 
-    /**
-     * simple redirect from host name to main page /demo
-     */
     @RequestMapping(value = ["/"], method = [RequestMethod.GET])
     fun baseUrlRedirect(model: Model?): String? {
         return "redirect:/$PAGE_NAME"
@@ -37,7 +29,7 @@ class DemoController {
     @RequestMapping(value = ["/$PAGE_NAME"], method = [RequestMethod.POST])
     fun checkAndFixCode(request: HttpServletRequest, model: Model?, @ModelAttribute("codeForm") codeFormHtml: CodeForm): String {
 
-        codeForm = codeFormHtml
+        val codeForm = codeFormHtml
         val codeFix = CodeFix(codeForm.initialCode!!,codeFormHtml.ruleSet[0])
         val file = getDemoFile()
         file.writeText(codeForm.initialCode!!)
@@ -58,8 +50,7 @@ class DemoController {
 
     @RequestMapping(value = ["/$PAGE_NAME"], method = [RequestMethod.GET])
     fun buildMainPage(model: Model): String {
-        model.addAttribute("codeForm", codeForm)
-        model.addAttribute("result", file?.readText())
+        model.addAttribute("codeForm", CodeForm())
         return PAGE_NAME
     }
 
@@ -68,5 +59,6 @@ class DemoController {
         return File(filePath)
     }
 
-    private @Synchronized fun generateFileName():String = UUID.randomUUID().toString()
+    @Synchronized
+    private fun generateFileName():String = UUID.randomUUID().toString()
 }
