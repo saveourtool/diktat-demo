@@ -56,6 +56,30 @@
         text-align: right;
       }
 
+      .upload-btn-wrapper {
+          position: relative;
+          overflow: hidden;
+          display: inline-block;
+      }
+
+      .btn {
+          border: 2px solid gray;
+          color: gray;
+          background-color: white;
+          padding: 8px 20px;
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: bold;
+      }
+
+      .upload-btn-wrapper input[type=file] {
+          font-size: 100px;
+          position: absolute;
+          left: 0;
+          top: 0;
+          opacity: 0;
+      }
+
     </style>
 </head>
 <body>
@@ -95,7 +119,6 @@
                         <div id="editor" class="ace_editor ace-monokai ace_dark"></div>
                         <textarea th:field="*{initialCode}" class="source" name="source" id="source"></textarea>
                     </div>
-
                 </div>
             </div>
             <div class="col-md-6">
@@ -107,22 +130,34 @@
             <div class="col-sm">
                 <input class="form-check-input" type="checkbox" name="check" id="check"
                        value="radioChk" th:field="*{check}">
-                <label class="form-check-label" for="check">Check </label>&nbsp; &nbsp;
+                <label class="form-check-label" for="check">Check </label>
 
                 <input class="form-check-input" type="checkbox" name="fix" id="fix"
                        value="radioChk" th:field="*{fix}">
                 <label class="form-check-label" for="fix">Fix</label>
             </div>
+            <div class="rulSet" align="center">
+                <label>Choose rules set provider:</label>
+                <select name="rulSet-select" id="rulSet-select" th:field="*{ruleSet}">
+                    <option th:value=ktlint>ktlint</option>
+                    <option th:value=diKTat>dikTat</option>
+                </select>
+            </div>
         </div>
         <br>
         <div class="row" align="center">
-            <label class="btn btn-default">
-                Choose json config <input type="file" th:field="*{diktatConfigFile}" hidden>
-            </label>
+            <div th:if="*{diktatConfigFile != null}">
+                <label> File selected </label>
+            </div>
+            <div class="upload-btn-wrapper">
+                <button class="btn">Upload a file</button>
+                <input type="file" th:field="*{diktatConfigFile}" name="myfile" />
+            </div>
             <div class="row" align="center">
                 <br>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
+        </div>
     </form>
 
     <div class="footer">
@@ -158,6 +193,17 @@
           textarea.val(editor.getSession().getValue());
         });
       });
+
+      function getFile() {
+          document.getElementById("upfile").click();
+      }
+
+      function sub(obj) {
+          var file = obj.value;
+          var filePathParts = file.split("\\");
+          document.getElementById("yourBtn").innerHTML = filePathParts[filePathParts.length - 1];
+          document.myForm.submit();
+      }
 </script>
 </body>
 </html>
