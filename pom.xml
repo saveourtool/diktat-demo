@@ -32,11 +32,6 @@
             <version>${ktlint.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.pinterest.ktlint</groupId>
-            <artifactId>ktlint-test</artifactId>
-            <version>${ktlint.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
