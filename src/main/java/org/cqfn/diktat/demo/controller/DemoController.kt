@@ -1,11 +1,8 @@
 package org.cqfn.diktat.demo.controller
 
 import com.pinterest.ktlint.core.ParseException
-
 import org.cqfn.diktat.demo.processing.CodeFix
 import org.cqfn.diktat.demo.views.CodeForm
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -54,10 +51,7 @@ class DemoController {
         return PAGE_NAME
     }
 
-    private fun getDemoFile(): File {
-        val filePath = javaClass.classLoader.getResource("demos/").path + "${generateFileName()}.kt"
-        return File(filePath)
-    }
+    private fun getDemoFile(): File = File("demo-${generateFileName()}.kt")
 
     @Synchronized
     private fun generateFileName():String = UUID.randomUUID().toString()
