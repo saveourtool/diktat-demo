@@ -18,6 +18,7 @@
         <java.version>1.8</java.version>
         <kotlin.version>1.3.70</kotlin.version>
         <ktlint.version>0.37.1-fork</ktlint.version>
+        <diktat.version>1.0.0</diktat.version>
     </properties>
 
     <dependencies>
@@ -42,7 +43,7 @@
         <dependency>
             <groupId>org.cqfn.diktat</groupId>
             <artifactId>diktat-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${diktat.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -53,7 +54,7 @@
         <dependency>
             <groupId>org.cqfn.diktat</groupId>
             <artifactId>diktat-rules</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${diktat.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -95,28 +96,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.1</version>
-
                 <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
+                    <requiresUnpack>
+                        <dependency>
+                            <groupId>org.jetbrains.kotlin</groupId>
+                            <artifactId>kotlin-compiler-embeddable</artifactId>
+                        </dependency>
+                    </requiresUnpack>
                 </configuration>
-
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-
             </plugin>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
