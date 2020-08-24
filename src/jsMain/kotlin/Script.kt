@@ -1,9 +1,8 @@
 import kotlin.browser.document
-import kotlin.js.*
 import org.w3c.dom.HTMLTextAreaElement
 import org.w3c.dom.HTMLElement
 
-@JsModule("ace")
+@JsModule("ace-builds")
 @JsNonModule
 @JsName("ace")
 external object Ace {
@@ -11,7 +10,7 @@ external object Ace {
     fun edit(s: String): Editor
 }
 
-@JsModule("ace")
+@JsModule("ace-code-editor")
 @JsNonModule
 external class Editor {
     fun setTheme(path: String)

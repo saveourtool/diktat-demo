@@ -2,19 +2,17 @@ plugins {
     java
     `maven-publish`
     kotlin("multiplatform") version "1.3.70"
+    kotlin("plugin.spring") version "1.3.70"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     id("org.springframework.boot") version "2.3.1.RELEASE"
 }
 
 repositories {
-    mavenLocal()
-    mavenCentral()
     jcenter()
-    maven("https://central.artipie.com/akuleshov7/diktat")
 }
 
 val kotlinVersion = "1.3.70"
-val diktatVersion = "1.0.0"
+val diktatVersion = "1.0.1"
 val ktlintVersion = "0.37.1-fork"
 val springBootVersion = "2.3.1.RELEASE"
 
@@ -39,6 +37,11 @@ kotlin {
     }
 
     jvm {
+        repositories {
+            mavenLocal()
+            mavenCentral()
+            maven { url = uri("https://central.artipie.com/akuleshov7/diktat") }
+        }
         withJava()
         compilations.all {
             kotlinOptions {
@@ -51,20 +54,17 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation("org.springframework.boot:spring-boot-starter-thymeleaf") {
-                    exclude("org.springframework.boot", "spring-boot-starter-logging")
+                    // todo: choose logging framework
+                    exclude("ch.qos.logback", "logback-classic")
                 }
                 implementation("org.springframework.boot:spring-boot-starter-web") {
-                    exclude("org.springframework.boot", "spring-boot-starter-logging")
+                    exclude("ch.qos.logback", "logback-classic")
                 }
-                implementation("org.cqfn.diktat:diktat-common:$diktatVersion") {
-                    exclude("org.slf4j", "slf4j-log4j12")
-                }
+                implementation("org.cqfn.diktat:diktat-common:$diktatVersion")
                 implementation("com.pinterest.ktlint:ktlint-core:$ktlintVersion")
-                implementation("org.cqfn.diktat:diktat-rules:$diktatVersion") {
-                    exclude("org.slf4j", "slf4j-log4j12")
-                }
+                implementation("com.pinterest.ktlint:ktlint-ruleset-standard:$ktlintVersion")
+                implementation("org.cqfn.diktat:diktat-rules:$diktatVersion")
                 implementation(kotlin("stdlib-jdk8"))
-                implementation(kotlin("stdlib-js"))
             }
         }
 
@@ -75,6 +75,24 @@ kotlin {
             }
         }
 
-//        js()
+        val jsMain by getting {
+            dependencies {
+                implementation(kotlin("stdlib-js"))
+                implementation(npm("ace-builds", "1.4.11"))
+            }
+        }
+    }
+}
+
+tasks.getByName("jvmMainClasses").dependsOn(tasks.getByName("jsMainClasses"))
+tasks.getByName("jvmMainClasses") {
+    // todo proper way to include this in spring boot
+    doLast {
+        mkdir("build/processedResources/jvm/main/static/js")
+        copy {
+            from("build/js/packages/diktat-demo/kotlin")
+            include("*.js", "*.js.map")
+            into("build/processedResources/jvm/main/static/js")
+        }
     }
 }
