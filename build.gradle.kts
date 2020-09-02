@@ -1,8 +1,8 @@
 plugins {
     java
     `maven-publish`
-    kotlin("multiplatform") version "1.3.70"
-    kotlin("plugin.spring") version "1.3.70"
+    kotlin("multiplatform") version "1.3.72"
+    kotlin("plugin.spring") version "1.3.72"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     id("org.springframework.boot") version "2.3.1.RELEASE"
 }
@@ -11,8 +11,8 @@ repositories {
     jcenter()
 }
 
-val kotlinVersion = "1.3.70"
-val diktatVersion = "1.0.1"
+val kotlinVersion = "1.3.72"
+val diktatVersion = "1.0.2"
 val ktlintVersion = "0.37.1-fork"
 val springBootVersion = "2.3.1.RELEASE"
 
