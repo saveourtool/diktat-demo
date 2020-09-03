@@ -134,6 +134,9 @@
                 </executions>
                 <configuration>
                     <jvmTarget>1.8</jvmTarget>
+                    <compilerPlugins>
+                        <compilerPlugin>all-open</compilerPlugin>
+                    </compilerPlugins>
                 </configuration>
             </plugin>
             <plugin>
