@@ -90,6 +90,13 @@
             <url>https://central.artipie.com/akuleshov7/diktat</url>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <!-- this is needed to use forked ktlint and diktat inside antrun plugin -->
+        <pluginRepository>
+            <id>artipie</id>
+            <url>https://central.artipie.com/akuleshov7/diktat</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <build>
         <plugins>
