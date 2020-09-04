@@ -19,10 +19,9 @@ jobs:
     - name: Cache local Maven repository
       uses: actions/cache@v2
       with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-build-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-build-
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+        restore-keys: ${{ runner.os }}-gradle
 
-    - name: Build project with Maven
-      run: mvn -B package --file pom.xml
+    - name: Build project with Gradle
+      run: ./gradlew build
