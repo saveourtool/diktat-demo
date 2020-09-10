@@ -12,8 +12,8 @@ repositories {
 }
 
 val kotlinVersion = "1.3.72"
-val diktatVersion = "1.0.2"
-val ktlintVersion = "0.37.1-fork"
+val diktatVersion = "0.0.4"
+val ktlintVersion = "0.37.1"
 val springBootVersion = "2.3.1.RELEASE"
 
 publishing {
@@ -53,25 +53,18 @@ kotlin {
     sourceSets {
         val jvmMain by getting {
             dependencies {
-                implementation("org.springframework.boot:spring-boot-starter-thymeleaf") {
-                    // todo: choose logging framework
-                    exclude("ch.qos.logback", "logback-classic")
+                implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+                implementation("org.springframework.boot:spring-boot-starter-web")
+                implementation("org.cqfn.diktat:diktat-common:$diktatVersion") {
+                    // exclude to use logback provided by spring
+                    exclude("org.slf4j", "slf4j-log4j12")
                 }
-                implementation("org.springframework.boot:spring-boot-starter-web") {
-                    exclude("ch.qos.logback", "logback-classic")
+                implementation("org.cqfn.diktat:diktat-rules:$diktatVersion") {
+                    exclude("org.slf4j", "slf4j-log4j12")
                 }
-                implementation("org.cqfn.diktat:diktat-common:$diktatVersion")
                 implementation("com.pinterest.ktlint:ktlint-core:$ktlintVersion")
                 implementation("com.pinterest.ktlint:ktlint-ruleset-standard:$ktlintVersion")
-                implementation("org.cqfn.diktat:diktat-rules:$diktatVersion")
                 implementation(kotlin("stdlib-jdk8"))
-            }
-        }
-
-        val jvmTest by getting {
-            dependencies {
-                implementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
-                implementation(kotlin("test"))
             }
         }
 
