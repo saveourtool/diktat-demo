@@ -19,13 +19,10 @@ class DemoController {
     }
 
     @RequestMapping(value = ["/"], method = [RequestMethod.GET])
-    fun baseUrlRedirect(model: Model?): String? {
-        return "redirect:/$PAGE_NAME"
-    }
+    fun baseUrlRedirect(model: Model?) = "redirect:/$PAGE_NAME"
 
     @RequestMapping(value = ["/$PAGE_NAME"], method = [RequestMethod.POST])
     fun checkAndFixCode(request: HttpServletRequest, model: Model?, @ModelAttribute("codeForm") codeFormHtml: CodeForm): String {
-
         val codeForm = codeFormHtml
         val codeFix = CodeFix(codeForm.initialCode!!,codeFormHtml.ruleSet[0])
         val file = getDemoFile()
