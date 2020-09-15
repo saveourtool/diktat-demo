@@ -16,12 +16,13 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
-      - name: Cache local Maven repository
+      - name: Cache local Gradle repository
         uses: actions/cache@v2
         with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-diktat-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-diktat-
+          path: |
+            ~/.gradle/caches/
+            ~/.gradle/wrapper/
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: ${{ runner.os }}-gradle
       - name: Run diktat itself via ktlint
-        run: mvn antrun:run@diktat
+        run: ./gradlew diktatCheck
