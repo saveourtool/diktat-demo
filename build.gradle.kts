@@ -12,7 +12,7 @@ repositories {
 }
 
 val kotlinVersion = "1.3.72"
-val diktatVersion = "0.0.4"
+val diktatVersion = "0.1.0"
 val ktlintVersion = "0.37.1"
 val springBootVersion = "2.3.1.RELEASE"
 
@@ -40,7 +40,6 @@ kotlin {
         repositories {
             mavenLocal()
             mavenCentral()
-            maven { url = uri("https://central.artipie.com/akuleshov7/diktat") }
         }
         withJava()
         compilations.all {
@@ -87,5 +86,29 @@ tasks.getByName("jvmMainClasses") {
             include("*.js", "*.js.map")
             into("build/processedResources/jvm/main/static/js")
         }
+    }
+}
+
+val ktlint by configurations.creating
+val outputDir = "${project.buildDir}/reports/diktat/"
+val inputFiles = project.fileTree(mapOf("dir" to "src", "include" to "**/*.kt"))
+val diktatCheck by tasks.creating(JavaExec::class) {
+    inputs.files(inputFiles)
+    outputs.dir(outputDir)
+
+    description = "Check Kotlin code style."
+    classpath = ktlint
+    main = "com.pinterest.ktlint.Main"
+
+    // specify proper path to sources that should be checked here
+    args = listOf("src/jvmMain/kotlin/**/*.kt")
+    dependencies {
+        ktlint("com.pinterest:ktlint:$ktlintVersion") {
+            // need to exclude standard ruleset to use only diktat rules
+            exclude("com.pinterest.ktlint", "ktlint-ruleset-standard")
+        }
+
+        // diktat ruleset
+        ktlint("org.cqfn.diktat:diktat-rules:$diktatVersion")
     }
 }
