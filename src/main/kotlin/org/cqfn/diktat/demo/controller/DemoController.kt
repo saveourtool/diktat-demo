@@ -37,7 +37,9 @@ class DemoController {
         } catch (e: ParseException) {
             codeForm.warnings = listOf(e.toString())
         }
-        codeForm.warnings = codeFix.listOfWarnings.map { "Warn (${it.line}:${it.col}) ${it.detail}" }
+        codeForm.warnings = codeFix.listOfWarnings
+                .map { "Warn (${it.line}:${it.col}) ${it.detail}" }
+                .map { it.replace(file.absolutePath, "\"example_file_name\"") }
         file.delete()
         return PAGE_NAME
     }

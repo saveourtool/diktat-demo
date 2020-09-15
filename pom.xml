@@ -74,17 +74,6 @@
         </dependency>
     </dependencies>
 
-    <distributionManagement>
-        <repository>
-            <id>artipie</id>
-            <url>https://central.artipie.com/akuleshov7/diktat</url>
-        </repository>
-        <snapshotRepository>
-            <id>artipie</id>
-            <url>https://central.artipie.com/akuleshov7/diktat</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
