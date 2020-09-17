@@ -87,14 +87,15 @@
 <div class="container">
     <div class="row" align="center">
         <div class="col-sm-12">
-            <a href="https://github.com/cqfn/diKTat"><img th:src="@{/img/logo.png}" class="img-fluid" align="center"/></a>
+            <a href="https://github.com/cqfn/diKTat"><img th:src="@{/img/demo.png}" class="img-fluid" align="center"/></a>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
-            <h1>diKTat online demo </h1>
-            <p>*<a href="https://github.com/cqfn/diKTat">diKTat</a> is a codestyle and linter for Kotlin based on codefixing framework called KTlint</p>
+            <h1>KTlint online demo </h1>
+            <p>Below you can choose which rule set to use to fix or check your code: <a href="https://ktlint.github.io/">KTlint standard</a> or custom diktat* rule set</p>
+            <p>*<a href="https://github.com/cqfn/diKTat">diKTat</a> is a codestyle and linter for Kotlin based on awesome KTlint (you can create your own style)</p>
             </p>
         </div>
     </div>
@@ -151,7 +152,7 @@
                 <label> File selected </label>
             </div>
             <div class="upload-btn-wrapper">
-                <button class="btn">Upload a file</button>
+                <button class="btn">Upload config</button>
                 <input type="file" th:field="*{diktatConfigFile}" name="myfile" />
             </div>
             <div class="row" align="center">
@@ -163,7 +164,7 @@
 
     <div class="footer">
         <p class="text-center">
-            This demo is used to show how KTlint framework is good and how diKTat can fix your code.
+            This demo is used to show how KTlint framework is powerful and how diKTat rule set can fix your code.
             Sources are <a href="https://github.com/akuleshov7/diKTat-demo">here</a>
             <br>
             Inspired by https://yapf.now.sh/

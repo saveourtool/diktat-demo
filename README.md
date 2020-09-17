@@ -4,6 +4,12 @@ This simple demo is written on Java/Kotlin with the usage of Spring Boot and Thy
 
 Many thanks for this idea and some design of the cite to [YAPF demo project](https://github.com/pinterest/ktlint), we appreciate it, but love Java more than Python (that's why Spring Boot is here instead of flask)
 
+# Usage
+1) Write your Kotlin code snippets to the text block at the left.
+2) At the bottom choose the mode `fix` or `check` and one  codestyle `ktlint` or `diktat`. In case you have chosen `check` mode you won't see any changes in the code.
+3) In case you would like to configure diktat - you can upload diktat configuration. Example can be found [here](https://github.com/cqfn/diKTat/blob/master/diktat-rules/src/main/resources/diktat-analysis.yml)
+4) Press submit and see warnings above and fixed file in the right text block.
+
 # Current problems
 diKTat uses customized code of KTlint that was not yet promoted to it's mainline, that's why there can be some problems with building this demo project (some code won't be compiled properly due to modified KTlint code).
 That's why check diKTat repository first if you want to build and start this project.
@@ -29,3 +35,5 @@ $ java -jar target/demo-0.0.1-SNAPSHOT.jar
 1) We will need to fix concurrent issue that can appear with the code now.
 2) We should support different KTlint rule sets that are not supported by for now (like ktlint-standard)
 3) Release and hosting of this site to some host
+
+
