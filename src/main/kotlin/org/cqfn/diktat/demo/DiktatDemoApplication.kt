@@ -1,3 +1,5 @@
+@file:Suppress("MISSING_KDOC_TOP_LEVEL")
+
 package org.cqfn.diktat.demo
 
 import org.springframework.boot.SpringApplication
