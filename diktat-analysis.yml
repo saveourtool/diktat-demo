@@ -14,11 +14,13 @@
 - name: EXCEPTION_SUFFIX
   enabled: true
   configuration: {}
+# so that diktat doesn't emit error on temporary file name
 - name: FILE_NAME_INCORRECT
-  enabled: true
+  enabled: false
   configuration: {}
+# so that diktat doesn't emit error on temporary file name
 - name: FILE_NAME_MATCH_CLASS
-  enabled: true
+  enabled: false
   configuration: {}
 - name: FUNCTION_BOOLEAN_PREFIX
   enabled: true
