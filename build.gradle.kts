@@ -107,8 +107,7 @@ val diktatCheck by tasks.creating(JavaExec::class) {
     main = "com.pinterest.ktlint.Main"
 
     // specify proper path to sources that should be checked here
-    // todo: fix diktat to be able to use it with jsMain too
-    args = listOf("src/jvm*/kotlin/**/*.kt")
+    args = listOf("src/*/kotlin/**/*.kt")
     dependencies {
         ktlint("com.pinterest:ktlint:$ktlintVersion") {
             // need to exclude standard ruleset to use only diktat rules
