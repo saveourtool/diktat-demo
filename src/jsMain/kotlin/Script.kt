@@ -42,7 +42,7 @@ external class Editor {
 }
 
 @JsName("$")
-external fun jQuery(query: String): JQuery
+external fun jQuery(query: String): Jquery
 
 external class Jquery {
     fun ready(handler: () -> Unit)
