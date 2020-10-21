@@ -4,7 +4,7 @@ import com.pinterest.ktlint.core.KtLint
 import com.pinterest.ktlint.core.LintError
 import com.pinterest.ktlint.ruleset.standard.StandardRuleSetProvider
 import java.util.ArrayList
-import org.cqfn.diktat.demo.views.RulesSetType
+import org.cqfn.diktat.demo.views.RuleSetTypes
 import org.cqfn.diktat.ruleset.rules.DiktatRuleSetProvider
 
 /**
@@ -14,14 +14,14 @@ import org.cqfn.diktat.ruleset.rules.DiktatRuleSetProvider
  * @param code - initial code that should be formatted
  * @param typeRule - type of rules set
  */
-class CodeFix(private val code: String, typeRule: RulesSetType) {
+class CodeFix(private val code: String, typeRule: RuleSetTypes) {
     /**
      * a list for accumulating lint errors
      */
     var listOfWarnings: List<LintError> = emptyList()
     private val ruleSets = when (typeRule) {
-        RulesSetType.KTLINT -> listOf(StandardRuleSetProvider().get())
-        RulesSetType.DIKTAT -> listOf(DiktatRuleSetProvider().get())
+        RuleSetTypes.KTLINT -> listOf(StandardRuleSetProvider().get())
+        RuleSetTypes.DIKTAT -> listOf(DiktatRuleSetProvider().get())
     }
 
     /**
