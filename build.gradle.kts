@@ -88,7 +88,7 @@ tasks.getByName("jvmMainClasses") {
     doLast {
         mkdir("build/processedResources/jvm/main/static/js")
         copy {
-            from("build/js/packages/diktat-demo/kotlin")
+            from("build/js/packages/diktat-demo/kotlin-dce")
             include("*.js", "*.js.map")
             into("build/processedResources/jvm/main/static/js")
         }
