@@ -15,10 +15,10 @@
   enabled: true
   configuration: {}
 - name: FILE_NAME_INCORRECT
-  enabled: false
+  enabled: true
   configuration: {}
 - name: FILE_NAME_MATCH_CLASS
-  enabled: false
+  enabled: true
   configuration: {}
 - name: FUNCTION_BOOLEAN_PREFIX
   enabled: true
