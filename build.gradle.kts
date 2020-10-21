@@ -1,8 +1,8 @@
 plugins {
     java
     `maven-publish`
-    kotlin("multiplatform") version "1.3.72"
-    kotlin("plugin.spring") version "1.3.72"
+    kotlin("multiplatform") version "1.4.10"
+    kotlin("plugin.spring") version "1.4.10"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     id("org.springframework.boot") version "2.3.1.RELEASE"
 }
@@ -11,16 +11,16 @@ repositories {
     jcenter()
 }
 
-val kotlinVersion = "1.3.72"
-val diktatVersion = "0.1.0"
-val ktlintVersion = "0.37.1"
+val kotlinVersion = "1.4.10"
+val diktatVersion = "0.1.2"
+val ktlintVersion = "0.39.0"
 val springBootVersion = "2.3.1.RELEASE"
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "ord.cqfn.diktat"
-            version = diktatVersion
+            version = project.version as String
             description = "diktat-demo"
             from(components["java"])
         }
@@ -67,6 +67,12 @@ kotlin {
             }
         }
 
+        val jvmTest by getting {
+            dependencies {
+                implementation("org.springframework.boot:spring-boot-starter-test")
+            }
+        }
+
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-js"))
@@ -103,7 +109,8 @@ val diktatCheck by tasks.creating(JavaExec::class) {
     // specify proper path to sources that should be checked here
     args = listOf("src/jvmMain/kotlin/**/*.kt")
     dependencies {
-        ktlint("com.pinterest:ktlint:$ktlintVersion") {
+        // todo: use ktlintVersion when diktat with kotlin 1.4 is released
+        ktlint("com.pinterest:ktlint:0.37.1") {
             // need to exclude standard ruleset to use only diktat rules
             exclude("com.pinterest.ktlint", "ktlint-ruleset-standard")
         }
