@@ -1,14 +1,20 @@
-# diKTat POC demo project
-This is simple demo for diktat project (a number of codestyle rules for Kotlin powered by [KTlint](https://github.com/pinterest/ktlint) framework)
+# KTlint/diKTat demo project
+
+[![Run diKTat](https://github.com/akuleshov7/diKTat-demo/workflows/Run%20diKTat/badge.svg?branch=master)](https://github.com/cqfn/diktat)
+
+This is simple demo for ktlint and diktat project (a number of codestyle rules for Kotlin powered by [KTlint](https://github.com/pinterest/ktlint) framework)
 This simple demo is written on Java/Kotlin with the usage of Spring Boot and Thymeleaf and shows how a style of your code can be checked with diKTat rule set.
 
-Many thanks for this idea and some design of the cite to [YAPF demo project](https://github.com/pinterest/ktlint), we appreciate it, but love Java more than Python (that's why Spring Boot is here instead of flask)
+Many thanks for this idea and some design of the cite to [YAPF demo project](https://github.com/pinterest/ktlint), we appreciate it, but we love Java more than Python (that's why Spring Boot is here instead of flask)
+
+# Usage
+1) Write your Kotlin code snippets to the text block at the left.
+2) At the bottom choose the mode `fix` or `check` and one  codestyle `ktlint` or `diktat`. In case you have chosen `check` mode you won't see any changes in the code.
+3) In case you would like to configure diktat - you can upload diktat configuration. Example can be found [here](https://github.com/cqfn/diKTat/blob/master/diktat-rules/src/main/resources/diktat-analysis.yml)
+4) Press submit and see warnings above and fixed file in the right text block.
 
 # Current problems
-diKTat uses customized code of KTlint that was not yet promoted to it's mainline, that's why there can be some problems with building this demo project (some code won't be compiled properly due to modified KTlint code).
-That's why check diKTat repository first if you want to build and start this project.
-
-As diKTat is not released yet there can be some problems related to missing artifacts of the diKTat in maven central. Check the existing diKTat code first or wait for the release - it will be made soon.
+This demo can use some old versions of ktlint framework and diktat rule set.
 
 # How to start this demo app
 
@@ -25,7 +31,4 @@ $ mvn clean install
 $ java -jar target/demo-0.0.1-SNAPSHOT.jar
 ```
 
-# What should be done in the nearest time
-1) We will need to fix concurrent issue that can appear with the code now.
-2) We should support different KTlint rule sets that are not supported by for now (like ktlint-standard)
-3) Release and hosting of this site to some host
+

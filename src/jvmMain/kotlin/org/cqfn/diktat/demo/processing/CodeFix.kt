@@ -15,34 +15,44 @@ import org.cqfn.diktat.ruleset.rules.DiktatRuleSetProvider
  * @param typeRule - type of rules set
  */
 class CodeFix(private val code: String, typeRule: RulesSetType) {
+    /**
+     * a list for accumulating lint errors
+     */
     var listOfWarnings: List<LintError> = emptyList()
-    private val ruleSets = when(typeRule){
-        RulesSetType.ktlint -> listOf(StandardRuleSetProvider().get())
-        RulesSetType.diKTat -> listOf(DiktatRuleSetProvider().get())
+    private val ruleSets = when (typeRule) {
+        RulesSetType.KTLINT -> listOf(StandardRuleSetProvider().get())
+        RulesSetType.DIKTAT -> listOf(DiktatRuleSetProvider().get())
     }
 
+    /**
+     * @param absoluteFilePath
+     * @return corrected input text
+     */
     fun fix(absoluteFilePath: String): String {
-        val res = ArrayList<LintError>()
+        val res: ArrayList<LintError> = ArrayList()
         val formattedResult = KtLint.format(
                 KtLint.Params(
                         fileName = absoluteFilePath,
                         text = code,
                         ruleSets = ruleSets,
-                        cb = { e, _ -> res.add(e) }
+                        cb = { lintError, _ -> res.add(lintError) }
                 )
         )
         listOfWarnings = res
         return formattedResult
     }
 
+    /**
+     * @param absoluteFilePath
+     */
     fun check(absoluteFilePath: String) {
-        val res = ArrayList<LintError>()
+        val res: ArrayList<LintError> = ArrayList()
         KtLint.lint(
                 KtLint.Params(
                         fileName = absoluteFilePath,
                         text = code,
                         ruleSets = ruleSets,
-                        cb = { e, _ -> res.add(e) }
+                        cb = { lintError, _ -> res.add(lintError) }
                 )
         )
         listOfWarnings = res

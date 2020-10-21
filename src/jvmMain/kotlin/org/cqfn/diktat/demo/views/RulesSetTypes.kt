@@ -1,6 +1,10 @@
 package org.cqfn.diktat.demo.views
 
-enum class RulesSetType{
-    ktlint,
-    diKTat
+/**
+ * Available rule set types supported by the project
+ */
+enum class RulesSetType {
+    DIKTAT,
+    KTLINT,
+    ;
 }
