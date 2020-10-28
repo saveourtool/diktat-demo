@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
     java
     `maven-publish`
@@ -50,7 +52,7 @@ kotlin {
     }
 
     sourceSets {
-        val jvmMain by getting {
+        getByName("jvmMain") {
             dependencies {
                 implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
                 implementation("org.springframework.boot:spring-boot-starter-web")
@@ -67,13 +69,13 @@ kotlin {
             }
         }
 
-        val jvmTest by getting {
+        getByName("jvmTest") {
             dependencies {
                 implementation("org.springframework.boot:spring-boot-starter-test")
             }
         }
 
-        val jsMain by getting {
+        getByName("jsMain") {
             dependencies {
                 implementation(kotlin("stdlib-js"))
                 implementation(npm("ace-builds", "1.4.11"))
@@ -82,9 +84,8 @@ kotlin {
     }
 }
 
-tasks.getByName("jvmMainClasses").dependsOn(tasks.getByName("jsMainClasses"))
+tasks.getByName("jvmMainClasses").dependsOn(tasks.getByName("processDceJsKotlinJs"))
 tasks.getByName("jvmMainClasses") {
-    // todo proper way to include this in spring boot
     doLast {
         mkdir("build/processedResources/jvm/main/static/js")
         copy {
@@ -95,7 +96,11 @@ tasks.getByName("jvmMainClasses") {
     }
 }
 
-val ktlint by configurations.creating
+tasks.getByName<BootJar>("bootJar") {
+    requiresUnpack("**/kotlin-compiler-embeddable-*.jar")
+}
+
+val ktlint: Configuration by configurations.creating
 val outputDir = "${project.buildDir}/reports/diktat/"
 val inputFiles = project.fileTree(mapOf("dir" to "src", "include" to "**/*.kt"))
 val diktatCheck by tasks.creating(JavaExec::class) {
