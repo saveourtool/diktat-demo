@@ -1,4 +1,4 @@
-name: CI/CD with Maven
+name: CI/CD with Gradle
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -9,6 +9,8 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
+    env:
+      GRADLE_OPTS: -Dorg.gradle.daemon=false
 
     steps:
     - uses: actions/checkout@v2
@@ -16,13 +18,14 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 8
-    - name: Cache local Maven repository
+    - name: Cache local Gradle repository
       uses: actions/cache@v2
       with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-build-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-build-
+        path: |
+          ~/.gradle/caches/
+          ~/.gradle/wrapper/
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+        restore-keys: ${{ runner.os }}-gradle
 
-    - name: Build project with Maven
-      run: mvn -B package --file pom.xml
+    - name: Build project with Gradle
+      run: ./gradlew build

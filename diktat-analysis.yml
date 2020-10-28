@@ -14,9 +14,11 @@
 - name: EXCEPTION_SUFFIX
   enabled: true
   configuration: {}
+# so that diktat doesn't emit error on temporary file name
 - name: FILE_NAME_INCORRECT
   enabled: false
   configuration: {}
+# so that diktat doesn't emit error on temporary file name
 - name: FILE_NAME_MATCH_CLASS
   enabled: false
   configuration: {}
@@ -44,8 +46,9 @@
 - name: PACKAGE_NAME_INCORRECT_SYMBOLS
   enabled: true
   configuration: {}
+# todo: enable when diktat supports KMP project layouts
 - name: PACKAGE_NAME_INCORRECT_PATH
-  enabled: true
+  enabled: false
   configuration: {}
 - name: PACKAGE_NAME_MISSING
   enabled: true

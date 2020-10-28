@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod
 class DemoController {
     @Synchronized
     private fun generateFileName(): String = UUID.randomUUID().toString()
-    private fun getDemoFile(): File = File("demo-generateFileName().kt")
+
+    @Suppress("STRING_TEMPLATE_CURLY_BRACES") // until https://github.com/cqfn/diKTat/issues/401
+    private fun getDemoFile(): File = File("demo-${generateFileName()}.kt")
 
     /**
      * @param model a [Model] from frontend

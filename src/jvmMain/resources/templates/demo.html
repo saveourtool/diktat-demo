@@ -179,34 +179,7 @@
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"
         integrity="sha256-rfN9xU0ELcvTsc3WUaKlvSVEfzLvFCyl+ID09aieASo=" crossorigin="anonymous"></script>
-<script>
-      $(document).ready(function() {
-        var editor = ace.edit("editor");
-        editor.setTheme("ace/theme/monokai");
-        editor.getSession().setMode("ace/mode/python");
-
-        var result = ace.edit("result");
-        result.setTheme("ace/theme/monokai");
-        result.getSession().setMode("ace/mode/python");
-        result.setReadOnly(true);
-
-        var textarea = $("#source");
-        editor.getSession().setValue(textarea.val());
-        editor.getSession().on('change', function(){
-          textarea.val(editor.getSession().getValue());
-        });
-      });
-
-      function getFile() {
-          document.getElementById("upfile").click();
-      }
-
-      function sub(obj) {
-          var file = obj.value;
-          var filePathParts = file.split("\\");
-          document.getElementById("yourBtn").innerHTML = filePathParts[filePathParts.length - 1];
-          document.myForm.submit();
-      }
-</script>
+<script th:src="@{/js/kotlin.js}"></script>
+<script th:src="@{/js/diktat-demo.js}"></script>
 </body>
 </html>
