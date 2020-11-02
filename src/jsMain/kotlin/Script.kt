@@ -6,9 +6,10 @@
 @file:Suppress("PACKAGE_NAME_MISSING", "MISSING_KDOC_TOP_LEVEL", "MISSING_KDOC_ON_FUNCTION", "MISSING_KDOC_CLASS_ELEMENTS",
         "KDOC_WITHOUT_PARAM_TAG", "KDOC_WITHOUT_RETURN_TAG")
 
-import kotlin.browser.document
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLTextAreaElement
+
+import kotlin.browser.document
 
 @JsModule("ace-builds")
 @JsNonModule
