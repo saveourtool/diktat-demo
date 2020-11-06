@@ -1,16 +1,18 @@
 package org.cqfn.diktat.demo.controller
 
-import com.pinterest.ktlint.core.ParseException
-import java.io.File
-import java.util.UUID
-import javax.servlet.http.HttpServletRequest
 import org.cqfn.diktat.demo.processing.CodeFix
 import org.cqfn.diktat.demo.views.CodeForm
+
+import com.pinterest.ktlint.core.ParseException
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
+
+import java.io.File
+import java.util.UUID
+import javax.servlet.http.HttpServletRequest
 
 /**
  * Main [Controller] for spring boot
@@ -20,7 +22,6 @@ class DemoController {
     @Synchronized
     private fun generateFileName(): String = UUID.randomUUID().toString()
 
-    @Suppress("STRING_TEMPLATE_CURLY_BRACES") // until https://github.com/cqfn/diKTat/issues/401
     private fun getDemoFile(): File = File("demo-${generateFileName()}.kt")
 
     /**
@@ -40,7 +41,9 @@ class DemoController {
      * @return a page name
      */
     @RequestMapping(value = ["/$PAGE_NAME"], method = [RequestMethod.POST])
-    fun checkAndFixCode(request: HttpServletRequest, model: Model?, @ModelAttribute("codeForm") codeFormHtml: CodeForm): String {
+    fun checkAndFixCode(request: HttpServletRequest,
+                        model: Model?,
+                        @ModelAttribute("codeForm") codeFormHtml: CodeForm): String {
         val codeForm = codeFormHtml
         val codeFix = CodeFix(codeForm.initialCode!!, codeFormHtml.ruleSet[0])
         val file = getDemoFile()

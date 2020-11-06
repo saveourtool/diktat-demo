@@ -3,9 +3,8 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 plugins {
     java
     `maven-publish`
-    kotlin("multiplatform") version "1.3.72"
-    kotlin("plugin.spring") version "1.3.72"
-    id("io.spring.dependency-management") version "1.0.9.RELEASE"
+    kotlin("multiplatform") version "1.4.10"
+    kotlin("plugin.spring") version "1.4.10"
     id("org.springframework.boot") version "2.3.1.RELEASE"
 }
 
@@ -13,9 +12,9 @@ repositories {
     jcenter()
 }
 
-val kotlinVersion = "1.3.72"
-val diktatVersion = "0.1.2"
-val ktlintVersion = "0.37.1"
+val kotlinVersion = "1.4.10"
+val diktatVersion = "0.1.3"
+val ktlintVersion = "0.39.0"
 val springBootVersion = "2.3.1.RELEASE"
 
 publishing {
@@ -54,8 +53,8 @@ kotlin {
     sourceSets {
         getByName("jvmMain") {
             dependencies {
-                implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-                implementation("org.springframework.boot:spring-boot-starter-web")
+                implementation("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
+                implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
                 implementation("org.cqfn.diktat:diktat-common:$diktatVersion") {
                     // exclude to use logback provided by spring
                     exclude("org.slf4j", "slf4j-log4j12")
@@ -71,7 +70,7 @@ kotlin {
 
         getByName("jvmTest") {
             dependencies {
-                implementation("org.springframework.boot:spring-boot-starter-test")
+                implementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
             }
         }
 

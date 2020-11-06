@@ -1,11 +1,13 @@
 package org.cqfn.diktat.demo.processing
 
+import org.cqfn.diktat.demo.views.RulesSetTypes
+import org.cqfn.diktat.ruleset.rules.DiktatRuleSetProvider
+
 import com.pinterest.ktlint.core.KtLint
 import com.pinterest.ktlint.core.LintError
 import com.pinterest.ktlint.ruleset.standard.StandardRuleSetProvider
+
 import java.util.ArrayList
-import org.cqfn.diktat.demo.views.RulesSetTypes
-import org.cqfn.diktat.ruleset.rules.DiktatRuleSetProvider
 
 /**
  * Entity that will store the information about warnings that will appear after the run of diktat
