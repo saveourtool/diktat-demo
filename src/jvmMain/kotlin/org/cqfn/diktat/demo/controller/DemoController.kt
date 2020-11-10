@@ -3,8 +3,8 @@ package org.cqfn.diktat.demo.controller
 import org.cqfn.diktat.demo.processing.CodeFix
 import org.cqfn.diktat.demo.views.CodeForm
 
-import org.slf4j.LoggerFactory
 import com.pinterest.ktlint.core.ParseException
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.ModelAttribute
@@ -59,8 +59,8 @@ class DemoController {
         }
         when {
             result.isSuccess -> codeForm.warnings = codeFix.listOfWarnings
-                .map { "Warn (${it.line}:${it.col}) ${it.detail}" }
-                .map { it.replace(file.absolutePath, "\"example_file_name\"") }
+                    .map { "Warn (${it.line}:${it.col}) ${it.detail}" }
+                    .map { it.replace(file.absolutePath, "\"example_file_name\"") }
             result.exceptionOrNull() is ParseException -> codeForm.warnings = listOf(result.exceptionOrNull().toString())
             else -> log.error("Running formatter returned unexpected exception ${result.exceptionOrNull()}")
         }
