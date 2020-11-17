@@ -102,4 +102,5 @@ tasks.getByName<BootJar>("bootJar") {
 
 diktat {
     inputs = files("src/*/kotlin/**/*.kt")
+    debug = true
 }
