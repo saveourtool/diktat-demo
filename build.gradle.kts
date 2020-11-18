@@ -6,7 +6,7 @@ plugins {
     kotlin("multiplatform") version "1.4.10"
     kotlin("plugin.spring") version "1.4.10"
     id("org.springframework.boot") version "2.3.1.RELEASE"
-    id("org.cqfn.diktat.diktat-gradle-plugin") version "0.1.4"
+    id("org.cqfn.diktat.diktat-gradle-plugin") version "0.1.5"
 }
 
 repositories {
@@ -102,5 +102,4 @@ tasks.getByName<BootJar>("bootJar") {
 
 diktat {
     inputs = files("src/*/kotlin/**/*.kt")
-    debug = true
 }
