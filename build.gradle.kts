@@ -14,7 +14,7 @@ repositories {
 }
 
 val kotlinVersion = "1.4.10"
-val diktatVersion = "0.1.4"
+val diktatVersion = "0.1.5"
 val ktlintVersion = "0.39.0"
 val springBootVersion = "2.4.0"
 
