@@ -9,7 +9,7 @@
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLTextAreaElement
 
-import kotlin.browser.document
+import kotlinx.browser.document
 
 @JsModule("ace-builds")
 @JsNonModule

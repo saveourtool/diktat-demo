@@ -61,7 +61,7 @@ class DemoController {
         when {
             result.isSuccess -> codeForm.warnings = codeFix.listOfWarnings.map { it.prettyFormat(file) }
             result.exceptionOrNull() is ParseException -> codeForm.warnings = listOf(result.exceptionOrNull().toString())
-            else -> log.error("Running formatter returned unexpected exception ${result.exceptionOrNull()}")
+            else -> log.error("Running formatter returned unexpected exception", result.exceptionOrNull())
         }
         file.delete()
         return PAGE_NAME

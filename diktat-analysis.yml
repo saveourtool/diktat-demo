@@ -47,9 +47,8 @@
 - name: PACKAGE_NAME_INCORRECT_SYMBOLS
   enabled: true
   configuration: {}
-# todo: enable when diktat supports KMP project layouts
 - name: PACKAGE_NAME_INCORRECT_PATH
-  enabled: false
+  enabled: true
   configuration: {}
 - name: PACKAGE_NAME_MISSING
   enabled: true
