@@ -3,20 +3,20 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 plugins {
     java
     `maven-publish`
-    kotlin("multiplatform") version "1.4.10"
-    kotlin("plugin.spring") version "1.4.10"
-    id("org.springframework.boot") version "2.3.1.RELEASE"
-    id("org.cqfn.diktat.diktat-gradle-plugin") version "0.1.5"
+    kotlin("multiplatform") version "1.4.21"
+    kotlin("plugin.spring") version "1.4.21"
+    id("org.springframework.boot") version "2.4.1"
+    id("org.cqfn.diktat.diktat-gradle-plugin") version "0.1.7"
 }
 
 repositories {
     jcenter()
 }
 
-val kotlinVersion = "1.4.10"
-val diktatVersion = "0.1.5"
+val kotlinVersion = "1.4.21"
+val diktatVersion = "0.1.7"
 val ktlintVersion = "0.39.0"
-val springBootVersion = "2.4.0"
+val springBootVersion = "2.4.1"
 
 publishing {
     publications {
