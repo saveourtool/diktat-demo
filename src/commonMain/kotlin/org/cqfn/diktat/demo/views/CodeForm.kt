@@ -12,8 +12,8 @@ import kotlinx.serialization.Serializable
  * @property warnings
  */
 @Serializable data class CodeForm(var initialCode: String? = null,
-                                     var fix: Boolean = false,
-                                     var check: Boolean = false,
-                                     var ruleSet: List<RulesSetTypes> = listOf(RulesSetTypes.DIKTAT, RulesSetTypes.KTLINT),
-                                     var fixedCode: String? = null,
-                                     var warnings: List<String>? = null)
+                                  var fix: Boolean = false,
+                                  var check: Boolean = false,
+                                  var ruleSet: List<RulesSetTypes> = listOf(RulesSetTypes.DIKTAT, RulesSetTypes.KTLINT),
+                                  var fixedCode: String? = null,
+                                  var warnings: List<String>? = null)

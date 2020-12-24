@@ -33,12 +33,12 @@ class CodeFix(private val code: String, typeRule: RulesSetTypes) {
     fun fix(absoluteFilePath: String): String {
         val res: ArrayList<LintError> = ArrayList()
         val formattedResult = KtLint.format(
-                KtLint.Params(
-                        fileName = absoluteFilePath,
-                        text = code,
-                        ruleSets = ruleSets,
-                        cb = { lintError, _ -> res.add(lintError) }
-                )
+            KtLint.Params(
+                fileName = absoluteFilePath,
+                text = code,
+                ruleSets = ruleSets,
+                cb = { lintError, _ -> res.add(lintError) }
+            )
         )
         listOfWarnings = res
         return formattedResult
@@ -50,12 +50,12 @@ class CodeFix(private val code: String, typeRule: RulesSetTypes) {
     fun check(absoluteFilePath: String) {
         val res: ArrayList<LintError> = ArrayList()
         KtLint.lint(
-                KtLint.Params(
-                        fileName = absoluteFilePath,
-                        text = code,
-                        ruleSets = ruleSets,
-                        cb = { lintError, _ -> res.add(lintError) }
-                )
+            KtLint.Params(
+                fileName = absoluteFilePath,
+                text = code,
+                ruleSets = ruleSets,
+                cb = { lintError, _ -> res.add(lintError) }
+            )
         )
         listOfWarnings = res
     }

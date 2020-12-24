@@ -1,22 +1,22 @@
+/**
+ * Main entrypoint for Fritz2 framework. The generated script is included directly into index.html.
+ */
+
 package org.cqfn.diktat.demo.frontend
 
-import dev.fritz2.binding.RootStore
-import dev.fritz2.dom.html.render
-import dev.fritz2.dom.mount
-import dev.fritz2.remote.Request
-import dev.fritz2.remote.getBody
-import dev.fritz2.tracking.tracker
-import kotlinx.browser.document
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 import org.cqfn.diktat.demo.frontend.components.WarningsPane
 import org.cqfn.diktat.demo.frontend.utils.Ace
 import org.cqfn.diktat.demo.frontend.utils.setupAceEditor
 import org.cqfn.diktat.demo.views.CodeForm
 import org.cqfn.diktat.demo.views.RulesSetTypes
+
+import dev.fritz2.binding.RootStore
+import dev.fritz2.binding.SimpleHandler
+import dev.fritz2.dom.html.render
+import dev.fritz2.dom.mount
+import dev.fritz2.remote.Request
+import dev.fritz2.remote.getBody
+import dev.fritz2.tracking.tracker
 import org.w3c.dom.HTMLFormElement
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLOptionElement
@@ -26,8 +26,16 @@ import org.w3c.dom.asList
 import org.w3c.dom.events.Event
 import org.w3c.dom.get
 
+import kotlinx.browser.document
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+
 @ExperimentalCoroutinesApi
 @FlowPreview
+@Suppress("TOO_LONG_FUNCTION")
 fun main() {
     val form = document.getElementById("main-form") as HTMLFormElement
     val textarea = document.getElementById("source") as HTMLTextAreaElement
@@ -35,12 +43,10 @@ fun main() {
 
     val codeFormStore = object : RootStore<CodeForm>(CodeForm(), "codeFormStore") {
         val tracker = tracker()
-
         val api = Request("http://localhost:8082/demo")
             .acceptJson()
             .contentType("application/json")
-
-        val uploadCodeForm = handle<CodeForm> { _, codeForm ->
+        val uploadCodeForm: SimpleHandler<CodeForm> = handle { _, codeForm ->
             tracker.track("codeFormUploading") {
                 api.body(Json.encodeToString(codeForm))
                     .post()
@@ -62,9 +68,9 @@ fun main() {
         button("btn btn-primary") {
             type("submit")
             +"Submit"
-//            className(codeFormStore.tracker.map {
-//                if (it) "spinner-border spinner-border-sm mr-2" else ""
-//            })
+            // className(codeFormStore.tracker.map {
+            // if (it) "spinner-border spinner-border-sm mr-2" else ""
+            // })
         }
     }.mount("submit-codeform-btn")
 

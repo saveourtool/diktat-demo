@@ -2,18 +2,15 @@
  * JS script for diktat-demo main page
  */
 
-// todo fix and usuppress
-@file:Suppress("PACKAGE_NAME_MISSING", "MISSING_KDOC_TOP_LEVEL", "MISSING_KDOC_ON_FUNCTION", "MISSING_KDOC_CLASS_ELEMENTS",
-        "KDOC_WITHOUT_PARAM_TAG", "KDOC_WITHOUT_RETURN_TAG")
-
 package org.cqfn.diktat.demo.frontend.utils
 
+import js.externals.jquery.`$`
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLTextAreaElement
-import js.externals.jquery.`$`
 
 import kotlinx.browser.document
 
+@Suppress("MISSING_KDOC_TOP_LEVEL", "MISSING_KDOC_ON_FUNCTION")  // what is this function for? it's unused for a long time...
 fun getFile() = (document.getElementById("upfile") as HTMLElement).click()
 
 // todo unused?
@@ -24,6 +21,9 @@ fun getFile() = (document.getElementById("upfile") as HTMLElement).click()
 // document.myForm.submit()
 // }
 
+/**
+ * Setup Ace editor by applying it to textareas for source and result.
+ */
 fun setupAceEditor() {
     `$`("document").ready {
         val editor = Ace.edit("editor")

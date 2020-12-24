@@ -27,12 +27,6 @@ class DemoController {
 
     private fun getDemoFile(): File = File("demo-${generateFileName()}.kt")
 
-//    @GetMapping(path = ["/$PAGE_NAME"])
-//    fun buildMainPage(): String {
-//        model.addAttribute("codeForm", CodeForm())
-//        return PAGE_NAME
-//    }
-
     /**
      * @param codeFormHtml
      * @return a page name
@@ -61,14 +55,8 @@ class DemoController {
         return codeForm
     }
 
-    /**
-     * @param model
-     */
-//    @RequestMapping(value = ["/"], method = [RequestMethod.GET])
-//    fun baseUrlRedirect(model: Model?) = "redirect:/$PAGE_NAME"
-
     private fun LintError.prettyFormat(file: File) = "Warn ($line:$col) $detail"
-            .replace(file.absolutePath, "\"example_file_name\"")
+        .replace(file.absolutePath, "\"example_file_name\"")
 
     companion object {
         private val log = LoggerFactory.getLogger(DemoController::class.java)
