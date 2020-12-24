@@ -34,8 +34,11 @@ tasks.withType<JavaCompile> {
 }
 
 kotlin {
-    js {
-        browser { }
+    js(LEGACY).browser {
+        repositories {
+            jcenter()
+            maven("https://kotlin.bintray.com/js-externals")
+        }
     }
 
     jvm {
@@ -78,6 +81,7 @@ kotlin {
         getByName("jsMain") {
             dependencies {
                 implementation(kotlin("stdlib-js"))
+                compileOnly("kotlin.js.externals:kotlin-js-jquery:3.2.0-0")
                 implementation(npm("ace-builds", "1.4.11"))
             }
         }

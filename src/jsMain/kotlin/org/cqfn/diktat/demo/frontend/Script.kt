@@ -8,6 +8,7 @@
 
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLTextAreaElement
+import js.externals.jquery.`$`
 
 import kotlinx.browser.document
 
@@ -42,13 +43,6 @@ external class Editor {
     }
 }
 
-@JsName("$")
-external fun jQuery(query: String): Jquery
-
-external class Jquery {
-    fun ready(handler: () -> Unit)
-}
-
 fun getFile() = (document.getElementById("upfile") as HTMLElement).click()
 
 // todo unused?
@@ -59,8 +53,8 @@ fun getFile() = (document.getElementById("upfile") as HTMLElement).click()
 // document.myForm.submit()
 // }
 
-fun main() {
-    jQuery("document").ready {
+fun doLogic() {
+    `$`("document").ready {
         val editor = Ace.edit("editor")
         editor.setTheme("ace/theme/monokai")
         editor.getSession().setMode("ace/mode/kotlin")
