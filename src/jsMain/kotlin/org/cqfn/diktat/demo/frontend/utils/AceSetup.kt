@@ -6,42 +6,13 @@
 @file:Suppress("PACKAGE_NAME_MISSING", "MISSING_KDOC_TOP_LEVEL", "MISSING_KDOC_ON_FUNCTION", "MISSING_KDOC_CLASS_ELEMENTS",
         "KDOC_WITHOUT_PARAM_TAG", "KDOC_WITHOUT_RETURN_TAG")
 
+package org.cqfn.diktat.demo.frontend.utils
+
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLTextAreaElement
 import js.externals.jquery.`$`
 
 import kotlinx.browser.document
-
-@JsModule("ace-builds")
-@JsNonModule
-@JsName("ace")
-external object Ace {
-    @JsName("edit")
-    fun edit(editorName: String): Editor
-}
-
-@JsModule("ace-code-editor")
-@JsNonModule
-external class Editor {
-    /**
-     * @param path path to ace theme
-     */
-    fun setTheme(path: String)
-
-    fun getSession(): Session
-
-    fun setReadOnly(readOnly: Boolean)
-
-    class Session {
-        fun setMode(mode: String)
-
-        fun getValue(): String
-
-        fun setValue(text: String)
-
-        fun on(eventName: String, handler: () -> Unit)
-    }
-}
 
 fun getFile() = (document.getElementById("upfile") as HTMLElement).click()
 
@@ -53,7 +24,7 @@ fun getFile() = (document.getElementById("upfile") as HTMLElement).click()
 // document.myForm.submit()
 // }
 
-fun doLogic() {
+fun setupAceEditor() {
     `$`("document").ready {
         val editor = Ace.edit("editor")
         editor.setTheme("ace/theme/monokai")

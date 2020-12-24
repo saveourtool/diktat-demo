@@ -5,6 +5,8 @@ plugins {
     `maven-publish`
     kotlin("multiplatform") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
+    kotlin("plugin.serialization") version "1.4.21"
+    id("dev.fritz2.fritz2-gradle") version "0.8"
     id("org.springframework.boot") version "2.4.1"
     id("org.cqfn.diktat.diktat-gradle-plugin") version "0.1.7"
 }
@@ -14,6 +16,7 @@ repositories {
 }
 
 val kotlinVersion = "1.4.21"
+val serializationVersion = "1.0.1"
 val diktatVersion = "0.1.7"
 val ktlintVersion = "0.39.0"
 val springBootVersion = "2.4.1"
@@ -55,9 +58,14 @@ kotlin {
     }
 
     sourceSets {
+        getByName("commonMain") {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+            }
+        }
+
         getByName("jvmMain") {
             dependencies {
-                implementation("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
                 implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
                 implementation("org.cqfn.diktat:diktat-common:$diktatVersion") {
                     // exclude to use logback provided by spring
@@ -68,7 +76,6 @@ kotlin {
                 }
                 implementation("com.pinterest.ktlint:ktlint-core:$ktlintVersion")
                 implementation("com.pinterest.ktlint:ktlint-ruleset-standard:$ktlintVersion")
-                implementation(kotlin("stdlib-jdk8"))
             }
         }
 
@@ -88,14 +95,13 @@ kotlin {
     }
 }
 
-tasks.getByName("jvmMainClasses").dependsOn(tasks.getByName("processDceJsKotlinJs"))
 tasks.getByName("jvmMainClasses") {
+    dependsOn(tasks.getByName("jsBrowserProductionWebpack"))
     doLast {
-        mkdir("build/processedResources/jvm/main/static/js")
+        mkdir("build/processedResources/jvm/main/static")
         copy {
-            from("build/js/packages/diktat-demo/kotlin-dce")
-            include("*.js", "*.js.map")
-            into("build/processedResources/jvm/main/static/js")
+            from("$buildDir/distributions")
+            into("build/processedResources/jvm/main/static")
         }
     }
 }
