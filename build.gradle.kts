@@ -6,7 +6,6 @@ plugins {
     kotlin("multiplatform") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
     kotlin("plugin.serialization") version "1.4.21"
-    id("dev.fritz2.fritz2-gradle") version "0.8"
     id("org.springframework.boot") version "2.4.1"
     id("org.cqfn.diktat.diktat-gradle-plugin") version "0.1.7"
 }
@@ -20,6 +19,9 @@ val serializationVersion = "1.0.1"
 val diktatVersion = "0.1.7"
 val ktlintVersion = "0.39.0"
 val springBootVersion = "2.4.1"
+
+val reactVersion = "17.0.0"
+val kotlinReactVersion = "17.0.0-pre.134-kotlin-1.4.10"
 
 publishing {
     publications {
@@ -90,6 +92,11 @@ kotlin {
                 implementation(kotlin("stdlib-js"))
                 compileOnly("kotlin.js.externals:kotlin-js-jquery:3.2.0-0")
                 implementation(npm("ace-builds", "1.4.11"))
+                implementation("org.jetbrains:kotlin-react:$kotlinReactVersion")
+                implementation("org.jetbrains:kotlin-react-dom:$kotlinReactVersion")
+                implementation(npm("react", reactVersion))
+                implementation(npm("react-dom", reactVersion))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
             }
         }
     }
@@ -97,6 +104,7 @@ kotlin {
 
 tasks.getByName("jvmMainClasses") {
     dependsOn(tasks.getByName("jsBrowserProductionWebpack"))
+//    dependsOn(tasks.getByName("jsBrowserDevelopmentWebpack"))
     doLast {
         mkdir("build/processedResources/jvm/main/static")
         copy {
