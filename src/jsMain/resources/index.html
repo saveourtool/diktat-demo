@@ -34,56 +34,8 @@
         </div>
     </div>
 
-    <form id="main-form">
-        <div id="warnings-pane"></div>
-
-        <div class="row try-wrapper">
-            <span class="arrow glyphicon glyphicon-arrow-right"></span>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <div class="form-group">
-                        <div id="editor" class="ace_editor ace-monokai ace_dark"></div>
-                        <textarea class="source" name="source" id="source"></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div id="result" class="ace_editor ace-monokai ace_dark"></div>
-            </div>
-        </div>
-        <div class="row" align="center">
-            <div class="col-sm">
-                <input class="form-check-input" type="checkbox" name="check" id="check"
-                       value="radioChk">
-                <label class="form-check-label" for="check">Check </label>
-
-                <input class="form-check-input" type="checkbox" name="fix" id="fix"
-                       value="radioChk">
-                <label class="form-check-label" for="fix">Fix</label>
-            </div>
-            <div class="rulSet" align="center">
-                <label>Choose rules set provider:</label>
-                <select name="rulSet-select" id="rulSet-select">
-                    <option>ktlint</option>
-                    <option selected="selected">dikTat</option>
-                </select>
-            </div>
-        </div>
-        <br>
-        <div class="row" align="center">
-<!--            <div th:if="*{diktatConfigFile != null}">-->
-<!--                <label> File selected </label>-->
-<!--            </div>-->
-            <div class="upload-btn-wrapper">
-                <button class="btn">Upload config</button>
-                <input type="file" name="myfile" />
-            </div>
-            <div class="row" align="center">
-                <br>
-                <div id="submit-codeform-btn"></div>
-            </div>
-        </div>
-    </form>
+    <!-- Form will be filled by react -->
+    <div id="main-form-div"></div>
 
     <div class="footer">
         <p class="text-center">
