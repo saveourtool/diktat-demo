@@ -6,12 +6,12 @@ import org.cqfn.diktat.demo.views.CodeForm
 import kotlinx.browser.document
 import kotlinx.browser.window
 import kotlinx.coroutines.await
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.cqfn.diktat.demo.frontend.components.EditorForm
 import org.w3c.fetch.Headers
 import org.w3c.fetch.RequestInit
-import react.RProps
 import react.dom.render
 
 @Suppress("TOO_LONG_FUNCTION")
@@ -35,10 +35,6 @@ suspend fun uploadCodeForm(url: String, codeForm: CodeForm) = window
         )
     )
     .await()
-    .json()
+    .text()
     .await()
-    .unsafeCast<CodeForm>()
-
-external class CodeFormProps : RProps {
-    var codeForm: CodeForm
-}
+    .let { Json.decodeFromString<CodeForm>(it) }

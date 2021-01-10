@@ -27,6 +27,7 @@ import react.dom.option
 import react.dom.select
 import react.dom.span
 import react.dom.textArea
+import react.setState
 
 import kotlinx.browser.document
 import kotlinx.coroutines.GlobalScope
@@ -36,16 +37,31 @@ import kotlinx.html.InputType
 import kotlinx.html.id
 import kotlinx.html.js.onSubmitFunction
 
+external interface CodeFormProps : RProps {
+    var codeForm: CodeForm
+}
+
+external interface CodeFormState : RState {
+    var codeForm: CodeForm
+}
+
 /**
  * A component for a form, where initial and fixed code are displayed and linter settings are set.
  */
-class EditorForm : RComponent<RProps, RState>() {
+class EditorForm : RComponent<RProps, CodeFormState>() {
+    init {
+        state.codeForm = CodeForm()
+    }
+
     override fun RBuilder.render() {
-//        val (codeForm, setCodeForm) = useState(CodeForm())
         form {
             div {
                 attrs.id = "warnings-pane"
-                child(WarningsPane::class) {}
+                child(WarningsPane::class) {
+                    attrs {
+                        codeForm = state.codeForm
+                    }
+                }
             }
             div("row try-wrapper") {
                 span("arrow glyphicon glyphicon-arrow-right") {}
@@ -58,7 +74,6 @@ class EditorForm : RComponent<RProps, RState>() {
                             textArea(classes = "source") {
                                 attrs.id = "source"
                                 attrs.name = "source"
-                                attrs.onSubmitFunction = { it.preventDefault() }
                             }
                         }
                     }
@@ -75,7 +90,6 @@ class EditorForm : RComponent<RProps, RState>() {
                     input(InputType.checkBox, classes = "form-check-input", name = "check") {
                         attrs.id = "check"
                         attrs.value = "radioChk"
-                        attrs.onSubmitFunction = { it.preventDefault() }
                     }
                     label("form-check-label") {
                         attrs.htmlFor = "check"
@@ -85,7 +99,6 @@ class EditorForm : RComponent<RProps, RState>() {
                     input(InputType.checkBox, classes = "form-check-input", name = "fix") {
                         attrs.id = "fix"
                         attrs.value = "radioChk"
-                        attrs.onSubmitFunction = { it.preventDefault() }
                     }
                     label("form-check-label") {
                         attrs.htmlFor = "fix"
@@ -107,7 +120,6 @@ class EditorForm : RComponent<RProps, RState>() {
                             attrs.selected = true
                             +"diKTat"
                         }
-                        attrs.onSubmitFunction = { it.preventDefault() }
                     }
                 }
             }
@@ -120,9 +132,7 @@ class EditorForm : RComponent<RProps, RState>() {
                 div("upload-btn-wrapper") {
                     button(classes = "btn") {
                         +"Upload config"
-                        input(type = InputType.file, name = "myfile") {
-                            attrs.onSubmitFunction = { it.preventDefault() }
-                        }
+                        input(type = InputType.file, name = "myfile") {}
                     }
                 }
                 div("row") {
@@ -158,6 +168,9 @@ class EditorForm : RComponent<RProps, RState>() {
                         )
                             .apply {
                                 fixedCode?.let { resultSession.setValue(it) }
+                                setState {
+                                    codeForm = this@apply
+                                }
                             }
                     }
                 }

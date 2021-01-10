@@ -3,7 +3,6 @@ package org.cqfn.diktat.demo.frontend.components
 import kotlinx.browser.document
 import kotlinx.html.ButtonType
 import kotlinx.html.id
-import org.cqfn.diktat.demo.frontend.CodeFormProps
 import org.cqfn.diktat.demo.views.CodeForm
 import react.RBuilder
 import react.RComponent
@@ -30,20 +29,21 @@ class WarningsPane : RComponent<CodeFormProps, RState>() {
                         }
                         span { +"×" }
                     }
-                }
-                div {
-                    attrs.id = "warnings-list"
+                    div {
+                        attrs.id = "warnings-list"
+                    }
                 }
             }
         }
     }
 
     override fun componentDidUpdate(prevProps: CodeFormProps, prevState: RState, snapshot: Any) {
-        super.componentDidUpdate(prevProps, prevState, snapshot)
-        // todo: this doesn't work now
+        if (props.codeForm == prevProps.codeForm) {
+            return
+        }
         render(document.getElementById("warnings-list")) {
             span {
-                prevProps.codeForm.warnings?.map {
+                props.codeForm.warnings?.map {
                     span {
                         +it
                     }
