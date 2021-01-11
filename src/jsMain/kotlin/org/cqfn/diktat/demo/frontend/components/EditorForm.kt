@@ -1,3 +1,7 @@
+/**
+ * Main parts of frontend UI
+ */
+
 package org.cqfn.diktat.demo.frontend.components
 
 import org.cqfn.diktat.demo.frontend.uploadCodeForm
@@ -37,11 +41,23 @@ import kotlinx.html.InputType
 import kotlinx.html.id
 import kotlinx.html.js.onSubmitFunction
 
+/**
+ * [RProps] implementation to store [CodeForm]
+ */
 external interface CodeFormProps : RProps {
+    /**
+     * A [CodeForm]
+     */
     var codeForm: CodeForm
 }
 
+/**
+ * [RState] implementation to store [CodeForm]
+ */
 external interface CodeFormState : RState {
+    /**
+     * A [CodeForm]
+     */
     var codeForm: CodeForm
 }
 
@@ -53,6 +69,7 @@ class EditorForm : RComponent<RProps, CodeFormState>() {
         state.codeForm = CodeForm()
     }
 
+    @Suppress("TOO_LONG_FUNCTION", "EMPTY_BLOCK_STRUCTURE_ERROR")
     override fun RBuilder.render() {
         form {
             div {
@@ -126,9 +143,7 @@ class EditorForm : RComponent<RProps, CodeFormState>() {
             br {}
             div("row") {
                 setProp("align", "center")
-//                <!--            <div th:if="*{diktatConfigFile != null}">-->
-//                <!--                <label> File selected </label>-->
-//                <!--            </div>-->
+                // todo: config file upload here
                 div("upload-btn-wrapper") {
                     button(classes = "btn") {
                         +"Upload config"
@@ -140,9 +155,7 @@ class EditorForm : RComponent<RProps, CodeFormState>() {
                     br {}
                     button(classes = "btn btn-primary", type = ButtonType.submit) {
                         +"Submit"
-                            // className(codeFormStore.tracker.map {
-                            // if (it) "spinner-border spinner-border-sm mr-2" else ""
-                            // })
+                        // todo: loading animation while results are calculated
                     }
                 }
             }

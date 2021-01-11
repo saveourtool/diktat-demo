@@ -1,18 +1,19 @@
 package org.cqfn.diktat.demo.frontend.components
 
-import kotlinx.browser.document
-import kotlinx.html.ButtonType
-import kotlinx.html.id
 import org.cqfn.diktat.demo.views.CodeForm
+
 import react.RBuilder
 import react.RComponent
 import react.RState
 import react.dom.br
 import react.dom.button
 import react.dom.div
-
 import react.dom.render
 import react.dom.span
+
+import kotlinx.browser.document
+import kotlinx.html.ButtonType
+import kotlinx.html.id
 
 /**
  * A UI component to display warnings from [CodeForm.warnings]
@@ -37,7 +38,9 @@ class WarningsPane : RComponent<CodeFormProps, RState>() {
         }
     }
 
-    override fun componentDidUpdate(prevProps: CodeFormProps, prevState: RState, snapshot: Any) {
+    override fun componentDidUpdate(prevProps: CodeFormProps,
+                                    prevState: RState,
+                                    snapshot: Any) {
         if (props.codeForm == prevProps.codeForm) {
             return
         }

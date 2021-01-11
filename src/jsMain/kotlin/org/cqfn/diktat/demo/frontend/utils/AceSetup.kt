@@ -5,21 +5,9 @@
 package org.cqfn.diktat.demo.frontend.utils
 
 import js.externals.jquery.`$`
-import org.w3c.dom.HTMLElement
 import org.w3c.dom.HTMLTextAreaElement
 
 import kotlinx.browser.document
-
-@Suppress("MISSING_KDOC_TOP_LEVEL", "MISSING_KDOC_ON_FUNCTION")  // what is this function for? it's unused for a long time...
-fun getFile() = (document.getElementById("upfile") as HTMLElement).click()
-
-// todo unused?
-// fun sub(obj: Any) {
-// val file = obj.value
-// val filePathParts = file.split("\\")
-// document.getElementById("yourBtn").innerHTML = filePathParts.last()
-// document.myForm.submit()
-// }
 
 /**
  * Setup Ace editor by applying it to textareas for source and result.
