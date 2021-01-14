@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DiKTat Online demo</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
+          integrity="sha384-PmY9l28YgO4JwMKbTvgaS7XNZJ30MK9FAZjjzXtlqyZCqBY6X6bXIkM++IkyinN+" crossorigin="anonymous">
+
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"
+            integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"
+            integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<br>
+<div class="container">
+    <div class="row" align="center">
+        <div class="col-sm-12">
+            <a href="https://github.com/cqfn/diKTat"><img src="img/demo.png" class="img-fluid" align="center"/></a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>KTlint online demo </h1>
+            <p>Below you can choose which rule set to use to fix or check your code: <a href="https://ktlint.github.io/">KTlint standard</a> or custom diktat* rule set</p>
+            <p>*<a href="https://github.com/cqfn/diKTat">diKTat</a> is a codestyle and linter for Kotlin based on awesome KTlint (you can create your own style)</p>
+        </div>
+    </div>
+
+    <!-- Form will be filled by react -->
+    <div id="main-form-div"></div>
+
+    <div class="footer">
+        <p class="text-center">
+            This demo is used to show how KTlint framework is powerful and how diKTat rule set can fix your code.
+            Sources are <a href="https://github.com/akuleshov7/diKTat-demo">here</a>
+            <br>
+            Inspired by https://yapf.now.sh/
+        </p>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"
+        integrity="sha384-vhJnz1OVIdLktyixHY4Uk3OHEwdQqPppqYR8+5mjsauETgLOcEynD9oPHhhz18Nw"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.2/ace.js"
+        integrity="sha256-rfN9xU0ELcvTsc3WUaKlvSVEfzLvFCyl+ID09aieASo=" crossorigin="anonymous"></script>
+<!-- Load React. -->
+<!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+<script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+<!-- Load our React component. -->
+<script src="diktat-demo.js"></script>
+</body>
+</html>

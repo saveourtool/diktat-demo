@@ -171,10 +171,10 @@
   enabled: true
   configuration:
     newlineAtEnd: true
-    extendedIndentOfParameters: true
+    extendedIndentOfParameters: false
     alignedParameters: true
     extendedIndentAfterOperators: true
-    extendedIndentBeforeDot: true
+    extendedIndentBeforeDot: false
     indentationSize: 4
 - name: EMPTY_BLOCK_STRUCTURE_ERROR
   enabled: true

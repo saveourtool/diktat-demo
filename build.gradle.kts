@@ -5,6 +5,7 @@ plugins {
     `maven-publish`
     kotlin("multiplatform") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
+    kotlin("plugin.serialization") version "1.4.21"
     id("org.springframework.boot") version "2.4.1"
     id("org.cqfn.diktat.diktat-gradle-plugin") version "0.2.0"
 }
@@ -14,9 +15,13 @@ repositories {
 }
 
 val kotlinVersion = "1.4.21"
+val serializationVersion = "1.0.1"
 val diktatVersion = "0.2.0"
 val ktlintVersion = "0.39.0"
 val springBootVersion = "2.4.1"
+
+val reactVersion = "17.0.0"
+val kotlinReactVersion = "17.0.0-pre.134-kotlin-1.4.10"
 
 publishing {
     publications {
@@ -34,8 +39,11 @@ tasks.withType<JavaCompile> {
 }
 
 kotlin {
-    js {
-        browser { }
+    js(LEGACY).browser {
+        repositories {
+            jcenter()
+            maven("https://kotlin.bintray.com/js-externals")
+        }
     }
 
     jvm {
@@ -52,9 +60,14 @@ kotlin {
     }
 
     sourceSets {
+        getByName("commonMain") {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+            }
+        }
+
         getByName("jvmMain") {
             dependencies {
-                implementation("org.springframework.boot:spring-boot-starter-thymeleaf:$springBootVersion")
                 implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
                 implementation("org.cqfn.diktat:diktat-common:$diktatVersion") {
                     // exclude to use logback provided by spring
@@ -65,7 +78,6 @@ kotlin {
                 }
                 implementation("com.pinterest.ktlint:ktlint-core:$ktlintVersion")
                 implementation("com.pinterest.ktlint:ktlint-ruleset-standard:$ktlintVersion")
-                implementation(kotlin("stdlib-jdk8"))
             }
         }
 
@@ -78,20 +90,26 @@ kotlin {
         getByName("jsMain") {
             dependencies {
                 implementation(kotlin("stdlib-js"))
+                compileOnly("kotlin.js.externals:kotlin-js-jquery:3.2.0-0")
                 implementation(npm("ace-builds", "1.4.11"))
+                implementation("org.jetbrains:kotlin-react:$kotlinReactVersion")
+                implementation("org.jetbrains:kotlin-react-dom:$kotlinReactVersion")
+                implementation(npm("react", reactVersion))
+                implementation(npm("react-dom", reactVersion))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
             }
         }
     }
 }
 
-tasks.getByName("jvmMainClasses").dependsOn(tasks.getByName("processDceJsKotlinJs"))
 tasks.getByName("jvmMainClasses") {
+    dependsOn(tasks.getByName("jsBrowserProductionWebpack"))
+//    dependsOn(tasks.getByName("jsBrowserDevelopmentWebpack"))
     doLast {
-        mkdir("build/processedResources/jvm/main/static/js")
+        mkdir("build/processedResources/jvm/main/static")
         copy {
-            from("build/js/packages/diktat-demo/kotlin-dce")
-            include("*.js", "*.js.map")
-            into("build/processedResources/jvm/main/static/js")
+            from("$buildDir/distributions")
+            into("build/processedResources/jvm/main/static")
         }
     }
 }
