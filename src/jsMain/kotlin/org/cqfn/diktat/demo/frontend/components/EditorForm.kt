@@ -34,6 +34,7 @@ import react.dom.textArea
 import react.setState
 
 import kotlinx.browser.document
+import kotlinx.browser.window
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.html.ButtonType
@@ -167,7 +168,7 @@ class EditorForm : RComponent<RProps, CodeFormState>() {
                         val form = document.getElementById("main-form") as HTMLFormElement
                         val textarea = document.getElementById("source") as HTMLTextAreaElement
                         val resultSession = Ace.edit("result").getSession()
-                        uploadCodeForm("http://localhost:8082/demo",
+                        uploadCodeForm("${window.location.origin}/demo",
                             CodeForm(
                                 initialCode = textarea.value,
                                 check = (form.elements["check"] as HTMLInputElement).checked,
