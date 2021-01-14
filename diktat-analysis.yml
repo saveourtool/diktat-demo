@@ -343,3 +343,43 @@
 - name: CLASS_SHOULD_NOT_BE_ABSTRACT
   enabled: true
   configuration: {}
+# Checks if there are any trivial getters or setters
+- name: TRIVIAL_ACCESSORS_ARE_NOT_RECOMMENDED
+  enabled: true
+# Checks that no custom getters and setters are used for properties. It is a more wide rule than TRIVIAL_ACCESSORS_ARE_NOT_RECOMMENDED
+# Kotlin compiler automatically generates `get` and `set` methods for properties and also lets the possibility to override it.
+# But in all cases it is very confusing when `get` and `set` are overridden for a developer who uses this particular class.
+# Developer expects to get the value of the property, but receives some unknown value and some extra side effect hidden by the custom getter/setter.
+# Use extra functions for it instead.
+- name: CUSTOM_GETTERS_SETTERS
+  enabled: true
+# Checks if null-check was used explicitly (for example: if (a == null))
+# Try to avoid explicit null checks (explicit comparison with `null`)
+# Kotlin is declared as [Null-safe](https://kotlinlang.org/docs/reference/null-safety.html) language.
+# But Kotlin architects wanted Kotlin to be fully compatible with Java, that's why `null` keyword was also introduced in Kotlin.
+# There are several code-structures that can be used in Kotlin to avoid null-checks. For example: `?:`,  `.let {}`, `.also {}`, e.t.c
+- name: AVOID_NULL_CHECKS
+  enabled: true
+# Checks if class instantiation can be wrapped in `apply` for better readability
+- name: COMPACT_OBJECT_INITIALIZATION
+  enabled: true
+# Checks explicit supertype qualification
+- name: USELESS_SUPERTYPE
+  enabled: true
+# Checks if extension function with the same signature don't have related classes
+- name: EXTENSION_FUNCTION_SAME_SIGNATURE
+  enabled: true
+# Checks if there is empty primary constructor
+- name: EMPTY_PRIMARY_CONSTRUCTOR
+  enabled: true
+# In case of not using field keyword in property accessors,
+# there should be explicit backing property with the name of real property
+# Example: val table get() {if (_table == null) ...} -> table should have _table
+- name: NO_CORRESPONDING_PROPERTY
+  enabled: true
+# Checks if there is class/object that can be replace with extension function
+- name: AVOID_USING_UTILITY_CLASS
+  enabled: true
+# If there is stateless class it is preferred to use object
+- name: OBJECT_IS_PREFERRED
+  enabled: true
