@@ -11,6 +11,9 @@ import org.cqfn.diktat.demo.views.CodeForm
 import generated.PROJECT_REVISION
 import org.w3c.fetch.Headers
 import org.w3c.fetch.RequestInit
+import react.dom.a
+import react.dom.br
+import react.dom.p
 import react.dom.render
 
 import kotlinx.browser.document
@@ -19,9 +22,6 @@ import kotlinx.coroutines.await
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import react.dom.a
-import react.dom.br
-import react.dom.p
 
 @Suppress("EMPTY_BLOCK_STRUCTURE_ERROR")
 fun main() {
