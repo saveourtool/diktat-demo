@@ -8,6 +8,7 @@ import org.cqfn.diktat.demo.frontend.components.EditorForm
 import org.cqfn.diktat.demo.frontend.utils.setupAceEditor
 import org.cqfn.diktat.demo.views.CodeForm
 
+import generated.PROJECT_REVISION
 import org.w3c.fetch.Headers
 import org.w3c.fetch.RequestInit
 import react.dom.render
@@ -18,11 +19,26 @@ import kotlinx.coroutines.await
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import react.dom.a
+import react.dom.br
+import react.dom.p
 
-@Suppress("TOO_LONG_FUNCTION", "EMPTY_BLOCK_STRUCTURE_ERROR")
+@Suppress("EMPTY_BLOCK_STRUCTURE_ERROR")
 fun main() {
     render(document.getElementById("main-form-div")) {
         child(EditorForm::class) {}
+    }
+
+    render(document.getElementById("footer")) {
+        p("text-center") {
+            +"This demo is used to show how KTlint framework is powerful and how diKTat rule set can fix your code. Sources are "
+            a(href = "https://github.com/akuleshov7/diKTat-demo") { +"here" }
+            br { }
+            +"Inspired by https://yapf.now.sh/"
+        }
+        p("text-center") {
+            +"Revision $PROJECT_REVISION"
+        }
     }
 
     setupAceEditor()

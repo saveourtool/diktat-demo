@@ -1,6 +1,7 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
+    id("com.github.ben-manes.versions") version "0.36.0"
     java
     `maven-publish`
     kotlin("multiplatform") version "1.4.21"
@@ -8,6 +9,7 @@ plugins {
     kotlin("plugin.serialization") version "1.4.21"
     id("org.springframework.boot") version "2.4.1"
     id("org.cqfn.diktat.diktat-gradle-plugin") version "0.2.0"
+    id("com.palantir.git-version") version "0.12.3"
 }
 
 repositories {
@@ -102,9 +104,37 @@ kotlin {
     }
 }
 
+val generateVersionFileTaskProvider = tasks.register("generateVersionFile") {
+    val versionsFile = File("$buildDir/generated/src/generated/Versions.kt")
+
+    outputs.file(versionsFile)
+
+    doFirst {
+        versionsFile.parentFile.mkdirs()
+        versionsFile.writeText(
+            """
+            package generated
+
+            internal const val PROJECT_VERSION = "$version"
+            internal const val PROJECT_REVISION = "${ext.properties["gitVersion"].let { it as groovy.lang.Closure<String> }.invoke()}"
+            internal const val DIKTAT_VERSION = "$diktatVersion"
+            internal const val KTLINT_VERSION = "$ktlintVersion"
+
+            """.trimIndent()
+        )
+    }
+}
+val generatedKotlinSrc = kotlin.sourceSets.create("generated") {
+    kotlin.srcDir("$buildDir/generated/src")
+}
+kotlin.sourceSets.getByName("jsMain").dependsOn(generatedKotlinSrc)
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile>().forEach {
+    it.dependsOn(generateVersionFileTaskProvider)
+}
+
 tasks.getByName("jvmMainClasses") {
-    dependsOn(tasks.getByName("jsBrowserProductionWebpack"))
-//    dependsOn(tasks.getByName("jsBrowserDevelopmentWebpack"))
+//    dependsOn(tasks.getByName("jsBrowserProductionWebpack"))
+    dependsOn(tasks.getByName("jsBrowserDevelopmentWebpack"))
     doLast {
         mkdir("build/processedResources/jvm/main/static")
         copy {
