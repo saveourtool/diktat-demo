@@ -110,13 +110,15 @@ val generateVersionFileTaskProvider = tasks.register("generateVersionFile") {
     outputs.file(versionsFile)
 
     doFirst {
+        // heroku sets `SOURCE_VERSION` variable during build, while git repo is unavailable
+        val gitRevisionEnv = System.getenv("SOURCE_VERSION")
         versionsFile.parentFile.mkdirs()
         versionsFile.writeText(
             """
             package generated
 
             internal const val PROJECT_VERSION = "$version"
-            internal const val PROJECT_REVISION = "${ext.properties["gitVersion"].let { it as groovy.lang.Closure<String> }.invoke()}"
+            internal const val PROJECT_REVISION = "${gitRevisionEnv ?: ext.properties["gitVersion"].let { it as groovy.lang.Closure<String> }.invoke()}"
             internal const val DIKTAT_VERSION = "$diktatVersion"
             internal const val KTLINT_VERSION = "$ktlintVersion"
 
