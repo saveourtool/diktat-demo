@@ -134,10 +134,14 @@ class EditorForm : RComponent<RProps, CodeFormState>() {
                         attrs.name = "rulSet-select"
                         attrs.id = "rulSet-select"
                         option {
+                            attrs.value = RulesSetTypes.KTLINT.name
                             +"ktlint ($KTLINT_VERSION)"
                         }
                         option {
-                            attrs.selected = true
+                            attrs {
+                                value = RulesSetTypes.DIKTAT.name
+                                selected = true
+                            }
                             +"diKTat ($DIKTAT_VERSION)"
                         }
                     }
