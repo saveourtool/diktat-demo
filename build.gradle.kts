@@ -1,4 +1,5 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
+import com.palantir.gradle.gitversion.GitVersionPlugin
 
 plugins {
     id("com.github.ben-manes.versions") version "0.36.0"
@@ -9,7 +10,7 @@ plugins {
     kotlin("plugin.serialization") version "1.4.21"
     id("org.springframework.boot") version "2.4.1"
     id("org.cqfn.diktat.diktat-gradle-plugin") version "0.2.0"
-    id("com.palantir.git-version") version "0.12.3"
+    id("com.palantir.git-version") version "0.12.3" apply false
 }
 
 repositories {
@@ -111,14 +112,18 @@ val generateVersionFileTaskProvider = tasks.register("generateVersionFile") {
 
     doFirst {
         // heroku sets `SOURCE_VERSION` variable during build, while git repo is unavailable
-        val gitRevisionEnv = System.getenv("SOURCE_VERSION")
+        // for successful build either .git directory should be present or SOURCE_VERSION should be set
+        val gitRevisionEnv = System.getenv("SOURCE_VERSION") ?: run {
+            apply<GitVersionPlugin>()
+            ext.properties["gitVersion"].let { it as groovy.lang.Closure<String> }.invoke()
+        }
         versionsFile.parentFile.mkdirs()
         versionsFile.writeText(
             """
             package generated
 
             internal const val PROJECT_VERSION = "$version"
-            internal const val PROJECT_REVISION = "${gitRevisionEnv ?: ext.properties["gitVersion"].let { it as groovy.lang.Closure<String> }.invoke()}"
+            internal const val PROJECT_REVISION = "$gitRevisionEnv"
             internal const val DIKTAT_VERSION = "$diktatVersion"
             internal const val KTLINT_VERSION = "$ktlintVersion"
 
