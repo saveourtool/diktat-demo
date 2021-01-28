@@ -9,6 +9,8 @@ import org.cqfn.diktat.demo.frontend.utils.Ace
 import org.cqfn.diktat.demo.views.CodeForm
 import org.cqfn.diktat.demo.views.RulesSetTypes
 
+import generated.DIKTAT_VERSION
+import generated.KTLINT_VERSION
 import org.w3c.dom.HTMLFormElement
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLOptionElement
@@ -132,11 +134,11 @@ class EditorForm : RComponent<RProps, CodeFormState>() {
                         attrs.name = "rulSet-select"
                         attrs.id = "rulSet-select"
                         option {
-                            +"ktlint"
+                            +"ktlint ($KTLINT_VERSION)"
                         }
                         option {
                             attrs.selected = true
-                            +"diKTat"
+                            +"diKTat ($DIKTAT_VERSION)"
                         }
                     }
                 }
