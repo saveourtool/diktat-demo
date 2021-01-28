@@ -133,8 +133,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.Kotlin2JsCompile>().forEach {
 }
 
 tasks.getByName("jvmMainClasses") {
-//    dependsOn(tasks.getByName("jsBrowserProductionWebpack"))
-    dependsOn(tasks.getByName("jsBrowserDevelopmentWebpack"))
+    dependsOn(tasks.getByName("jsBrowserProductionWebpack"))
     doLast {
         mkdir("build/processedResources/jvm/main/static")
         copy {
