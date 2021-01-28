@@ -47,10 +47,12 @@ class WarningsPane : RComponent<CodeFormProps, RState>() {
         render(document.getElementById("warnings-list")) {
             span {
                 props.codeForm.warnings?.map {
-                    span {
-                        +it
+                    it.lines().take(10).map {
+                        span {
+                            +it
+                        }
+                        br { }
                     }
-                    br { }
                 }
             }
         }

@@ -2,6 +2,7 @@ package org.cqfn.diktat.demo.controller
 
 import org.cqfn.diktat.demo.processing.CodeFix
 import org.cqfn.diktat.demo.views.CodeForm
+import org.cqfn.diktat.demo.views.RulesSetTypes
 
 import com.pinterest.ktlint.core.LintError
 import com.pinterest.ktlint.core.ParseException
@@ -49,7 +50,15 @@ class DemoController {
         when {
             result.isSuccess -> codeForm.warnings = codeFix.listOfWarnings.map { it.prettyFormat(file) }
             result.exceptionOrNull() is ParseException -> codeForm.warnings = listOf(result.exceptionOrNull().toString())
-            else -> log.error("Running formatter returned unexpected exception", result.exceptionOrNull())
+            else -> {
+                val issueLink = if (RulesSetTypes.KTLINT in codeForm.ruleSet) "https://github.com/pinterest/ktlint/issues" else "https://github.com/cqfn/diktat/issues"
+                codeForm.warnings = listOf(
+                    """
+                        |Unhandled exception during tool execution, please create a ticket at $issueLink:
+                        |${result.exceptionOrNull()!!.stackTraceToString()}
+                    """.trimMargin())
+                log.error("Running formatter returned unexpected exception", result.exceptionOrNull())
+            }
         }
         file.delete()
         return codeForm
