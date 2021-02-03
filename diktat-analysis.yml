@@ -124,7 +124,7 @@
 - name: HEADER_NOT_BEFORE_PACKAGE
   enabled: true
   configuration: {}
-- name: HEADER_CONTAINS_DATE_OR_AUTHOR
+- name: KDOC_CONTAINS_DATE_OR_AUTHOR
   enabled: true
   configuration: {}
 - name: FILE_IS_TOO_LONG
