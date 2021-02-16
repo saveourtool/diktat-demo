@@ -37,8 +37,8 @@ class CodeFix(private val code: String, typeRule: RulesSetTypes) {
                 fileName = absoluteFilePath,
                 text = code,
                 ruleSets = ruleSets,
-                cb = { lintError, _ -> res.add(lintError) }
-            )
+                cb = { lintError, _ -> res.add(lintError) },
+            ),
         )
         listOfWarnings = res
         return formattedResult
@@ -54,8 +54,8 @@ class CodeFix(private val code: String, typeRule: RulesSetTypes) {
                 fileName = absoluteFilePath,
                 text = code,
                 ruleSets = ruleSets,
-                cb = { lintError, _ -> res.add(lintError) }
-            )
+                cb = { lintError, _ -> res.add(lintError) },
+            ),
         )
         listOfWarnings = res
     }

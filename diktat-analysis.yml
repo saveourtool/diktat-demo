@@ -384,3 +384,23 @@
 # If there is stateless class it is preferred to use object
 - name: OBJECT_IS_PREFERRED
   enabled: true
+# Checks trailing comma
+- name: TRAILING_COMMA
+  enabled: true
+  configuration:
+    # VALUE_ARGUMENT
+    valueArgument: true
+    # VALUE_PARAMETER
+    valueParameter: true
+    # REFERENCE_EXPRESSION
+    indices: true
+    # WHEN_CONDITION_WITH_EXPRESSION
+    whenConditions: true
+    # STRING_TEMPLATE
+    collectionLiteral: true
+    # TYPE_PROJECTION
+    typeArgument: true
+    # TYPE_PARAMETER
+    typeParameter: true
+    # DESTRUCTURING_DECLARATION_ENTRY
+    destructuringDeclaration: true
