@@ -254,7 +254,7 @@
   enabled: true
   configuration: {}
 # Inspection that checks if there is no blank lines before first comment
-- name: FIRST_COMMENT_NO_SPACES
+- name: FIRST_COMMENT_NO_BLANK_LINE
   enabled: true
   configuration: {}
 # Inspection that checks if there are blank lines between code and comment and between code start token and comment's text
