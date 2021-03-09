@@ -53,6 +53,7 @@ kotlin {
         repositories {
             mavenLocal()
             mavenCentral()
+            maven("https://repo.spring.io/milestone")
         }
         withJava()
         compilations.all {
@@ -72,6 +73,7 @@ kotlin {
         getByName("jvmMain") {
             dependencies {
                 implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+                implementation("org.springframework.fu:spring-fu-kofu:0.4.3")
                 implementation("org.cqfn.diktat:diktat-common:$diktatVersion") {
                     // exclude to use logback provided by spring
                     exclude("org.slf4j", "slf4j-log4j12")
