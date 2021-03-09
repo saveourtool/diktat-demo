@@ -183,8 +183,8 @@ class EditorForm : RComponent<RProps, CodeFormState>() {
                                     .selectedOptions
                                     .asList()
                                     .map { (it as HTMLOptionElement).value.toUpperCase() }
-                                    .map(RulesSetTypes::valueOf)
-                            )
+                                    .map(RulesSetTypes::valueOf),
+                            ),
                         )
                             .apply {
                                 fixedCode?.let { resultSession.setValue(it) }

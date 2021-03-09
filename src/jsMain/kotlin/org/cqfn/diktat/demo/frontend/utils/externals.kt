@@ -2,8 +2,13 @@
  * External JS declarations
  */
 
-@file:Suppress("MISSING_KDOC_TOP_LEVEL", "MISSING_KDOC_ON_FUNCTION", "MISSING_KDOC_CLASS_ELEMENTS",
-    "KDOC_WITHOUT_PARAM_TAG", "KDOC_WITHOUT_RETURN_TAG")
+@file:Suppress(
+    "MISSING_KDOC_TOP_LEVEL",
+    "MISSING_KDOC_ON_FUNCTION",
+    "MISSING_KDOC_CLASS_ELEMENTS",
+    "KDOC_WITHOUT_PARAM_TAG",
+    "KDOC_WITHOUT_RETURN_TAG",
+)
 
 package org.cqfn.diktat.demo.frontend.utils
 
