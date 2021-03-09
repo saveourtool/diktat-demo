@@ -2,6 +2,7 @@
   enabled: true
   configuration:
     domainName: org.cqfn.diktat
+    kotlinVersion: 1.4
 - name: CLASS_NAME_INCORRECT
   enabled: true
   configuration: {}
@@ -124,7 +125,7 @@
 - name: HEADER_NOT_BEFORE_PACKAGE
   enabled: true
   configuration: {}
-- name: HEADER_CONTAINS_DATE_OR_AUTHOR
+- name: KDOC_CONTAINS_DATE_OR_AUTHOR
   enabled: true
   configuration: {}
 - name: FILE_IS_TOO_LONG
@@ -253,7 +254,7 @@
   enabled: true
   configuration: {}
 # Inspection that checks if there is no blank lines before first comment
-- name: FIRST_COMMENT_NO_SPACES
+- name: FIRST_COMMENT_NO_BLANK_LINE
   enabled: true
   configuration: {}
 # Inspection that checks if there are blank lines between code and comment and between code start token and comment's text
@@ -383,3 +384,23 @@
 # If there is stateless class it is preferred to use object
 - name: OBJECT_IS_PREFERRED
   enabled: true
+# Checks trailing comma
+- name: TRAILING_COMMA
+  enabled: true
+  configuration:
+    # VALUE_ARGUMENT
+    valueArgument: true
+    # VALUE_PARAMETER
+    valueParameter: true
+    # REFERENCE_EXPRESSION
+    indices: true
+    # WHEN_CONDITION_WITH_EXPRESSION
+    whenConditions: true
+    # STRING_TEMPLATE
+    collectionLiteral: true
+    # TYPE_PROJECTION
+    typeArgument: true
+    # TYPE_PARAMETER
+    typeParameter: true
+    # DESTRUCTURING_DECLARATION_ENTRY
+    destructuringDeclaration: true
