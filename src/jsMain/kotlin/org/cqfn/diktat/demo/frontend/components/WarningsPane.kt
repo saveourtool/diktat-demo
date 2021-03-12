@@ -1,7 +1,5 @@
 package org.cqfn.diktat.demo.frontend.components
 
-import org.cqfn.diktat.demo.views.CodeForm
-
 import react.RBuilder
 import react.RComponent
 import react.RState

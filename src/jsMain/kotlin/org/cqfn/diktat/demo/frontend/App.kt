@@ -58,8 +58,8 @@ suspend fun uploadCodeForm(url: String, codeForm: CodeForm) = window
             headers = Headers().also {
                 it.set("Content-Type", "application/json")
             },
-            body = Json.encodeToString(codeForm)
-        )
+            body = Json.encodeToString(codeForm),
+        ),
     )
     .await()
     .text()
