@@ -1,4 +1,6 @@
-@file:Suppress("MISSING_KDOC_TOP_LEVEL")
+/**
+ * The main entrypoint of diktat-demo application.
+ */
 
 package org.cqfn.diktat.demo
 
@@ -9,6 +11,7 @@ import org.springframework.fu.kofu.webApplication
 import org.springframework.fu.kofu.webmvc.webMvc
 import org.springframework.http.MediaType
 
+@Suppress("GENERIC_VARIABLE_WRONG_DECLARATION")
 fun main(args: Array<String>) {
     val application = webApplication {
         beans {

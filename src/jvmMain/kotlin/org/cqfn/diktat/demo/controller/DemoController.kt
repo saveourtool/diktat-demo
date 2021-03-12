@@ -7,7 +7,6 @@ import org.cqfn.diktat.demo.views.RulesSetTypes
 import com.pinterest.ktlint.core.LintError
 import com.pinterest.ktlint.core.ParseException
 import org.slf4j.LoggerFactory
-import org.springframework.stereotype.Controller
 
 import java.io.File
 import java.util.UUID
