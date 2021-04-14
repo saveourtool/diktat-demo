@@ -5,11 +5,11 @@ plugins {
     id("com.github.ben-manes.versions") version "0.38.0"
     java
     `maven-publish`
-    kotlin("multiplatform") version "1.4.31"
-    kotlin("plugin.spring") version "1.4.31"
-    kotlin("plugin.serialization") version "1.4.31"
-    id("org.springframework.boot") version "2.4.3"
-    id("org.cqfn.diktat.diktat-gradle-plugin") version "0.4.2"
+    kotlin("multiplatform") version "1.4.32"
+    kotlin("plugin.spring") version "1.4.32"
+    kotlin("plugin.serialization") version "1.4.32"
+    id("org.springframework.boot") version "2.4.4"
+    id("org.cqfn.diktat.diktat-gradle-plugin") version "0.5.0"
     id("com.palantir.git-version") version "0.12.3" apply false
 }
 
@@ -17,11 +17,11 @@ repositories {
     jcenter()
 }
 
-val kotlinVersion = "1.4.31"
+val kotlinVersion = "1.4.32"
 val serializationVersion = "1.1.0"
-val diktatVersion = "0.4.2"
+val diktatVersion = "0.5.0"
 val ktlintVersion = "0.39.0"
-val springBootVersion = "2.4.3"
+val springBootVersion = "2.4.4"
 
 val reactVersion = "17.0.1"
 val kotlinReactVersion = "17.0.1-pre.148-kotlin-1.4.30"
