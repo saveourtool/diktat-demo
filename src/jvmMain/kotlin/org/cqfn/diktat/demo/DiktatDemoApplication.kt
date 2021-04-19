@@ -11,6 +11,8 @@ import org.springframework.fu.kofu.webApplication
 import org.springframework.fu.kofu.webmvc.webMvc
 import org.springframework.http.MediaType
 
+private const val SERVER_PORT = 8082
+
 @Suppress("GENERIC_VARIABLE_WRONG_DECLARATION")
 fun main(args: Array<String>) {
     val application = webApplication {
@@ -18,7 +20,7 @@ fun main(args: Array<String>) {
             bean<DemoController>()
         }
         webMvc {
-            port = 8082
+            port = SERVER_PORT
             router {
                 val controller = ref<DemoController>()
                 GET("/") {
