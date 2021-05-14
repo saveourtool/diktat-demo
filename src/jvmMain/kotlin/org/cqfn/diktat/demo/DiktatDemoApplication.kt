@@ -34,6 +34,7 @@ fun main(args: Array<String>) {
                 resources("/**", ClassPathResource("static/"))
             }
             converters {
+                resource()
                 kotlinSerialization()
             }
         }
