@@ -1,13 +1,44 @@
-@file:Suppress("MISSING_KDOC_TOP_LEVEL")
+/**
+ * The main entrypoint of diktat-demo application.
+ */
 
 package org.cqfn.diktat.demo
 
-import org.springframework.boot.SpringApplication
-import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.cqfn.diktat.demo.controller.DemoController
+import org.cqfn.diktat.demo.views.CodeForm
+import org.springframework.core.io.ClassPathResource
+import org.springframework.fu.kofu.webApplication
+import org.springframework.fu.kofu.webmvc.webMvc
+import org.springframework.http.MediaType
 
-@SpringBootApplication
-open class DiktatDemoApplication
+private const val SERVER_PORT = 8082
 
+@Suppress("GENERIC_VARIABLE_WRONG_DECLARATION")
 fun main(args: Array<String>) {
-    SpringApplication.run(DiktatDemoApplication::class.java, *args)
+    val application = webApplication {
+        beans {
+            bean<DemoController>()
+        }
+        webMvc {
+            port = SERVER_PORT
+            router {
+                val controller = ref<DemoController>()
+                GET("/") {
+                    ok().contentType(MediaType.TEXT_HTML)
+                        .body(ClassPathResource("static/index.html"))
+                }
+                POST("/demo", contentType(MediaType.APPLICATION_JSON)) {
+                    ok().contentType(MediaType.APPLICATION_JSON)
+                        .body(controller.checkAndFixCode(it.body(CodeForm::class.java)))
+                }
+                resources("/**", ClassPathResource("static/"))
+            }
+            converters {
+                resource()
+                kotlinSerialization()
+            }
+        }
+    }
+
+    application.run(args)
 }

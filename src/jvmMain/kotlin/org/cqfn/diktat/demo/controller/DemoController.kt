@@ -7,11 +7,6 @@ import org.cqfn.diktat.demo.views.RulesSetTypes
 import com.pinterest.ktlint.core.LintError
 import com.pinterest.ktlint.core.ParseException
 import org.slf4j.LoggerFactory
-import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.CrossOrigin
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.ResponseBody
 
 import java.io.File
 import java.util.UUID
@@ -19,8 +14,6 @@ import java.util.UUID
 /**
  * Main [Controller] for spring boot
  */
-@Controller
-@CrossOrigin
 class DemoController {
     @Synchronized
     private fun generateFileName(): String = UUID.randomUUID().toString()
@@ -31,9 +24,7 @@ class DemoController {
      * @param codeFormHtml
      * @return a page name
      */
-    @PostMapping(path = ["/$PAGE_NAME"])
-    @ResponseBody
-    fun checkAndFixCode(@RequestBody codeFormHtml: CodeForm): CodeForm {
+    fun checkAndFixCode(codeFormHtml: CodeForm): CodeForm {
         val codeForm = codeFormHtml
         val codeFix = CodeFix(codeForm.initialCode!!, codeFormHtml.ruleSet[0])
         val file = getDemoFile()
