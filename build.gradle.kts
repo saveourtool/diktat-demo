@@ -2,14 +2,14 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 import com.palantir.gradle.gitversion.GitVersionPlugin
 
 plugins {
-    id("com.github.ben-manes.versions") version "0.36.0"
+    id("com.github.ben-manes.versions") version "0.38.0"
     java
     `maven-publish`
-    kotlin("multiplatform") version "1.4.21"
-    kotlin("plugin.spring") version "1.4.21"
-    kotlin("plugin.serialization") version "1.4.21"
-    id("org.springframework.boot") version "2.4.1"
-    id("org.cqfn.diktat.diktat-gradle-plugin") version "0.4.1"
+    kotlin("multiplatform") version "1.4.32"
+    kotlin("plugin.spring") version "1.4.32"
+    kotlin("plugin.serialization") version "1.4.32"
+    id("org.springframework.boot") version "2.4.4"
+    id("org.cqfn.diktat.diktat-gradle-plugin") version "0.5.2"
     id("com.palantir.git-version") version "0.12.3" apply false
 }
 
@@ -17,14 +17,14 @@ repositories {
     jcenter()
 }
 
-val kotlinVersion = "1.4.21"
-val serializationVersion = "1.0.1"
-val diktatVersion = "0.4.1"
+val kotlinVersion = "1.4.32"
+val serializationVersion = "1.1.0"
+val diktatVersion = "0.5.2"
 val ktlintVersion = "0.39.0"
-val springBootVersion = "2.4.1"
+val springBootVersion = "2.4.4"
 
-val reactVersion = "17.0.0"
-val kotlinReactVersion = "17.0.0-pre.134-kotlin-1.4.10"
+val reactVersion = "17.0.1"
+val kotlinReactVersion = "17.0.1-pre.148-kotlin-1.4.30"
 
 publishing {
     publications {
@@ -101,7 +101,7 @@ kotlin {
                 implementation("org.jetbrains:kotlin-react-dom:$kotlinReactVersion")
                 implementation(npm("react", reactVersion))
                 implementation(npm("react-dom", reactVersion))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
             }
         }
     }
