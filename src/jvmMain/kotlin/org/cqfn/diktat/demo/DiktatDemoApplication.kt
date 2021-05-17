@@ -20,7 +20,7 @@ fun main(args: Array<String>) {
             bean<DemoController>()
         }
         webMvc {
-            port = SERVER_PORT
+            port = System.getenv("PORT")?.toInt() ?: SERVER_PORT
             router {
                 val controller = ref<DemoController>()
                 GET("/") {
