@@ -1,16 +1,17 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
-import com.palantir.gradle.gitversion.GitVersionPlugin
+//import com.palantir.gradle.gitversion.GitVersionPlugin
+import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
     id("com.github.ben-manes.versions") version "0.38.0"
     java
     `maven-publish`
-    kotlin("multiplatform") version "1.4.32"
-    kotlin("plugin.spring") version "1.4.32"
-    kotlin("plugin.serialization") version "1.4.32"
-    id("org.springframework.boot") version "2.4.4"
+    kotlin("multiplatform") version "1.5.10"
+    kotlin("plugin.spring") version "1.5.10"
+    kotlin("plugin.serialization") version "1.5.10"
+    id("org.springframework.boot") version "2.5.0"
     id("org.cqfn.diktat.diktat-gradle-plugin") version "0.5.3"
-    id("com.palantir.git-version") version "0.12.3" apply false
+//    id("com.palantir.git-version") version "0.12.3" apply false
 }
 
 repositories {
@@ -116,8 +117,9 @@ val generateVersionFileTaskProvider = tasks.register("generateVersionFile") {
         // heroku sets `SOURCE_VERSION` variable during build, while git repo is unavailable
         // for successful build either .git directory should be present or SOURCE_VERSION should be set
         val gitRevisionEnv = System.getenv("SOURCE_VERSION") ?: run {
-            apply<GitVersionPlugin>()
-            ext.properties["gitVersion"].let { it as groovy.lang.Closure<String> }.invoke()
+//            apply<GitVersionPlugin>()
+//            ext.properties["gitVersion"].let { it as groovy.lang.Closure<String> }.invoke()
+            "undefined"  // todo: get git revision
         }
         versionsFile.parentFile.mkdirs()
         versionsFile.writeText(
@@ -153,7 +155,11 @@ tasks.getByName("jvmMainClasses") {
 }
 
 tasks.getByName<BootJar>("bootJar") {
+    mainClass.set("org.cqfn.diktat.demo.DiktatDemoApplicationKt")
     requiresUnpack("**/kotlin-compiler-embeddable-*.jar")
+}
+tasks.getByName<BootRun>("bootRun") {
+    mainClass.set("org.cqfn.diktat.demo.DiktatDemoApplicationKt")
 }
 
 diktat {
