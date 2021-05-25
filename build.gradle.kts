@@ -19,7 +19,6 @@ repositories {
 }
 
 val kotlinVersion = "1.4.32"
-val serializationVersion = "1.1.0"
 val diktatVersion = "0.5.2"
 val ktlintVersion = "0.39.0"
 val springBootVersion = "2.4.4"
@@ -67,13 +66,13 @@ kotlin {
     sourceSets {
         getByName("commonMain") {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+                implementation(libs.kotlinx.serialization.json)
             }
         }
 
         getByName("jvmMain") {
             dependencies {
-                implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+                implementation(libs.spring.boot.starter.web)
                 implementation("org.springframework.fu:spring-fu-kofu:0.4.4")
                 implementation("org.cqfn.diktat:diktat-common:$diktatVersion") {
                     // exclude to use logback provided by spring
@@ -95,7 +94,6 @@ kotlin {
 
         getByName("jsMain") {
             dependencies {
-                implementation(kotlin("stdlib-js"))
                 compileOnly("kotlin.js.externals:kotlin-js-jquery:3.2.0-0")
                 implementation(npm("ace-builds", "1.4.11"))
                 implementation("org.jetbrains:kotlin-react:$kotlinReactVersion")
