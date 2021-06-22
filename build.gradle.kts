@@ -8,23 +8,19 @@ plugins {
     kotlin("multiplatform") version "1.4.32"
     kotlin("plugin.spring") version "1.4.32"
     kotlin("plugin.serialization") version "1.4.32"
-    id("org.springframework.boot") version "2.4.4"
+    id("org.springframework.boot") version "2.4.5"
     id("org.cqfn.diktat.diktat-gradle-plugin") version "0.5.3"
     id("com.palantir.git-version") version "0.12.3" apply false
 }
 
-repositories {
-    jcenter()
-}
-
 val kotlinVersion = "1.4.32"
 val serializationVersion = "1.1.0"
-val diktatVersion = "0.5.2"
+val diktatVersion = "0.5.3"
 val ktlintVersion = "0.39.0"
-val springBootVersion = "2.4.4"
+val springBootVersion = "2.4.5"
 
-val reactVersion = "17.0.1"
-val kotlinReactVersion = "17.0.1-pre.148-kotlin-1.4.30"
+val reactVersion = "17.0.2"
+val kotlinReactVersion = "17.0.2-pre.155-kotlin-1.4.32"
 
 publishing {
     publications {
@@ -44,8 +40,9 @@ tasks.withType<JavaCompile> {
 kotlin {
     js(LEGACY).browser {
         repositories {
-            jcenter()
-            maven("https://kotlin.bintray.com/js-externals")
+            mavenCentral()
+            maven("https://kotlin.bintray.com/js-externals")  // for kotlin-js-jquery
+            maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers/")
         }
     }
 
