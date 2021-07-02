@@ -3,28 +3,30 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
-    id("com.github.ben-manes.versions") version "0.38.0"
+    id("com.github.ben-manes.versions") version "0.39.0"
     java
     `maven-publish`
-    kotlin("multiplatform") version "1.5.10"
-    kotlin("plugin.spring") version "1.5.10"
-    kotlin("plugin.serialization") version "1.5.10"
-    id("org.springframework.boot") version "2.5.0"
-    id("org.cqfn.diktat.diktat-gradle-plugin") version "0.5.3"
+    kotlin("multiplatform") version "1.5.20"
+    kotlin("plugin.spring") version "1.5.20"
+    kotlin("plugin.serialization") version "1.5.20"
+    id("org.springframework.boot") version "2.4.5"
+    id("org.cqfn.diktat.diktat-gradle-plugin") version "1.0.0-rc.1"
 //    id("com.palantir.git-version") version "0.12.3" apply false
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
+    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers")
 }
 
-val kotlinVersion = "1.4.32"
-val diktatVersion = "0.5.2"
+val kotlinVersion = "1.5.20"
+val serializationVersion = "1.2.1"
+val diktatVersion = "1.0.0-rc.1"
 val ktlintVersion = "0.39.0"
-val springBootVersion = "2.4.4"
+val springBootVersion = "2.4.5"
 
-val reactVersion = "17.0.1"
-val kotlinReactVersion = "17.0.1-pre.148-kotlin-1.4.30"
+val reactVersion = "17.0.2"
+val kotlinReactVersion = "17.0.2-pre.156-kotlin-1.5.0"
 
 publishing {
     publications {
@@ -44,8 +46,9 @@ tasks.withType<JavaCompile> {
 kotlin {
     js(LEGACY).browser {
         repositories {
-            jcenter()
-            maven("https://kotlin.bintray.com/js-externals")
+            mavenCentral()
+            maven("https://kotlin.bintray.com/js-externals")  // for kotlin-js-jquery
+            maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers/")
         }
     }
 
@@ -100,7 +103,7 @@ kotlin {
                 implementation("org.jetbrains:kotlin-react-dom:$kotlinReactVersion")
                 implementation(npm("react", reactVersion))
                 implementation(npm("react-dom", reactVersion))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
             }
         }
     }

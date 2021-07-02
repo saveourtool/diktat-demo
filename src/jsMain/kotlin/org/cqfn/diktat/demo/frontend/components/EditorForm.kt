@@ -32,7 +32,7 @@ import react.dom.label
 import react.dom.option
 import react.dom.select
 import react.dom.span
-import react.dom.textArea
+import react.dom.textarea
 import react.setState
 
 import kotlinx.browser.document
@@ -91,7 +91,7 @@ class EditorForm : RComponent<RProps, CodeFormState>() {
                             div("ace_editor ace-monokai ace_dark") {
                                 attrs.id = "editor"
                             }
-                            textArea(classes = "source") {
+                            textarea(classes = "source") {
                                 attrs.id = "source"
                                 attrs.name = "source"
                             }
