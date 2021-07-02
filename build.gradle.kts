@@ -20,10 +20,8 @@ repositories {
 }
 
 val kotlinVersion = "1.5.20"
-val serializationVersion = "1.2.1"
 val diktatVersion = "1.0.0-rc.1"
 val ktlintVersion = "0.39.0"
-val springBootVersion = "2.4.5"
 
 val reactVersion = "17.0.2"
 val kotlinReactVersion = "17.0.2-pre.156-kotlin-1.5.0"
@@ -91,7 +89,7 @@ kotlin {
 
         getByName("jvmTest") {
             dependencies {
-                implementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+                implementation(libs.spring.boot.starter.test)
             }
         }
 
@@ -153,6 +151,11 @@ tasks.getByName("jvmMainClasses") {
             into("build/processedResources/jvm/main/static")
         }
     }
+}
+
+tasks.getByName<Copy>("jvmProcessResources") {
+    // some workaround for newer gradle
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 tasks.getByName<BootJar>("bootJar") {

@@ -1,8 +1,9 @@
 [versions]
-kotlin = "1.5.10"
-springBoot = "2.4.4"
-serialization = "1.1.0"
+kotlin = "1.5.20"
+springBoot = "2.4.5"
+serialization = "1.2.1"
 
 [libraries]
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
