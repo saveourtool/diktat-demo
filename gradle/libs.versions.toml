@@ -1,9 +1,13 @@
 [versions]
 kotlin = "1.5.20"
 springBoot = "2.4.5"
+springKofu = "0.4.4"
 serialization = "1.2.1"
+diktat = "1.0.0-rc.1"
+ktlint = "0.39.0"
 
 [libraries]
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
+spring-fu-kofu = { module = "org.springframework.fu:spring-fu-kofu", version.ref = "springKofu" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }

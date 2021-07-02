@@ -18,9 +18,8 @@ repositories {
     maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers")
 }
 
-val kotlinVersion = "1.5.20"
-val diktatVersion = "1.0.0-rc.1"
-val ktlintVersion = "0.39.0"
+val diktatVersion = libs.versions.diktat.get()
+val ktlintVersion = libs.versions.ktlint.get()
 
 val reactVersion = "17.0.2"
 val kotlinReactVersion = "17.0.2-pre.156-kotlin-1.5.0"
@@ -51,7 +50,6 @@ kotlin {
 
     jvm {
         repositories {
-            mavenLocal()
             mavenCentral()
             maven("https://repo.spring.io/milestone")
         }
@@ -73,7 +71,7 @@ kotlin {
         getByName("jvmMain") {
             dependencies {
                 implementation(libs.spring.boot.starter.web)
-                implementation("org.springframework.fu:spring-fu-kofu:0.4.4")
+                implementation(libs.spring.fu.kofu)
                 implementation("org.cqfn.diktat:diktat-common:$diktatVersion") {
                     // exclude to use logback provided by spring
                     exclude("org.slf4j", "slf4j-log4j12")
@@ -151,7 +149,7 @@ tasks.getByName("jvmMainClasses") {
 }
 
 tasks.getByName<Copy>("jvmProcessResources") {
-    // some workaround for newer gradle
+    // workaround for gradle >= 7, because we have created resources dir when copying frontend bundle
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
