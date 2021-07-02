@@ -1,5 +1,4 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
-//import com.palantir.gradle.gitversion.GitVersionPlugin
 import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
@@ -11,7 +10,7 @@ plugins {
     kotlin("plugin.serialization") version "1.5.20"
     id("org.springframework.boot") version "2.4.5"
     id("org.cqfn.diktat.diktat-gradle-plugin") version "1.0.0-rc.1"
-//    id("com.palantir.git-version") version "0.12.3" apply false
+    id("com.palantir.git-version") version "0.12.3" apply (System.getenv("SOURCE_VERSION") == null)
 }
 
 repositories {
@@ -116,9 +115,7 @@ val generateVersionFileTaskProvider = tasks.register("generateVersionFile") {
         // heroku sets `SOURCE_VERSION` variable during build, while git repo is unavailable
         // for successful build either .git directory should be present or SOURCE_VERSION should be set
         val gitRevisionEnv = System.getenv("SOURCE_VERSION") ?: run {
-//            apply<GitVersionPlugin>()
-//            ext.properties["gitVersion"].let { it as groovy.lang.Closure<String> }.invoke()
-            "undefined"  // todo: get git revision
+            ext.properties["gitVersion"].let { it as groovy.lang.Closure<String> }.invoke()
         }
         versionsFile.parentFile.mkdirs()
         versionsFile.writeText(
