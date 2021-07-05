@@ -46,7 +46,6 @@ kotlin {
     js(LEGACY).browser {
         repositories {
             mavenCentral()
-            maven("https://kotlin.bintray.com/js-externals")  // for kotlin-js-jquery
             maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers/")
         }
     }
@@ -97,10 +96,10 @@ kotlin {
         getByName("jsMain") {
             dependencies {
                 implementation(kotlin("stdlib-js"))
-                compileOnly("kotlin.js.externals:kotlin-js-jquery:3.2.0-0")
                 implementation(npm("ace-builds", "1.4.11"))
                 implementation("org.jetbrains:kotlin-react:$kotlinReactVersion")
                 implementation("org.jetbrains:kotlin-react-dom:$kotlinReactVersion")
+                implementation(npm("jquery", "1.12.4"))
                 implementation(npm("react", reactVersion))
                 implementation(npm("react-dom", reactVersion))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")

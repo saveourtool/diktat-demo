@@ -12,6 +12,8 @@
 
 package org.cqfn.diktat.demo.frontend.utils
 
+external var `$`: dynamic = definedExternally
+
 @JsModule("ace-builds")
 @JsNonModule
 @JsName("ace")

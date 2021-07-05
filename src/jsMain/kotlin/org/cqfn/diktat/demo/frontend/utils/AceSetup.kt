@@ -4,7 +4,6 @@
 
 package org.cqfn.diktat.demo.frontend.utils
 
-import js.externals.jquery.`$`
 import org.w3c.dom.HTMLTextAreaElement
 
 import kotlinx.browser.document
