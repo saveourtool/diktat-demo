@@ -11,3 +11,7 @@ spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-start
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
 spring-fu-kofu = { module = "org.springframework.fu:spring-fu-kofu", version.ref = "springKofu" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+diktat-common = { module = "org.cqfn.diktat:diktat-common", version.ref = "diktat" }
+diktat-rules = { module = "org.cqfn.diktat:diktat-rules", version.ref = "diktat" }
+ktlint-core = { module = "com.pinterest.ktlint:ktlint-core", version.ref = "ktlint" }
+ktlint-rulesets-standard = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlint" }

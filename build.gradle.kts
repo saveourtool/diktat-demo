@@ -13,14 +13,6 @@ plugins {
     id("com.palantir.git-version") version "0.12.3" apply (System.getenv("SOURCE_VERSION") == null)
 }
 
-repositories {
-    mavenCentral()
-    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers")
-}
-
-val diktatVersion = libs.versions.diktat.get()
-val ktlintVersion = libs.versions.ktlint.get()
-
 val reactVersion = "17.0.2"
 val kotlinReactVersion = "17.0.2-pre.156-kotlin-1.5.0"
 
@@ -38,6 +30,9 @@ publishing {
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
+
+val diktatVersion = libs.versions.diktat.get()
+val ktlintVersion = libs.versions.ktlint.get()
 
 kotlin {
     js(LEGACY).browser {
@@ -71,6 +66,7 @@ kotlin {
             dependencies {
                 implementation(libs.spring.boot.starter.web)
                 implementation(libs.spring.fu.kofu)
+                // todo: kotlin plugin 1.5.20 doesn't support dependencies on `Provider<MinimalExternalModuleDependency>` with configuration lambda
                 implementation("org.cqfn.diktat:diktat-common:$diktatVersion") {
                     // exclude to use logback provided by spring
                     exclude("org.slf4j", "slf4j-log4j12")
@@ -78,8 +74,8 @@ kotlin {
                 implementation("org.cqfn.diktat:diktat-rules:$diktatVersion") {
                     exclude("org.slf4j", "slf4j-log4j12")
                 }
-                implementation("com.pinterest.ktlint:ktlint-core:$ktlintVersion")
-                implementation("com.pinterest.ktlint:ktlint-ruleset-standard:$ktlintVersion")
+                implementation(libs.ktlint.core)
+                implementation(libs.ktlint.rulesets.standard)
             }
         }
 
@@ -107,21 +103,25 @@ kotlin {
 val generateVersionFileTaskProvider = tasks.register("generateVersionFile") {
     val versionsFile = File("$buildDir/generated/src/generated/Versions.kt")
 
+    // heroku sets `SOURCE_VERSION` variable during build, while git repo is unavailable
+    // for successful build either .git directory should be present or SOURCE_VERSION should be set
+    val gitRevision = System.getenv("SOURCE_VERSION")
+        ?: (ext.properties["gitVersion"] as groovy.lang.Closure<String>).invoke()
+
+    inputs.property("project version", version.toString())
+    inputs.property("project revision", gitRevision)
+    inputs.property("diktat version", diktatVersion)
+    inputs.property("ktlint version", ktlintVersion)
     outputs.file(versionsFile)
 
     doFirst {
-        // heroku sets `SOURCE_VERSION` variable during build, while git repo is unavailable
-        // for successful build either .git directory should be present or SOURCE_VERSION should be set
-        val gitRevisionEnv = System.getenv("SOURCE_VERSION") ?: run {
-            ext.properties["gitVersion"].let { it as groovy.lang.Closure<String> }.invoke()
-        }
         versionsFile.parentFile.mkdirs()
         versionsFile.writeText(
             """
             package generated
 
             internal const val PROJECT_VERSION = "$version"
-            internal const val PROJECT_REVISION = "$gitRevisionEnv"
+            internal const val PROJECT_REVISION = "$gitRevision"
             internal const val DIKTAT_VERSION = "$diktatVersion"
             internal const val KTLINT_VERSION = "$ktlintVersion"
 
@@ -149,7 +149,7 @@ tasks.getByName("jvmMainClasses") {
 }
 
 tasks.getByName<Copy>("jvmProcessResources") {
-    // workaround for gradle >= 7, because we have created resources dir when copying frontend bundle
+    // workaround for gradle >= 7, because some bug with kotlin plugin's `withJava` setting, at least for 1.5.20
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
