@@ -9,7 +9,7 @@ plugins {
     kotlin("plugin.spring") version "1.5.20"
     kotlin("plugin.serialization") version "1.5.20"
     id("org.springframework.boot") version "2.4.5"
-    id("org.cqfn.diktat.diktat-gradle-plugin") version "1.0.0-rc.1"
+    id("org.cqfn.diktat.diktat-gradle-plugin") version "1.0.0-rc.2"
     id("com.palantir.git-version") version "0.12.3" apply (System.getenv("SOURCE_VERSION") == null)
 }
 
@@ -43,7 +43,6 @@ kotlin {
     js(LEGACY).browser {
         repositories {
             mavenCentral()
-            maven("https://kotlin.bintray.com/js-externals")  // for kotlin-js-jquery
             maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers/")
         }
     }
@@ -92,10 +91,11 @@ kotlin {
 
         getByName("jsMain") {
             dependencies {
-                compileOnly("kotlin.js.externals:kotlin-js-jquery:3.2.0-0")
+                implementation(kotlin("stdlib-js"))
                 implementation(npm("ace-builds", "1.4.11"))
                 implementation("org.jetbrains:kotlin-react:$kotlinReactVersion")
                 implementation("org.jetbrains:kotlin-react-dom:$kotlinReactVersion")
+                implementation(npm("jquery", "1.12.4"))
                 implementation(npm("react", reactVersion))
                 implementation(npm("react-dom", reactVersion))
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")

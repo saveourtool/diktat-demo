@@ -12,6 +12,9 @@
 
 package org.cqfn.diktat.demo.frontend.utils
 
+@Suppress("BACKTICKS_PROHIBITED")
+external var `$`: dynamic = definedExternally
+
 @JsModule("ace-builds")
 @JsNonModule
 @JsName("ace")
