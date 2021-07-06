@@ -5,8 +5,12 @@ springKofu = "0.4.4"
 serialization = "1.2.1"
 diktat = "1.0.0-rc.2"
 ktlint = "0.39.0"
+kotlinx-coroutines = "1.5.0"
+react = "17.0.2"
+js-wrappers-react = "17.0.2-pre.156-kotlin-1.5.0"
 
 [libraries]
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
 spring-fu-kofu = { module = "org.springframework.fu:spring-fu-kofu", version.ref = "springKofu" }
@@ -15,3 +19,5 @@ diktat-common = { module = "org.cqfn.diktat:diktat-common", version.ref = "dikta
 diktat-rules = { module = "org.cqfn.diktat:diktat-rules", version.ref = "diktat" }
 ktlint-core = { module = "com.pinterest.ktlint:ktlint-core", version.ref = "ktlint" }
 ktlint-rulesets-standard = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlint" }
+kotlin-js-react = { module = "org.jetbrains:kotlin-react", version.ref = "js-wrappers-react" }
+kotlin-js-reactDom = { module = "org.jetbrains:kotlin-react-dom", version.ref = "js-wrappers-react" }

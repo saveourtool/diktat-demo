@@ -13,9 +13,6 @@ plugins {
     id("com.palantir.git-version") version "0.12.3" apply (System.getenv("SOURCE_VERSION") == null)
 }
 
-val reactVersion = "17.0.2"
-val kotlinReactVersion = "17.0.2-pre.156-kotlin-1.5.0"
-
 publishing {
     publications {
         create<MavenPublication>("maven") {
@@ -87,14 +84,13 @@ kotlin {
 
         getByName("jsMain") {
             dependencies {
-                implementation(kotlin("stdlib-js"))
+                implementation(libs.kotlin.js.react)
+                implementation(libs.kotlin.js.reactDom)
                 implementation(npm("ace-builds", "1.4.11"))
-                implementation("org.jetbrains:kotlin-react:$kotlinReactVersion")
-                implementation("org.jetbrains:kotlin-react-dom:$kotlinReactVersion")
                 implementation(npm("jquery", "1.12.4"))
-                implementation(npm("react", reactVersion))
-                implementation(npm("react-dom", reactVersion))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
+                implementation(npm("react", libs.versions.react.get()))
+                implementation(npm("react-dom", libs.versions.react.get()))
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
     }
