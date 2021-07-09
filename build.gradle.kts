@@ -1,5 +1,5 @@
 import org.springframework.boot.gradle.tasks.bundling.BootJar
-import com.palantir.gradle.gitversion.GitVersionPlugin
+import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
     id("com.github.ben-manes.versions") version "0.39.0"
@@ -10,22 +10,8 @@ plugins {
     kotlin("plugin.serialization") version "1.5.20"
     id("org.springframework.boot") version "2.4.5"
     id("org.cqfn.diktat.diktat-gradle-plugin") version "1.0.0-rc.2"
-    id("com.palantir.git-version") version "0.12.3" apply false
+    id("com.palantir.git-version") version "0.12.3" apply (System.getenv("SOURCE_VERSION") == null)
 }
-
-repositories {
-    mavenCentral()
-    maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers")
-}
-
-val kotlinVersion = "1.5.20"
-val serializationVersion = "1.2.1"
-val diktatVersion = "1.0.0-rc.2"
-val ktlintVersion = "0.39.0"
-val springBootVersion = "2.4.5"
-
-val reactVersion = "17.0.2"
-val kotlinReactVersion = "17.0.2-pre.156-kotlin-1.5.0"
 
 publishing {
     publications {
@@ -42,6 +28,9 @@ tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
 
+val diktatVersion = libs.versions.diktat.get()
+val ktlintVersion = libs.versions.ktlint.get()
+
 kotlin {
     js(LEGACY).browser {
         repositories {
@@ -52,14 +41,13 @@ kotlin {
 
     jvm {
         repositories {
-            mavenLocal()
             mavenCentral()
             maven("https://repo.spring.io/milestone")
         }
         withJava()
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = "11"
             }
         }
     }
@@ -67,14 +55,15 @@ kotlin {
     sourceSets {
         getByName("commonMain") {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion")
+                implementation(libs.kotlinx.serialization.json)
             }
         }
 
         getByName("jvmMain") {
             dependencies {
-                implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
-                implementation("org.springframework.fu:spring-fu-kofu:0.4.4")
+                implementation(libs.spring.boot.starter.web)
+                implementation(libs.spring.fu.kofu)
+                // todo: kotlin plugin 1.5.20 doesn't support dependencies on `Provider<MinimalExternalModuleDependency>` with configuration lambda
                 implementation("org.cqfn.diktat:diktat-common:$diktatVersion") {
                     // exclude to use logback provided by spring
                     exclude("org.slf4j", "slf4j-log4j12")
@@ -82,27 +71,26 @@ kotlin {
                 implementation("org.cqfn.diktat:diktat-rules:$diktatVersion") {
                     exclude("org.slf4j", "slf4j-log4j12")
                 }
-                implementation("com.pinterest.ktlint:ktlint-core:$ktlintVersion")
-                implementation("com.pinterest.ktlint:ktlint-ruleset-standard:$ktlintVersion")
+                implementation(libs.ktlint.core)
+                implementation(libs.ktlint.rulesets.standard)
             }
         }
 
         getByName("jvmTest") {
             dependencies {
-                implementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+                implementation(libs.spring.boot.starter.test)
             }
         }
 
         getByName("jsMain") {
             dependencies {
-                implementation(kotlin("stdlib-js"))
+                implementation(libs.kotlin.js.react)
+                implementation(libs.kotlin.js.reactDom)
                 implementation(npm("ace-builds", "1.4.11"))
-                implementation("org.jetbrains:kotlin-react:$kotlinReactVersion")
-                implementation("org.jetbrains:kotlin-react-dom:$kotlinReactVersion")
                 implementation(npm("jquery", "1.12.4"))
-                implementation(npm("react", reactVersion))
-                implementation(npm("react-dom", reactVersion))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
+                implementation(npm("react", libs.versions.react.get()))
+                implementation(npm("react-dom", libs.versions.react.get()))
+                implementation(libs.kotlinx.coroutines.core)
             }
         }
     }
@@ -111,22 +99,25 @@ kotlin {
 val generateVersionFileTaskProvider = tasks.register("generateVersionFile") {
     val versionsFile = File("$buildDir/generated/src/generated/Versions.kt")
 
+    // heroku sets `SOURCE_VERSION` variable during build, while git repo is unavailable
+    // for successful build either .git directory should be present or SOURCE_VERSION should be set
+    val gitRevision = System.getenv("SOURCE_VERSION")
+        ?: (ext.properties["gitVersion"] as groovy.lang.Closure<String>).invoke()
+
+    inputs.property("project version", version.toString())
+    inputs.property("project revision", gitRevision)
+    inputs.property("diktat version", diktatVersion)
+    inputs.property("ktlint version", ktlintVersion)
     outputs.file(versionsFile)
 
     doFirst {
-        // heroku sets `SOURCE_VERSION` variable during build, while git repo is unavailable
-        // for successful build either .git directory should be present or SOURCE_VERSION should be set
-        val gitRevisionEnv = System.getenv("SOURCE_VERSION") ?: run {
-            apply<GitVersionPlugin>()
-            ext.properties["gitVersion"].let { it as groovy.lang.Closure<String> }.invoke()
-        }
         versionsFile.parentFile.mkdirs()
         versionsFile.writeText(
             """
             package generated
 
             internal const val PROJECT_VERSION = "$version"
-            internal const val PROJECT_REVISION = "$gitRevisionEnv"
+            internal const val PROJECT_REVISION = "$gitRevision"
             internal const val DIKTAT_VERSION = "$diktatVersion"
             internal const val KTLINT_VERSION = "$ktlintVersion"
 
@@ -153,8 +144,17 @@ tasks.getByName("jvmMainClasses") {
     }
 }
 
+tasks.getByName<Copy>("jvmProcessResources") {
+    // workaround for gradle >= 7, because some bug with kotlin plugin's `withJava` setting, at least for 1.5.20
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 tasks.getByName<BootJar>("bootJar") {
+    mainClass.set("org.cqfn.diktat.demo.DiktatDemoApplicationKt")
     requiresUnpack("**/kotlin-compiler-embeddable-*.jar")
+}
+tasks.getByName<BootRun>("bootRun") {
+    mainClass.set("org.cqfn.diktat.demo.DiktatDemoApplicationKt")
 }
 
 diktat {
