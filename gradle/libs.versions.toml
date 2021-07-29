@@ -1,13 +1,20 @@
 [versions]
-kotlin = "1.5.20"
+kotlin = "1.5.21"
 springBoot = "2.4.5"
 springKofu = "0.4.4"
-serialization = "1.2.1"
+serialization = "1.2.2"
 diktat = "1.0.0-rc.2"
 ktlint = "0.39.0"
-kotlinx-coroutines = "1.5.0"
+kotlinx-coroutines = "1.5.1"
 react = "17.0.2"
-js-wrappers-react = "17.0.2-pre.156-kotlin-1.5.0"
+js-wrappers-react = "17.0.2-pre.218-kotlin-1.5.21"
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+diktat = { id = "org.cqfn.diktat.diktat-gradle-plugin", version.ref = "diktat" }
 
 [libraries]
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
@@ -19,5 +26,5 @@ diktat-common = { module = "org.cqfn.diktat:diktat-common", version.ref = "dikta
 diktat-rules = { module = "org.cqfn.diktat:diktat-rules", version.ref = "diktat" }
 ktlint-core = { module = "com.pinterest.ktlint:ktlint-core", version.ref = "ktlint" }
 ktlint-rulesets-standard = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlint" }
-kotlin-js-react = { module = "org.jetbrains:kotlin-react", version.ref = "js-wrappers-react" }
-kotlin-js-reactDom = { module = "org.jetbrains:kotlin-react-dom", version.ref = "js-wrappers-react" }
+kotlin-js-react = { module = "org.jetbrains.kotlin-wrappers:kotlin-react", version.ref = "js-wrappers-react" }
+kotlin-js-reactDom = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-dom", version.ref = "js-wrappers-react" }

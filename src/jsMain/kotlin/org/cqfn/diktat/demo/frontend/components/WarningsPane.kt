@@ -3,6 +3,7 @@ package org.cqfn.diktat.demo.frontend.components
 import react.RBuilder
 import react.RComponent
 import react.RState
+import react.dom.attrs
 import react.dom.br
 import react.dom.button
 import react.dom.div
