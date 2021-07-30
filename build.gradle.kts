@@ -9,7 +9,7 @@ plugins {
     kotlin("plugin.spring") version "1.5.20"
     kotlin("plugin.serialization") version "1.5.20"
     id("org.springframework.boot") version "2.4.5"
-    id("org.cqfn.diktat.diktat-gradle-plugin") version "1.0.0-rc.2"
+    id("org.cqfn.diktat.diktat-gradle-plugin") version "1.0.0-rc.3"
     id("com.palantir.git-version") version "0.12.3" apply (System.getenv("SOURCE_VERSION") == null)
 }
 

@@ -13,7 +13,6 @@ import org.springframework.http.MediaType
 
 private const val SERVER_PORT = 8082
 
-@Suppress("GENERIC_VARIABLE_WRONG_DECLARATION")
 fun main(args: Array<String>) {
     val application = webApplication {
         beans {
@@ -22,6 +21,7 @@ fun main(args: Array<String>) {
         webMvc {
             port = System.getenv("PORT")?.toInt() ?: SERVER_PORT
             router {
+                @Suppress("GENERIC_VARIABLE_WRONG_DECLARATION")
                 val controller = ref<DemoController>()
                 GET("/") {
                     ok().contentType(MediaType.TEXT_HTML)
