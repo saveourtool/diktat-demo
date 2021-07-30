@@ -16,7 +16,7 @@ import kotlinx.html.id
 /**
  * A UI component to display warnings from [CodeForm.warnings]
  */
-@Suppress("USE_DATA_CLASS", "EMPTY_BLOCK_STRUCTURE_ERROR")
+@Suppress("EMPTY_BLOCK_STRUCTURE_ERROR")
 class WarningsPane : RComponent<CodeFormProps, RState>() {
     override fun RBuilder.render() {
         div("row") {
