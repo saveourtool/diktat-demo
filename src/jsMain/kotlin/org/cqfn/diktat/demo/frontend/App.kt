@@ -49,6 +49,7 @@ fun main() {
  *
  * @param url url to POST data to
  * @param codeForm a [CodeForm] with data from frontend, that will be sent
+ * @return CodeForm with corrected data
  */
 suspend fun uploadCodeForm(url: String, codeForm: CodeForm) = window
     .fetch(
