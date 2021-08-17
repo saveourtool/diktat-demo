@@ -5,11 +5,11 @@ plugins {
     id("com.github.ben-manes.versions") version "0.39.0"
     java
     `maven-publish`
-    kotlin("multiplatform") version "1.5.20"
-    kotlin("plugin.spring") version "1.5.20"
-    kotlin("plugin.serialization") version "1.5.20"
-    id("org.springframework.boot") version "2.4.5"
-    id("org.cqfn.diktat.diktat-gradle-plugin") version "1.0.0-rc.3"
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.diktat)
     id("com.palantir.git-version") version "0.12.3" apply (System.getenv("SOURCE_VERSION") == null)
 }
 
@@ -35,7 +35,6 @@ kotlin {
     js(LEGACY).browser {
         repositories {
             mavenCentral()
-            maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers/")
         }
     }
 

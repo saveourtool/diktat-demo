@@ -23,6 +23,7 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
+import react.dom.attrs
 import react.dom.br
 import react.dom.button
 import react.dom.div
@@ -31,6 +32,7 @@ import react.dom.input
 import react.dom.label
 import react.dom.option
 import react.dom.select
+import react.dom.setProp
 import react.dom.span
 import react.dom.textarea
 import react.setState
