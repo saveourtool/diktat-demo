@@ -2,7 +2,7 @@ package org.cqfn.diktat.demo.frontend.components
 
 import react.RBuilder
 import react.RComponent
-import react.RState
+import react.State
 import react.dom.attrs
 import react.dom.br
 import react.dom.button
@@ -18,7 +18,7 @@ import kotlinx.html.id
  * A UI component to display warnings from [CodeForm.warnings]
  */
 @Suppress("EMPTY_BLOCK_STRUCTURE_ERROR")
-class WarningsPane : RComponent<CodeFormProps, RState>() {
+class WarningsPane : RComponent<CodeFormProps, State>() {
     override fun RBuilder.render() {
         div("row") {
             div("col-md-12") {
@@ -38,7 +38,7 @@ class WarningsPane : RComponent<CodeFormProps, RState>() {
     }
 
     override fun componentDidUpdate(prevProps: CodeFormProps,
-                                    prevState: RState,
+                                    prevState: State,
                                     snapshot: Any) {
         if (props.codeForm == prevProps.codeForm) {
             return
