@@ -19,10 +19,11 @@ import org.w3c.dom.HTMLTextAreaElement
 import org.w3c.dom.asList
 import org.w3c.dom.events.Event
 import org.w3c.dom.get
+import react.Props
+import react.PropsWithChildren
 import react.RBuilder
 import react.RComponent
-import react.RProps
-import react.RState
+import react.State
 import react.dom.attrs
 import react.dom.br
 import react.dom.button
@@ -49,7 +50,7 @@ import kotlinx.html.js.onSubmitFunction
 /**
  * [RProps] implementation to store [CodeForm]
  */
-external interface CodeFormProps : RProps {
+external interface CodeFormProps : PropsWithChildren {
     /**
      * A [CodeForm]
      */
@@ -57,9 +58,9 @@ external interface CodeFormProps : RProps {
 }
 
 /**
- * [RState] implementation to store [CodeForm]
+ * [State] implementation to store [CodeForm]
  */
-external interface CodeFormState : RState {
+external interface CodeFormState : State {
     /**
      * A [CodeForm]
      */
@@ -69,7 +70,7 @@ external interface CodeFormState : RState {
 /**
  * A component for a form, where initial and fixed code are displayed and linter settings are set.
  */
-class EditorForm : RComponent<RProps, CodeFormState>() {
+class EditorForm : RComponent<Props, CodeFormState>() {
     init {
         state.codeForm = CodeForm()
     }
@@ -184,7 +185,7 @@ class EditorForm : RComponent<RProps, CodeFormState>() {
                                 ruleSet = (form.elements["rulSet-select"] as HTMLSelectElement)
                                     .selectedOptions
                                     .asList()
-                                    .map { (it as HTMLOptionElement).value.toUpperCase() }
+                                    .map { (it as HTMLOptionElement).value.uppercase() }
                                     .map(RulesSetTypes::valueOf),
                             ),
                         )
