@@ -16,4 +16,5 @@ import kotlinx.serialization.Serializable
                                   var check: Boolean = false,
                                   var ruleSet: List<RulesSetTypes> = listOf(RulesSetTypes.DIKTAT, RulesSetTypes.KTLINT),
                                   var fixedCode: String? = null,
-                                  var warnings: List<String>? = null)
+                                  var warnings: List<String>? = null,
+)
