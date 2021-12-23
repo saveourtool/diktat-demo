@@ -39,7 +39,8 @@ class WarningsPane : RComponent<CodeFormProps, State>() {
 
     override fun componentDidUpdate(prevProps: CodeFormProps,
                                     prevState: State,
-                                    snapshot: Any) {
+                                    snapshot: Any,
+    ) {
         if (props.codeForm == prevProps.codeForm) {
             return
         }

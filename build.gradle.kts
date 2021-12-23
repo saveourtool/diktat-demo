@@ -157,5 +157,7 @@ tasks.getByName<BootRun>("bootRun") {
 }
 
 diktat {
-    inputs = files("src/*/kotlin/**/*.kt")
+    inputs { 
+        include("src/*/kotlin/**/*.kt") 
+    }
 }
