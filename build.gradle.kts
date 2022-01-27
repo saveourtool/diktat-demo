@@ -2,7 +2,7 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
-    id("com.github.ben-manes.versions") version "0.39.0"
+    id("com.github.ben-manes.versions") version "0.41.0"
     java
     `maven-publish`
     alias(libs.plugins.kotlin.multiplatform)
@@ -10,7 +10,7 @@ plugins {
     alias(libs.plugins.kotlin.spring)
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.diktat)
-    id("com.palantir.git-version") version "0.12.3" apply (System.getenv("SOURCE_VERSION") == null)
+    id("com.palantir.git-version") version "0.13.0" apply (System.getenv("SOURCE_VERSION") == null)
 }
 
 publishing {
@@ -65,10 +65,10 @@ kotlin {
                 // todo: kotlin plugin 1.5.20 doesn't support dependencies on `Provider<MinimalExternalModuleDependency>` with configuration lambda
                 implementation("org.cqfn.diktat:diktat-common:$diktatVersion") {
                     // exclude to use logback provided by spring
-                    exclude("org.slf4j", "slf4j-log4j12")
+                    exclude(group = "org.apache.logging.log4j")
                 }
                 implementation("org.cqfn.diktat:diktat-rules:$diktatVersion") {
-                    exclude("org.slf4j", "slf4j-log4j12")
+                    exclude(group = "org.apache.logging.log4j")
                 }
                 implementation(libs.ktlint.core)
                 implementation(libs.ktlint.rulesets.standard)
