@@ -25,4 +25,8 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Run diktat itself via ktlint
-        run: ./gradlew diktatCheck
+        run: ./gradlew diktatCheck -Pdiktat.githubActions=true
+      - name: Upload SARIF report to Github
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: build/reports/diktat
