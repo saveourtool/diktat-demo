@@ -1,8 +1,9 @@
+import org.cqfn.diktat.plugin.gradle.DiktatJavaExecTaskBase
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 import org.springframework.boot.gradle.tasks.run.BootRun
 
 plugins {
-    id("com.github.ben-manes.versions") version "0.41.0"
+    id("com.github.ben-manes.versions") version "0.42.0"
     java
     `maven-publish`
     alias(libs.plugins.kotlin.multiplatform)
@@ -10,7 +11,7 @@ plugins {
     alias(libs.plugins.kotlin.spring)
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.diktat)
-    id("com.palantir.git-version") version "0.13.0" apply (System.getenv("SOURCE_VERSION") == null)
+    id("com.palantir.git-version") version "0.15.0" apply (System.getenv("SOURCE_VERSION") == null)
 }
 
 publishing {
@@ -157,7 +158,12 @@ tasks.getByName<BootRun>("bootRun") {
 }
 
 diktat {
+    githubActions = findProperty("diktat.githubActions")?.toString()?.toBoolean() ?: false
     inputs { 
         include("src/*/kotlin/**/*.kt") 
+    }
+    tasks.withType<DiktatJavaExecTaskBase>().configureEach {
+        // https://github.com/analysis-dev/diktat/issues/1269
+        systemProperty("user.home", rootDir.toString())
     }
 }
