@@ -1,4 +1,4 @@
-package org.cqfn.diktat.demo.frontend.components
+package org.cqfn.diktat.demo.frontend.components.basic
 
 import react.RBuilder
 import react.RComponent
@@ -13,6 +13,7 @@ import react.dom.span
 import kotlinx.browser.document
 import kotlinx.html.ButtonType
 import kotlinx.html.id
+import org.cqfn.diktat.demo.frontend.components.views.CodeFormProps
 
 /**
  * A UI component to display warnings from [CodeForm.warnings]

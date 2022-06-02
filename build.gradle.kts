@@ -86,10 +86,11 @@ kotlin {
             dependencies {
                 implementation(libs.kotlin.js.react)
                 implementation(libs.kotlin.js.reactDom)
+                implementation(libs.kotlin.js.reactRouterDom)
                 implementation(npm("ace-builds", "1.4.11"))
                 implementation(npm("jquery", "1.12.4"))
                 implementation(npm("react", libs.versions.react.get()))
-                implementation(npm("react-dom", libs.versions.react.get()))
+                implementation(npm("react-router-dom", libs.versions.reactRouter.get()))
                 implementation(libs.kotlinx.coroutines.core)
             }
         }

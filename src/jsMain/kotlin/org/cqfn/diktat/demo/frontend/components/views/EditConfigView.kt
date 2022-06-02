@@ -2,7 +2,7 @@
  * Main parts of frontend UI
  */
 
-package org.cqfn.diktat.demo.frontend.components
+package org.cqfn.diktat.demo.frontend.components.views
 
 import org.cqfn.diktat.demo.frontend.uploadCodeForm
 import org.cqfn.diktat.demo.frontend.utils.Ace
@@ -44,11 +44,12 @@ import kotlinx.coroutines.launch
 import kotlinx.html.InputType
 import kotlinx.html.id
 import kotlinx.html.js.onSubmitFunction
+import org.cqfn.diktat.demo.frontend.components.basic.WarningsPane
 
 /**
  * [RProps] implementation to store [CodeForm]
  */
-external interface CodeFormProps : PropsWithChildren {
+external interface EditConfigViewProps : PropsWithChildren {
     /**
      * A [CodeForm]
      */
@@ -58,7 +59,7 @@ external interface CodeFormProps : PropsWithChildren {
 /**
  * [State] implementation to store [CodeForm]
  */
-external interface CodeFormState : State {
+external interface EditConfigViewState : State {
     /**
      * A [CodeForm]
      */
@@ -68,7 +69,7 @@ external interface CodeFormState : State {
 /**
  * A component for a form, where initial and fixed code are displayed and linter settings are set.
  */
-class EditorForm : RComponent<Props, CodeFormState>() {
+class EditConfigView : RComponent<Props, CodeFormState>() {
     init {
         state.codeForm = CodeForm()
     }

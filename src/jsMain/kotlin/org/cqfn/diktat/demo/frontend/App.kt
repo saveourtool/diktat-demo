@@ -4,16 +4,10 @@
 
 package org.cqfn.diktat.demo.frontend
 
-import org.cqfn.diktat.demo.frontend.components.EditorForm
-import org.cqfn.diktat.demo.frontend.utils.setupAceEditor
 import org.cqfn.diktat.demo.views.CodeForm
 
-import generated.PROJECT_REVISION
 import org.w3c.fetch.Headers
 import org.w3c.fetch.RequestInit
-import react.dom.a
-import react.dom.br
-import react.dom.p
 import react.dom.render
 
 import kotlinx.browser.document
@@ -22,26 +16,52 @@ import kotlinx.coroutines.await
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import org.cqfn.diktat.demo.frontend.components.Footer
+import org.cqfn.diktat.demo.frontend.components.basic.renderHeader
+import react.*
+import react.dom.div
+import react.router.Routes
+import react.router.dom.HashRouter
+
+//external interface AppState: State {}
+
+class App: RComponent<Props, State>() {
+
+    override fun RBuilder.render() {
+        HashRouter {
+            renderHeader()
+            div("container-fluid") {
+                Routes {
+//                    Route {
+//                        attrs {
+//                            path = "/"
+//                            element = buildElement {
+//                                child(EditorForm::class) {}
+//                            }
+//                        }
+//                    }
+
+//                    Route {
+//                        attrs {
+//                            path = "/config/edit"
+//                            element = buildElement {
+//                                child(EditConfigView::class) {}
+//                            }
+//                        }
+//                    }
+                }
+            }
+            child(Footer::class) {}
+        }
+//        setupAceEditor()
+    }
+}
 
 @Suppress("EMPTY_BLOCK_STRUCTURE_ERROR")
 fun main() {
     render(document.getElementById("main-form-div")) {
-        child(EditorForm::class) {}
+        child(App::class) {}
     }
-
-    render(document.getElementById("footer")) {
-        p("text-center") {
-            +"This demo is used to show how KTlint framework is powerful and how diKTat rule set can fix your code. Sources are "
-            a(href = "https://github.com/akuleshov7/diKTat-demo") { +"here" }
-            br { }
-            +"Inspired by https://yapf.now.sh/"
-        }
-        p("text-center") {
-            +"Revision $PROJECT_REVISION"
-        }
-    }
-
-    setupAceEditor()
 }
 
 /**

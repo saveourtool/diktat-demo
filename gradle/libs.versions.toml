@@ -8,6 +8,8 @@ ktlint = "0.44.0"
 kotlinx-coroutines = "1.6.1"
 react = "17.0.2"
 js-wrappers-react = "17.0.2-pre.265-kotlin-1.5.31"
+js-wrappers-reactRouter = "6.3.0-pre.340"
+reactRouter = "6.3.0"
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
@@ -28,3 +30,4 @@ ktlint-core = { module = "com.pinterest.ktlint:ktlint-core", version.ref = "ktli
 ktlint-rulesets-standard = { module = "com.pinterest.ktlint:ktlint-ruleset-standard", version.ref = "ktlint" }
 kotlin-js-react = { module = "org.jetbrains.kotlin-wrappers:kotlin-react", version.ref = "js-wrappers-react" }
 kotlin-js-reactDom = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-dom", version.ref = "js-wrappers-react" }
+kotlin-js-reactRouterDom = { module = "org.jetbrains.kotlin-wrappers:kotlin-react-router-dom", version.ref = "js-wrappers-reactRouter" }
