@@ -24,6 +24,18 @@ import react.PropsWithChildren
 import react.RBuilder
 import react.RComponent
 import react.State
+import react.dom.attrs
+import react.dom.br
+import react.dom.button
+import react.dom.div
+import react.dom.form
+import react.dom.input
+import react.dom.label
+import react.dom.option
+import react.dom.select
+import react.dom.setProp
+import react.dom.span
+import react.dom.textarea
 import react.setState
 
 import kotlinx.browser.document
@@ -34,7 +46,6 @@ import kotlinx.html.ButtonType
 import kotlinx.html.InputType
 import kotlinx.html.id
 import kotlinx.html.js.onSubmitFunction
-import react.dom.*
 
 /**
  * [RProps] implementation to store [CodeForm]
