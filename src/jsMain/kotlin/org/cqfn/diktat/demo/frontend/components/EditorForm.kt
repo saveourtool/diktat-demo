@@ -26,6 +26,7 @@ import react.RComponent
 import react.State
 import react.dom.attrs
 import react.dom.br
+import react.dom.button
 import react.dom.div
 import react.dom.form
 import react.dom.input
@@ -41,6 +42,7 @@ import kotlinx.browser.document
 import kotlinx.browser.window
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.html.ButtonType
 import kotlinx.html.InputType
 import kotlinx.html.id
 import kotlinx.html.js.onSubmitFunction
@@ -149,6 +151,17 @@ class EditorForm : RComponent<Props, CodeFormState>() {
                 }
             }
             br {}
+            div("row") {
+                setProp("align", "center")
+                div("row") {
+                    setProp("align", "center")
+                    br {}
+                    button(classes = "btn btn-primary", type = ButtonType.submit) {
+                        +"Submit"
+                        // todo: loading animation while results are calculated
+                    }
+                }
+            }
             attrs {
                 id = "main-form"
                 onSubmitFunction = { event: Event ->
