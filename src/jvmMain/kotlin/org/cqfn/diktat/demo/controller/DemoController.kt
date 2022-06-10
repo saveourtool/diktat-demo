@@ -29,7 +29,7 @@ class DemoController {
     fun prepareConfigFile(
         configLines: String,
         generatedName: String = generateFileName(),
-    ) = getDemoConfig(generatedName).apply {
+    ) = getDemoConfig(generatedName).use {
         writeText(configLines)
     }
 

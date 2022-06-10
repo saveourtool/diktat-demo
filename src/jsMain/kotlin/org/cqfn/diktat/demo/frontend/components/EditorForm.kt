@@ -159,7 +159,7 @@ class EditorForm : RComponent<Props, CodeFormState>() {
                     button(classes = "btn") {
                         +"Upload config"
                         input(type = InputType.file, name = "diktat-analysis.yml") {
-                            attrs.accept = ".yml"
+                            attrs.accept = ".yml,.yaml"
                             attrs.onChangeFunction = { event ->
                                 val target = event.target as HTMLInputElement
                                 target.files?.asList()?.firstOrNull()?.let { file ->
