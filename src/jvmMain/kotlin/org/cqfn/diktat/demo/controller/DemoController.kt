@@ -30,7 +30,7 @@ class DemoController {
         configLines: String,
         generatedName: String = generateFileName(),
     ) = getDemoConfig(generatedName).use {
-        writeText(configLines)
+        it.writeText(configLines)
     }
 
     /**
