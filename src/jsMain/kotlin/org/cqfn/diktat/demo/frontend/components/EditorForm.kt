@@ -25,6 +25,18 @@ import react.PropsWithChildren
 import react.RBuilder
 import react.RComponent
 import react.State
+import react.dom.attrs
+import react.dom.br
+import react.dom.button
+import react.dom.div
+import react.dom.form
+import react.dom.input
+import react.dom.label
+import react.dom.option
+import react.dom.select
+import react.dom.setProp
+import react.dom.span
+import react.dom.textarea
 import react.setState
 
 import kotlinx.browser.document
@@ -37,7 +49,6 @@ import kotlinx.html.hidden
 import kotlinx.html.id
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onSubmitFunction
-import react.dom.*
 
 /**
  * [RProps] implementation to store [CodeForm]
@@ -174,19 +185,14 @@ class EditorForm : RComponent<Props, CodeFormState>() {
                                     reader.readAsText(file)
                                 }
                             }
-                            attrs.onLoadStart = {
-                                setState {
-                                    isLoading = true
-                                }
-                            }
                         }
                     }
                     div {
-                         +"Loading..."
+                        +"Loading..."
                         attrs.hidden = !state.isLoading
                     }
                     div {
-                        +(state.codeForm.diktatConfig?.let{ "Config loaded" } ?: "")
+                        +(state.codeForm.diktatConfig?.let { "Config loaded" } ?: "")
                     }
                 }
             }
