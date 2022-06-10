@@ -29,8 +29,8 @@ class DemoController {
     fun prepareConfigFile(
         configLines: String,
         generatedName: String = generateFileName(),
-    ) = getDemoConfig(generatedName).use {
-        it.writeText(configLines)
+    ) = getDemoConfig(generatedName).apply {
+        writeText(configLines)
     }
 
     /**

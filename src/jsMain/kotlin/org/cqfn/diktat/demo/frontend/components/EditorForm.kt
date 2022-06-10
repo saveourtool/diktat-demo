@@ -25,18 +25,6 @@ import react.PropsWithChildren
 import react.RBuilder
 import react.RComponent
 import react.State
-import react.dom.attrs
-import react.dom.br
-import react.dom.button
-import react.dom.div
-import react.dom.form
-import react.dom.input
-import react.dom.label
-import react.dom.option
-import react.dom.select
-import react.dom.setProp
-import react.dom.span
-import react.dom.textarea
 import react.setState
 
 import kotlinx.browser.document
@@ -45,9 +33,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.html.ButtonType
 import kotlinx.html.InputType
+import kotlinx.html.hidden
 import kotlinx.html.id
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onSubmitFunction
+import react.dom.*
 
 /**
  * [RProps] implementation to store [CodeForm]
@@ -67,6 +57,11 @@ external interface CodeFormState : State {
      * A [CodeForm]
      */
     var codeForm: CodeForm
+
+    /**
+     * Loading flag
+     */
+    var isLoading: Boolean
 }
 
 /**
@@ -75,6 +70,7 @@ external interface CodeFormState : State {
 class EditorForm : RComponent<Props, CodeFormState>() {
     init {
         state.codeForm = CodeForm()
+        state.isLoading = false
     }
 
     @Suppress("TOO_LONG_FUNCTION", "EMPTY_BLOCK_STRUCTURE_ERROR")
@@ -161,6 +157,9 @@ class EditorForm : RComponent<Props, CodeFormState>() {
                         input(type = InputType.file, name = "diktat-analysis.yml") {
                             attrs.accept = ".yml,.yaml"
                             attrs.onChangeFunction = { event ->
+                                setState {
+                                    isLoading = true
+                                }
                                 val target = event.target as HTMLInputElement
                                 target.files?.asList()?.firstOrNull()?.let { file ->
                                     val reader = FileReader().apply {
@@ -168,13 +167,26 @@ class EditorForm : RComponent<Props, CodeFormState>() {
                                             val text = event.target.asDynamic().result.toString()
                                             setState {
                                                 codeForm = codeForm.copy(diktatConfig = text)
+                                                isLoading = false
                                             }
                                         }
                                     }
                                     reader.readAsText(file)
                                 }
                             }
+                            attrs.onLoadStart = {
+                                setState {
+                                    isLoading = true
+                                }
+                            }
                         }
+                    }
+                    div {
+                         +"Loading..."
+                        attrs.hidden = !state.isLoading
+                    }
+                    div {
+                        +(state.codeForm.diktatConfig?.let{ "Config loaded" } ?: "")
                     }
                 }
             }
