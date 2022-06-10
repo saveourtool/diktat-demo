@@ -192,7 +192,8 @@ class EditorForm : RComponent<Props, CodeFormState>() {
                         attrs.hidden = !state.isLoading
                     }
                     div {
-                        +(state.codeForm.diktatConfig?.let { "Config loaded" } ?: "")
+                        +"Config loaded."
+                        attrs.hidden = state.codeForm.diktatConfig == null
                     }
                 }
             }
