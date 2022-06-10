@@ -15,15 +15,23 @@ import java.util.ArrayList
  *
  * @param code - initial code that should be formatted
  * @param typeRule - type of rules set
+ * @param diktatConfigFilePath uploaded config file
  */
-class CodeFix(private val code: String, typeRule: RulesSetTypes) {
+class CodeFix(
+    private val code: String,
+    typeRule: RulesSetTypes,
+    diktatConfigFilePath: String? = null,
+) {
     /**
      * a list for accumulating lint errors
      */
     var listOfWarnings: List<LintError> = emptyList()
     private val ruleSets = when (typeRule) {
         RulesSetTypes.KTLINT -> listOf(StandardRuleSetProvider().get())
-        RulesSetTypes.DIKTAT -> listOf(DiktatRuleSetProvider().get())
+        RulesSetTypes.DIKTAT -> diktatConfigFilePath?.let {
+            println("Config found")
+            listOf(DiktatRuleSetProvider(it).get())
+        } ?: listOf(DiktatRuleSetProvider().get())
     }
 
     /**

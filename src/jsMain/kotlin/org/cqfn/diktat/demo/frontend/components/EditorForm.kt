@@ -19,6 +19,7 @@ import org.w3c.dom.HTMLTextAreaElement
 import org.w3c.dom.asList
 import org.w3c.dom.events.Event
 import org.w3c.dom.get
+import org.w3c.files.FileReader
 import react.Props
 import react.PropsWithChildren
 import react.RBuilder
@@ -45,6 +46,7 @@ import kotlinx.coroutines.launch
 import kotlinx.html.ButtonType
 import kotlinx.html.InputType
 import kotlinx.html.id
+import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onSubmitFunction
 
 /**
@@ -153,6 +155,31 @@ class EditorForm : RComponent<Props, CodeFormState>() {
             br {}
             div("row") {
                 setProp("align", "center")
+                div("upload-btn-wrapper") {
+                    button(classes = "btn") {
+                        +"Upload config"
+                        input(type = InputType.file, name = "diktat-analysis.yml") {
+                            attrs.accept = ".yml"
+                            attrs.onChangeFunction = { event ->
+                                val target = event.target as HTMLInputElement
+                                target.files?.asList()?.firstOrNull()?.let { file ->
+                                    val reader = FileReader().apply {
+                                        onload = { event: Event ->
+                                            val text = event.target.asDynamic().result.toString()
+                                            setState {
+                                                codeForm = codeForm.copy(diktatConfig = text)
+                                            }
+                                        }
+                                    }
+                                    reader.readAsText(file)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            div("row") {
+                setProp("align", "center")
                 div("row") {
                     setProp("align", "center")
                     br {}
@@ -165,6 +192,7 @@ class EditorForm : RComponent<Props, CodeFormState>() {
             attrs {
                 id = "main-form"
                 onSubmitFunction = { event: Event ->
+                    console.log(state.codeForm.diktatConfig)
                     event.preventDefault()
                     GlobalScope.launch {
                         val form = document.getElementById("main-form") as HTMLFormElement
@@ -180,6 +208,7 @@ class EditorForm : RComponent<Props, CodeFormState>() {
                                     .asList()
                                     .map { (it as HTMLOptionElement).value.uppercase() }
                                     .map(RulesSetTypes::valueOf),
+                                diktatConfig = state.codeForm.diktatConfig,
                             ),
                         )
                             .apply {
