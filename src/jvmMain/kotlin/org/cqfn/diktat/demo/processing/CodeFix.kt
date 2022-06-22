@@ -41,7 +41,7 @@ class CodeFix(
     fun fix(absoluteFilePath: String): String {
         val res: ArrayList<LintError> = ArrayList()
         val formattedResult = KtLint.format(
-            KtLint.Params(
+            KtLint.ExperimentalParams(
                 fileName = absoluteFilePath,
                 text = code,
                 ruleSets = ruleSets,
@@ -58,7 +58,7 @@ class CodeFix(
     fun check(absoluteFilePath: String) {
         val res: ArrayList<LintError> = ArrayList()
         KtLint.lint(
-            KtLint.Params(
+            KtLint.ExperimentalParams(
                 fileName = absoluteFilePath,
                 text = code,
                 ruleSets = ruleSets,
