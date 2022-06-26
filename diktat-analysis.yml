@@ -1,7 +1,7 @@
 - name: DIKTAT_COMMON
   enabled: true
   configuration:
-    domainName: org.cqfn.diktat
+    domainName: com.saveourtool.diktat
     kotlinVersion: 1.5
     srcDirectories: main,commonMain,jvmMain,jsMain
     testDirs: test,commonTest,jvmTest,jsTest

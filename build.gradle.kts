@@ -150,11 +150,11 @@ tasks.getByName<Copy>("jvmProcessResources") {
 }
 
 tasks.getByName<BootJar>("bootJar") {
-    mainClass.set("org.cqfn.diktat.demo.DiktatDemoApplicationKt")
+    mainClass.set("com.saveourtool.diktat.demo.DiktatDemoApplicationKt")
     requiresUnpack("**/kotlin-compiler-embeddable-*.jar")
 }
 tasks.getByName<BootRun>("bootRun") {
-    mainClass.set("org.cqfn.diktat.demo.DiktatDemoApplicationKt")
+    mainClass.set("com.saveourtool.diktat.demo.DiktatDemoApplicationKt")
 }
 
 diktat {

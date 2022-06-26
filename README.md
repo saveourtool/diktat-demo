@@ -1,6 +1,6 @@
 # KTlint/diKTat [demo project](https://ktlint-demo.herokuapp.com)
 
-[![Run diKTat](https://github.com/akuleshov7/diKTat-demo/workflows/Run%20diKTat/badge.svg?branch=master)](https://github.com/cqfn/diktat)
+[![Run diKTat](https://github.com/saveourtool/diktat-demo/workflows/Run%20diKTat/badge.svg?branch=master)](https://github.com/cqfn/diktat)
 
 This is simple demo for ktlint and [diktat](https://github.com/cqfn/diktat) project (a number of codestyle rules for Kotlin powered by [KTlint](https://github.com/pinterest/ktlint) framework)
 This simple demo is written in Kotlin using Spring Boot, Thymeleaf and Kotlin/JS and shows how a style of your code can be checked with diKTat rule set.
