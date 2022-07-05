@@ -39,40 +39,42 @@ class DemoController {
      */
     @Suppress("TOO_LONG_FUNCTION")
     fun checkAndFixCode(codeFormHtml: CodeForm): CodeForm {
-        val codeForm = codeFormHtml
         val generatedName = generateFileName()
-        println(codeFormHtml.diktatConfig)
+        log.debug("Diktat config: {}", codeFormHtml.diktatConfig)
         val configFile = codeFormHtml.diktatConfig?.let {
             prepareConfigFile(it, generatedName)
         }
-        println(configFile?.getPath())
+        log.debug("Diktat config path: {}", configFile?.path)
         val file = getDemoFile(generatedName)
-        file.writeText(codeForm.initialCode!!)
-        val codeFix = CodeFix(codeForm.initialCode!!, codeFormHtml.ruleSet[0], configFile?.getPath())
+        file.writeText(codeFormHtml.initialCode!!)
+        val codeFix = CodeFix(codeFormHtml.initialCode!!, codeFormHtml.ruleSet[0], configFile?.path)
         val result = runCatching {
-            if (codeForm.fix) {
-                codeForm.fixedCode = codeFix.fix(file.absolutePath)
-            } else if (codeForm.check) {
-                codeForm.fixedCode = codeForm.initialCode
+            if (codeFormHtml.fix) {
+                codeFormHtml.fixedCode = codeFix.fix(file.absolutePath)
+            } else if (codeFormHtml.check) {
+                codeFormHtml.fixedCode = codeFormHtml.initialCode
                 codeFix.check(file.absolutePath)
             }
         }
         when {
-            result.isSuccess -> codeForm.warnings = codeFix.listOfWarnings.map { it.prettyFormat(file) }
-            result.exceptionOrNull() is ParseException -> codeForm.warnings = listOf(result.exceptionOrNull().toString())
+            result.isSuccess -> codeFormHtml.warnings = codeFix.listOfWarnings.map { it.prettyFormat(file) }
+            result.exceptionOrNull() is ParseException -> codeFormHtml.warnings =
+                    listOf(result.exceptionOrNull().toString())
             else -> {
-                val issueLink = if (RulesSetTypes.KTLINT in codeForm.ruleSet) "https://github.com/pinterest/ktlint/issues" else "https://github.com/saveourtool/diktat/issues"
-                codeForm.warnings = listOf(
+                val issueLink =
+                        if (RulesSetTypes.KTLINT in codeFormHtml.ruleSet) "https://github.com/pinterest/ktlint/issues" else "https://github.com/saveourtool/diktat/issues"
+                codeFormHtml.warnings = listOf(
                     """
                         |Unhandled exception during tool execution, please create a ticket at $issueLink:
                         |${result.exceptionOrNull()!!.stackTraceToString()}
-                    """.trimMargin())
+                    """.trimMargin(),
+                )
                 log.error("Running formatter returned unexpected exception", result.exceptionOrNull())
             }
         }
         file.delete()
         configFile?.delete()
-        return codeForm
+        return codeFormHtml
     }
 
     private fun LintError.prettyFormat(file: File) = "Warn ($line:$col) $detail"

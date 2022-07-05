@@ -14,7 +14,7 @@
 - name: ENUM_VALUE
   enabled: true
   configuration:
-    enumStyle: snakeCase
+    enumStyle: SNAKE_CASE
 - name: EXCEPTION_SUFFIX
   enabled: true
   configuration: {}

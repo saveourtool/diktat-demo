@@ -172,18 +172,20 @@ class EditorForm : RComponent<Props, CodeFormState>() {
                                     isLoading = true
                                 }
                                 val target = event.target as HTMLInputElement
-                                target.files?.asList()?.firstOrNull()?.let { file ->
-                                    val reader = FileReader().apply {
-                                        onload = { event: Event ->
-                                            val text = event.target.asDynamic().result.toString()
-                                            setState {
-                                                codeForm = codeForm.copy(diktatConfig = text)
-                                                isLoading = false
+                                target.files?.asList()
+                                    ?.firstOrNull()
+                                    ?.let { file ->
+                                        val reader = FileReader().apply {
+                                            onload = { event: Event ->
+                                                val text = event.target.asDynamic().result.toString()
+                                                setState {
+                                                    codeForm = codeForm.copy(diktatConfig = text)
+                                                    isLoading = false
+                                                }
                                             }
                                         }
+                                        reader.readAsText(file)
                                     }
-                                    reader.readAsText(file)
-                                }
                             }
                         }
                     }
@@ -211,7 +213,6 @@ class EditorForm : RComponent<Props, CodeFormState>() {
             attrs {
                 id = "main-form"
                 onSubmitFunction = { event: Event ->
-                    console.log(state.codeForm.diktatConfig)
                     event.preventDefault()
                     GlobalScope.launch {
                         val form = document.getElementById("main-form") as HTMLFormElement
