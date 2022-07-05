@@ -28,6 +28,7 @@ jobs:
       - name: Run diktat itself via ktlint
         run: ./gradlew diktatCheck -Pdiktat.githubActions=true
       - name: Upload SARIF report to Github
+        if: always()
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: build/reports/diktat

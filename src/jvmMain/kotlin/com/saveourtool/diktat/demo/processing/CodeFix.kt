@@ -6,6 +6,7 @@ import com.pinterest.ktlint.core.KtLint
 import com.pinterest.ktlint.core.LintError
 import com.pinterest.ktlint.ruleset.standard.StandardRuleSetProvider
 import org.cqfn.diktat.ruleset.rules.DiktatRuleSetProvider
+import org.slf4j.LoggerFactory
 
 import java.util.ArrayList
 
@@ -22,6 +23,8 @@ class CodeFix(
     typeRule: RulesSetTypes,
     diktatConfigFilePath: String? = null,
 ) {
+    private val logger = LoggerFactory.getLogger(CodeFix::class.java)
+
     /**
      * a list for accumulating lint errors
      */
@@ -29,7 +32,7 @@ class CodeFix(
     private val ruleSets = when (typeRule) {
         RulesSetTypes.KTLINT -> listOf(StandardRuleSetProvider().get())
         RulesSetTypes.DIKTAT -> diktatConfigFilePath?.let {
-            println("Config found")
+            logger.info("Found diktat config at $it")
             listOf(DiktatRuleSetProvider(it).get())
         } ?: listOf(DiktatRuleSetProvider().get())
     }
