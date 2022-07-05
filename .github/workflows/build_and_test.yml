@@ -9,8 +9,6 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-    env:
-      GRADLE_OPTS: -Dorg.gradle.daemon=false
 
     steps:
     - uses: actions/checkout@v2
@@ -19,14 +17,7 @@ jobs:
       with:
         java-version: 11
         distribution: temurin
-    - name: Cache local Gradle repository
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/.gradle/caches/
-          ~/.gradle/wrapper/
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-        restore-keys: ${{ runner.os }}-gradle
-
     - name: Build project with Gradle
-      run: ./gradlew build
+      uses: gradle/gradle-build-action@v2
+      with:
+        args: build --build-cache
