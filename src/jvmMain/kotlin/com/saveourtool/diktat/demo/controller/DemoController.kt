@@ -62,7 +62,7 @@ class DemoController {
                     listOf(result.exceptionOrNull().toString())
             else -> {
                 val issueLink =
-                        if (RulesSetTypes.KTLINT in codeFormHtml.ruleSet) "https://github.com/pinterest/ktlint/issues" else "https://github.com/saveourtool/diktat/issues"
+                    if (RulesSetTypes.KTLINT in codeFormHtml.ruleSet) "https://github.com/pinterest/ktlint/issues" else "https://github.com/saveourtool/diktat/issues"
                 codeFormHtml.warnings = listOf(
                     """
                         |Unhandled exception during tool execution, please create a ticket at $issueLink:
