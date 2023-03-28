@@ -1,3 +1,14 @@
+❗Please note, that all DEMO projects are being migrated to SAVEOURTOOL.com, because heroku is not free anymore.
+
+You can find demos with the following new links: 
+
+[diktat](https://saveourtool.com/#/demo/CQFN.org/Diktat)
+[ktlint](https://saveourtool.com/#/demo/CQFN.org/Ktlint)
+
+=============
+
+
+
 # KTlint/diKTat [demo project](https://ktlint-demo.herokuapp.com)
 
 [![Run diKTat](https://github.com/saveourtool/diktat-demo/workflows/Run%20diKTat/badge.svg?branch=master)](https://github.com/cqfn/diktat)
